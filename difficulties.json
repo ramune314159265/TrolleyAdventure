@@ -1,0 +1,26 @@
+[
+	{
+		"id": "easy",
+		"name": "イージー",
+		"min_level": 1,
+		"lives": 3,
+		"time_limit": 20,
+		"selected_time_limit": 5
+	},
+	{
+		"id": "normal",
+		"name": "ノーマル",
+		"min_level": 3,
+		"lives": 1,
+		"time_limit": 15,
+		"selected_time_limit": 5
+	},
+	{
+		"id": "hard",
+		"name": "ハード",
+		"min_level": 5,
+		"lives": 1,
+		"time_limit": 10,
+		"selected_time_limit": 3
+	}
+]

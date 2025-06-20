@@ -1,0 +1,42 @@
+[
+	{
+		"id": 1,
+		"category": "test",
+		"content": "問題文",
+		"option_type": "text",
+		"options": [
+			{
+				"content": "間違った選択肢1",
+				"accuracy": 0.5
+			},
+			{
+				"content": "間違った選択肢2",
+				"accuracy": 0.7
+			}
+		],
+		"answer": {
+			"content": "正解の選択肢",
+			"explanation": "これが正解です"
+		}
+	},
+	{
+		"id": 2,
+		"category": "test",
+		"content": "問題文2",
+		"option_type": "text",
+		"options": [
+			{
+				"content": "間違った選択肢1",
+				"accuracy": 0.524
+			},
+			{
+				"content": "間違った選択肢2",
+				"accuracy": 0.253
+			}
+		],
+		"answer": {
+			"content": "正解の選択肢",
+			"explanation": "これが正解です"
+		}
+	}
+]
