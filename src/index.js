@@ -1,9 +1,9 @@
-import { Game } from './js'
+import { Game } from './js/index.js'
 
 const run = () => {
 	const gameMain = new Game({})
 
-	document.body.addEventListener('click', () => {
+	document.addEventListener('click', () => {
 		console.log(gameMain)
 	})
 }
