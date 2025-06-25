@@ -7,7 +7,8 @@
 		"options": [
 			{
 				"content": "川",
-				"accuracy": 0.5
+				"accuracy": 0.5,
+				"explanation": ""
 			}
 		],
 		"answer": {
@@ -23,11 +24,13 @@
 		"options": [
 			{
 				"content": "3年",
-				"accuracy": 0.524
+				"accuracy": 0.524,
+				"explanation": ""
 			},
 			{
 				"content": "80年",
-				"accuracy": 0.253
+				"accuracy": 0.253,
+				"explanation": ""
 			}
 		],
 		"answer": {
@@ -43,23 +46,28 @@
 		"options": [
 			{
 				"content": "鮭",
-				"accuracy": 0.9
+				"accuracy": 0.9,
+				"explanation": "「鮭」は「さけ」と読みます。"
 			},
 			{
 				"content": "鮪",
-				"accuracy": 0.7
+				"accuracy": 0.7,
+				"explanation": "「鮪」は「まぐろ」と読みます。"
 			},
 			{
 				"content": "鮎",
-				"accuracy": 0.6
+				"accuracy": 0.6,
+				"explanation": "「鮎」は「あゆ」と読みます。"
 			},
 			{
 				"content": "鰯",
-				"accuracy": 0.8
+				"accuracy": 0.8,
+				"explanation": "「鰯」は「いわし」と読みます。"
 			},
 			{
 				"content": "鯛",
-				"accuracy": 0.7
+				"accuracy": 0.7,
+				"explanation": "「鯛」は「たい」と読みます。"
 			}
 		],
 		"answer": {
