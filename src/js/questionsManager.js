@@ -4,6 +4,7 @@ export class QuestionManager {
 	constructor({ dataLoader, configs }) {
 		this.#dataLoader = dataLoader
 		this.#configs = configs
+		this.pickedIds = []
 	}
 	async init() {
 		const data = await this.#dataLoader.load('questions')

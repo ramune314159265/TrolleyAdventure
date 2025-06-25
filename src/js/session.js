@@ -1,15 +1,15 @@
-import { Configs } from './configs'
-import { DataLoader } from './dataLoader'
-import { DifficultManager } from './difficultManager'
-import { QuestionManager } from './questionsManager'
-import { EventRegister } from './util/eventRegister'
+import { Configs } from './configs.js'
+import { DataLoader } from './dataLoader.js'
+import { DifficultManager } from './difficultManager.js'
+import { QuestionManager } from './questionsManager.js'
+import { EventRegister } from './util/eventRegister.js'
 
 export class Session extends EventRegister {
 	constructor({ game }) {
 		super()
 		this.game = game
 		this.dataLoader = new DataLoader()
-		this.configs = new Configs()
+		this.configs = new Configs({ dataLoader: this.dataLoader })
 		this.difficultManager = new DifficultManager({ dataLoader: this.dataLoader })
 		this.questionsManager = new QuestionManager({ dataLoader: this.dataLoader, configs: this.configs })
 		this
