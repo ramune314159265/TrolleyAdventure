@@ -1,6 +1,7 @@
 import { Configs } from './configs.js'
 import { DataLoader } from './dataLoader.js'
 import { DifficultManager } from './difficultManager.js'
+import { gameEvents } from './emun.js'
 import { QuestionManager } from './questionsManager.js'
 import { EventRegister } from './util/eventRegister.js'
 
@@ -15,8 +16,10 @@ export class Session extends EventRegister {
 		this
 	}
 	async init() {
+		this.game.emit(gameEvents.sessionInitializing)
 		await this.configs.init()
 		await this.difficultManager.init()
 		await this.questionsManager.init()
+		this.game.emit(gameEvents.sessionLoaded)
 	}
 }
