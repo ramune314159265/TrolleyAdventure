@@ -1,7 +1,7 @@
 import { Configs } from './configs.js'
 import { DataLoader } from './dataLoader.js'
 import { DifficultManager } from './difficultManager.js'
-import { gameEvents } from './emun.js'
+import { gameEvents } from './enum.js'
 import { QuestionManager } from './questionsManager.js'
 import { EventRegister } from './util/eventRegister.js'
 

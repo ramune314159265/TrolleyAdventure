@@ -9,7 +9,7 @@ export class Game extends EventRegister {
 		this.io = new GameIO(this)
 	}
 	newSession() {
-		this.session = new Session(this)
+		this.session = new Session({ game: this })
 		this.session.init()
 	}
 }
