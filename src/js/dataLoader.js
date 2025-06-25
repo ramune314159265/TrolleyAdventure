@@ -1,5 +1,5 @@
 export class DataLoader {
-	static dataIds = ['questions', 'difficulties']
+	static dataIds = ['questions', 'difficulties', 'config']
 	constructor() {
 		this.cache = new Map()
 	}

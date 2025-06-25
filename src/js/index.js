@@ -1,9 +1,13 @@
-import { DataLoader } from './dataLoader.js'
+import { Session } from './session.js'
 import { EventRegister } from './util/eventRegister.js'
 
 export class Game extends EventRegister {
 	constructor() {
 		super()
-		this.dataLoader = new DataLoader()
+		this.session = null
+	}
+	newSession() {
+		this.session = new Session(this)
+		this.session.init()
 	}
 }
