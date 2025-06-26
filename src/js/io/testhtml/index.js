@@ -24,7 +24,7 @@ export class TestHtmlIO extends GameIO {
 			button.onclick = () => this.game.emit(ioCommands.gameStart, { difficultId: d.id })
 			this.main.append(button)
 		})
-		this.game.once(gameEvents.nextQuestionStarted, data => this.questionScene(data))
+		this.game.on(gameEvents.nextQuestionStarted, data => this.questionScene(data))
 	}
 	questionScene(data) {
 		this.main.innerHTML = ''
@@ -33,10 +33,10 @@ export class TestHtmlIO extends GameIO {
 		this.main.append(div)
 		const correctButton = document.createElement('button')
 		correctButton.innerText = data.questionData.answer.content
-		correctButton.onclick = () => this.game.emit(ioCommands.answerQuestion)
+		correctButton.onclick = () => this.game.emit(ioCommands.answerQuestion, { isCorrect: true })
 		this.main.append(correctButton)
 		const incorrectButton = document.createElement('button')
-		incorrectButton.onclick = () => this.game.emit(ioCommands.answerQuestion)
+		incorrectButton.onclick = () => this.game.emit(ioCommands.answerQuestion, { isCorrect: false })
 		incorrectButton.innerText = data.questionData.option.content
 		this.main.append(incorrectButton)
 	}

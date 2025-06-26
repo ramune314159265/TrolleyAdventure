@@ -13,6 +13,7 @@ export class Session extends EventRegister {
 		this.configs = new Configs({ dataLoader: this.dataLoader })
 		this.difficultManager = new DifficultManager({ dataLoader: this.dataLoader })
 		this.questionsManager = new QuestionManager({ dataLoader: this.dataLoader, configs: this.configs })
+		this.lives = 1
 		this.currentQuestionNo = -1
 		this.currentQuestionData = null
 	}
@@ -22,6 +23,9 @@ export class Session extends EventRegister {
 		await this.difficultManager.init()
 		await this.questionsManager.init()
 
+		this.lives = this.difficultManager.getDifficultConfig('lives')
+
+		this.game.on(ioCommands.answerQuestion, ({ isCorrect }) => this.handleAnswer({ isCorrect }))
 		this.game.once(ioCommands.gameStart, ({ difficultId }) => this.start({ difficultId }))
 
 		this.game.emit(gameEvents.sessionLoaded, {
@@ -45,7 +49,22 @@ export class Session extends EventRegister {
 		this.currentQuestionData = questionData
 		this.game.emit(gameEvents.nextQuestionStarted, {
 			questionData,
+			lives: this.lives,
+			questionNo: this.currentQuestionNo
 		})
-		this.game.once(ioCommands.answerQuestion, console.log)
+	}
+	handleAnswer({ isCorrect }) {
+		if (isCorrect) {
+			this.next()
+			return
+		}
+		this.lives--
+		if (0 < this.lives) {
+			this.next()
+		}
+		this.gameOver()
+	}
+	gameOver(){
+
 	}
 }
