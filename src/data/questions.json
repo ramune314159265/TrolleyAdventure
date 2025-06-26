@@ -1,7 +1,7 @@
 [
 	{
 		"id": 1,
-		"category": "eel",
+		"group": "eel",
 		"content": "ニホンウナギの産卵場所はどこ？",
 		"option_type": "text",
 		"options": [
@@ -23,7 +23,7 @@
 	},
 	{
 		"id": 2,
-		"category": "eel",
+		"group": "eel",
 		"content": "ウナギの寿命は平均どのぐらい？",
 		"option_type": "text",
 		"options": [
@@ -45,7 +45,7 @@
 	},
 	{
 		"id": 3,
-		"category": "eel",
+		"group": "eel",
 		"content": "「ウナギ」を漢字でどう書く？",
 		"option_type": "text",
 		"options": [
@@ -87,7 +87,7 @@
 	},
 	{
 		"id": 4,
-		"category": "eel",
+		"group": "eel",
 		"content": "ニホンウナギの体長は最大でどのぐらい？",
 		"option_type": "text",
 		"options": [
@@ -114,7 +114,7 @@
 	},
 	{
 		"id": 5,
-		"category": "rocket",
+		"group": "rocket",
 		"content": "地球の大気圏と宇宙との境目(カーマンライン)は高度何Km？",
 		"option_type": "text",
 		"options": [
@@ -146,7 +146,7 @@
 	},
 	{
 		"id": 6,
-		"category": "hot_spring_algae",
+		"group": "hot_spring_algae",
 		"content": "温泉に生息する藻、ガルディエリアの性質として正しいのはどっち？",
 		"option_type": "text",
 		"options": [
