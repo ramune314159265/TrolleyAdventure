@@ -22,9 +22,11 @@ export class Session extends EventRegister {
 		await this.difficultManager.init()
 		await this.questionsManager.init()
 
-		this.game.once(ioCommands.gameStart, () => this.start())
+		this.game.once(ioCommands.gameStart, ({ difficultId }) => this.start({ difficultId }))
 
-		this.game.emit(gameEvents.sessionLoaded)
+		this.game.emit(gameEvents.sessionLoaded, {
+			difficultList: this.difficultManager.difficultConfigs
+		})
 	}
 	start({ difficultId }) {
 		this.difficultManager.setDifficult(difficultId)
@@ -42,7 +44,7 @@ export class Session extends EventRegister {
 		const questionData = this.questionsManager.pickQuestion(questionLevel)
 		this.currentQuestionData = questionData
 		this.game.emit(gameEvents.nextQuestionStarted, {
-			questionData
+			questionData,
 		})
 		this.game.once(ioCommands.answerQuestion, console.log)
 	}
