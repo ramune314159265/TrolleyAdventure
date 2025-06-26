@@ -19,7 +19,7 @@ export class QuestionManager {
 	}
 	pickQuestion(level, filter = {}) {
 		const levelPerQuestions = Math.floor(this.allQuestions.length / this.#configs.get('max_level'))
-		const questionsAccuracySorted = this.allQuestions.sort((a, b) => a.option.accuracy - b.option.accuracy)
+		const questionsAccuracySorted = this.allQuestions.sort((a, b) => b.option.accuracy - a.option.accuracy)
 		const targetLevelQuestions = questionsAccuracySorted.slice((level - 1) * levelPerQuestions, (level - 1) * levelPerQuestions + levelPerQuestions)
 		const questionsFiltered = targetLevelQuestions
 			.filter(question => !this.pickedIds.includes(question.id))
