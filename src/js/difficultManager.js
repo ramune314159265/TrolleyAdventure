@@ -12,7 +12,10 @@ export class DifficultManager {
 	setDifficult(id) {
 		this.difficult = id
 	}
-	getDifficultConfig() {
-		return this.difficultConfigs[this.difficult]
+	getDifficultConfig(key) {
+		if (!key) {
+			return this.difficultConfigs[this.difficult]
+		}
+		return this.difficultConfigs[this.difficult][key]
 	}
 }
