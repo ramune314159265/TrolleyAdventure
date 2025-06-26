@@ -1,13 +1,18 @@
 [
 	{
 		"id": 1,
-		"category": "test",
+		"category": "eel",
 		"content": "ニホンウナギの産卵場所はどこ？",
 		"option_type": "text",
 		"options": [
 			{
 				"content": "川",
-				"accuracy": 0.5,
+				"accuracy": 0.52,
+				"explanation": ""
+			},
+			{
+				"content": "サンゴ礁",
+				"accuracy": 0.84,
 				"explanation": ""
 			}
 		],
@@ -18,7 +23,7 @@
 	},
 	{
 		"id": 2,
-		"category": "test",
+		"category": "eel",
 		"content": "ウナギの寿命は平均どのぐらい？",
 		"option_type": "text",
 		"options": [
@@ -40,38 +45,134 @@
 	},
 	{
 		"id": 3,
-		"category": "test",
+		"category": "eel",
 		"content": "「ウナギ」を漢字でどう書く？",
 		"option_type": "text",
 		"options": [
 			{
 				"content": "鮭",
-				"accuracy": 0.9,
+				"accuracy": 0.95,
 				"explanation": "「鮭」は「さけ」と読みます。"
 			},
 			{
 				"content": "鮪",
-				"accuracy": 0.7,
+				"accuracy": 0.73,
 				"explanation": "「鮪」は「まぐろ」と読みます。"
 			},
 			{
 				"content": "鮎",
-				"accuracy": 0.6,
+				"accuracy": 0.62,
 				"explanation": "「鮎」は「あゆ」と読みます。"
 			},
 			{
 				"content": "鰯",
-				"accuracy": 0.8,
+				"accuracy": 0.86,
 				"explanation": "「鰯」は「いわし」と読みます。"
 			},
 			{
 				"content": "鯛",
-				"accuracy": 0.7,
+				"accuracy": 0.72,
 				"explanation": "「鯛」は「たい」と読みます。"
+			},
+			{
+				"content": "鰊",
+				"accuracy": 0.67,
+				"explanation": "「鰊」は「にしん」と読みます。"
 			}
 		],
 		"answer": {
 			"content": "鰻",
+			"explanation": ""
+		}
+	},
+	{
+		"id": 4,
+		"category": "eel",
+		"content": "ニホンウナギの体長は最大でどのぐらい？",
+		"option_type": "text",
+		"options": [
+			{
+				"content": "30cm",
+				"accuracy": 0.42,
+				"explanation": ""
+			},
+			{
+				"content": "3m",
+				"accuracy": 0.95,
+				"explanation": ""
+			},
+			{
+				"content": "50cm",
+				"accuracy": 0.32,
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "1m",
+			"explanation": ""
+		}
+	},
+	{
+		"id": 5,
+		"category": "rocket",
+		"content": "地球の大気圏と宇宙との境目(カーマンライン)は高度何Km？",
+		"option_type": "text",
+		"options": [
+			{
+				"content": "75Km",
+				"accuracy": 0.45,
+				"explanation": ""
+			},
+			{
+				"content": "500Km",
+				"accuracy": 0.65,
+				"explanation": ""
+			},
+			{
+				"content": "200Km",
+				"accuracy": 0.3,
+				"explanation": ""
+			},
+			{
+				"content": "50Km",
+				"accuracy": 0.72,
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "100Km",
+			"explanation": "100Kmはここから京都ぐらいです。"
+		}
+	},
+	{
+		"id": 6,
+		"category": "hot_spring_algae",
+		"content": "温泉に生息する藻、ガルディエリアの性質として正しいのはどっち？",
+		"option_type": "text",
+		"options": [
+			{
+				"content": "毒を持つ",
+				"accuracy": 0.60,
+				"explanation": ""
+			},
+			{
+				"content": "酸性を中和する",
+				"accuracy": 0.34,
+				"explanation": ""
+			},
+			{
+				"content": "自ら移動して餌をとる",
+				"accuracy": 0.76,
+				"explanation": ""
+			},
+			{
+				"content": "光合成をしない",
+				"accuracy": 0.42,
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "金属を集める",
 			"explanation": ""
 		}
 	}
