@@ -2,29 +2,39 @@
 	{
 		"id": 1,
 		"group": "eel",
-		"content": "ニホンウナギの産卵場所はどこ？",
+		"content": "ニホンウナギの主な産卵場所はどこ？",
 		"option_type": "text",
 		"options": [
 			{
-				"content": "川",
-				"accuracy": 0.52,
+				"content": "日本海",
+				"accuracy": 0.63,
 				"explanation": ""
 			},
 			{
-				"content": "サンゴ礁",
-				"accuracy": 0.84,
+				"content": "オホーツク海",
+				"accuracy": 0.62,
+				"explanation": ""
+			},
+			{
+				"content": "ハワイ諸島付近",
+				"accuracy": 0.46,
+				"explanation": ""
+			},
+			{
+				"content": "沖縄本島付近",
+				"accuracy": 0.53,
 				"explanation": ""
 			}
 		],
 		"answer": {
-			"content": "海嶺",
-			"explanation": "ニホンウナギはマリアナ海嶺で産卵します。"
+			"content": "マリアナ諸島付近",
+			"explanation": "日本から約3,000km離れたマリアナ諸島西方沖の西マリアナ海嶺周辺の海域で産卵します。"
 		}
 	},
 	{
 		"id": 2,
 		"group": "eel",
-		"content": "ウナギの寿命は平均どのぐらい？",
+		"content": "ニホンウナギの寿命は平均どのぐらい？",
 		"option_type": "text",
 		"options": [
 			{
@@ -34,7 +44,12 @@
 			},
 			{
 				"content": "80年",
-				"accuracy": 0.253,
+				"accuracy": 0.48,
+				"explanation": ""
+			},
+			{
+				"content": "50年",
+				"accuracy": 0.35,
 				"explanation": ""
 			}
 		],
@@ -53,6 +68,16 @@
 				"content": "鮭",
 				"accuracy": 0.95,
 				"explanation": "「鮭」は「さけ」と読みます。"
+			},
+			{
+				"content": "鯖",
+				"accuracy": 0.92,
+				"explanation": "「鯖」は「さば」と読みます。"
+			},
+			{
+				"content": "鯉",
+				"accuracy": 0.90,
+				"explanation": "「鯉」は「こい」と読みます。"
 			},
 			{
 				"content": "鮪",
@@ -97,6 +122,11 @@
 				"explanation": ""
 			},
 			{
+				"content": "50cm",
+				"accuracy": 0.42,
+				"explanation": ""
+			},
+			{
 				"content": "3m",
 				"accuracy": 0.95,
 				"explanation": ""
@@ -137,6 +167,16 @@
 				"content": "50Km",
 				"accuracy": 0.72,
 				"explanation": ""
+			},
+			{
+				"content": "10Km",
+				"accuracy": 0.82,
+				"explanation": ""
+			},
+			{
+				"content": "38万Km",
+				"accuracy": 0.93,
+				"explanation": "地球と月との距離はだいたい38Kmです"
 			}
 		],
 		"answer": {
@@ -174,6 +214,55 @@
 		"answer": {
 			"content": "金属を集める",
 			"explanation": ""
+		}
+	},
+	{
+		"id": 7,
+		"group": "water_flea",
+		"content": "ミジンコのサイズは一般的にどのぐらい?",
+		"option_type": "text",
+		"options": [
+			{
+				"content": "50μm",
+				"accuracy": 0.83,
+				"explanation": ""
+			},
+			{
+				"content": "7mm",
+				"accuracy": 0.92,
+				"explanation": ""
+			},
+			{
+				"content": "100μm",
+				"accuracy": 0.57,
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "1mm",
+			"explanation": ""
+		}
+	},
+	{
+		"id": 8,
+		"group": "water_flea",
+		"content": "ミジンコの目の数は?",
+		"option_type": "text",
+		"options": [
+			{
+				"content": "2つ",
+				"accuracy": 0.46,
+				"explanation": ""
+			},
+			{
+				"content": "3つ",
+				"accuracy": 0.69,
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "1つ",
+			"explanation": "横から見ると目が2つあるように見えますが実は1つです。"
 		}
 	}
 ]
