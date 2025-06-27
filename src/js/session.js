@@ -1,8 +1,8 @@
 import { Configs } from './configs.js'
-import { DataLoader } from './dataLoader.js'
 import { DifficultManager } from './difficultManager.js'
 import { gameEvents, ioCommands } from './enum.js'
 import { QuestionManager } from './questionsManager.js'
+import { DataLoader } from './util/dataLoader.js'
 import { EventRegister } from './util/eventRegister.js'
 
 export class Session extends EventRegister {
