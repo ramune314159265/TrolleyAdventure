@@ -4,6 +4,7 @@ export const gameEvents = Object.freeze({
 	gameStarted: Symbol('gameStarted'),
 	nextQuestionStarted: Symbol('nextQuestionStarted'),
 	gameOvered: Symbol('gameOvered'),
+	gameCleared: Symbol('gameCleared')
 })
 
 export const ioCommands = Object.freeze({

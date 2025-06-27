@@ -14,7 +14,7 @@ export class Session extends EventRegister {
 		this.difficultManager = new DifficultManager({ dataLoader: this.dataLoader })
 		this.questionsManager = new QuestionManager({ dataLoader: this.dataLoader, configs: this.configs })
 		this.lives = 1
-		this.currentQuestionNo = -1
+		this.currentQuestionNo = 0
 		this.currentQuestionData = null
 	}
 	async init() {
@@ -40,8 +40,8 @@ export class Session extends EventRegister {
 		this.next()
 	}
 	next() {
-		this.currentQuestionNo++
 		if (this.difficultManager.getDifficultConfig('question_levels').length <= this.currentQuestionNo) {
+			this.gameClear()
 			return
 		}
 		const questionLevel = this.difficultManager.getDifficultConfig('question_levels')[this.currentQuestionNo]
@@ -55,6 +55,7 @@ export class Session extends EventRegister {
 	}
 	handleAnswer({ isCorrect }) {
 		if (isCorrect) {
+			this.currentQuestionNo++
 			this.next()
 			return
 		}
@@ -64,6 +65,9 @@ export class Session extends EventRegister {
 			return
 		}
 		this.gameOver()
+	}
+	gameClear() {
+		this.game.emit(gameEvents.gameCleared)
 	}
 	gameOver() {
 		this.game.emit(gameEvents.gameOvered)

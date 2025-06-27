@@ -26,6 +26,7 @@ export class TestHtmlIO extends GameIO {
 		})
 		this.game.on(gameEvents.nextQuestionStarted, data => this.questionScene(data))
 		this.game.on(gameEvents.gameOvered, () => this.gameOveredScene())
+		this.game.on(gameEvents.gameCleared, () => this.gameClearedScene())
 	}
 	questionScene(data) {
 		this.main.innerHTML = ''
@@ -40,6 +41,9 @@ export class TestHtmlIO extends GameIO {
 		incorrectButton.onclick = () => this.game.emit(ioCommands.answerQuestion, { isCorrect: false })
 		incorrectButton.innerText = data.questionData.option.content
 		this.main.append(incorrectButton)
+	}
+	gameClearedScene() {
+		this.main.innerHTML = 'Game Clear'
 	}
 	gameOveredScene() {
 		this.main.innerHTML = 'Game Over'
