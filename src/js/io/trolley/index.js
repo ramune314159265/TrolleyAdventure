@@ -11,13 +11,14 @@ export class TrolleyIO extends GameIO {
 		const aspectRatio = 16 / 9
 		this.app = new Application()
 		await this.app.init({
-			background: '#000000',
+			background: '#eeeeee',
 			width: 1280,
 			height: 720,
 		})
 		const parent = document.querySelector('#main')
 		parent.appendChild(this.app.view)
-		window.addEventListener('resize', () => {
+		window.__PIXI_DEVTOOLS__ = { app: this.app }
+		const resizeHandle = () => {
 			const parentWidth = parent.clientWidth
 			const parentHeight = parent.clientHeight
 
@@ -28,6 +29,8 @@ export class TrolleyIO extends GameIO {
 				this.app.view.style.width = `${parentWidth}px`
 				this.app.view.style.height = `${parentWidth / aspectRatio}px`
 			}
-		})
+		}
+		window.addEventListener('resize', resizeHandle)
+		resizeHandle()
 	}
 }
