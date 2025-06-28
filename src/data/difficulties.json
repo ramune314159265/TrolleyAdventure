@@ -41,8 +41,25 @@
 			4,
 			5
 		],
-		"lives": 1,
+		"lives": 2,
 		"time_limit": 10,
+		"selected_time_limit": 5,
+		"pass_rate": 0.3
+	},
+	{
+		"id": "extreme",
+		"name": "エクストリーム",
+		"question_levels": [
+			4,
+			4,
+			5,
+			5,
+			5,
+			5,
+			5
+		],
+		"lives": 1,
+		"time_limit": 8,
 		"selected_time_limit": 5,
 		"pass_rate": 0.2
 	}
