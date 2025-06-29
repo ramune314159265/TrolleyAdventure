@@ -1,4 +1,6 @@
-import { Assets, Container, Sprite, Text } from '../../../libraries/pixi.min.mjs'
+import { Assets, Container, Sprite } from '../../../libraries/pixi.min.mjs'
+import { blinkText } from '../component/blinkText.js'
+import { mainText } from '../component/mainText.js'
 import { constants } from '../constants.js'
 
 export class DifficultSelectScene {
@@ -17,31 +19,14 @@ export class DifficultSelectScene {
 		background.height = constants.viewHeight
 		this.container.addChild(background)
 
-		const topText = new Text('難易度を選んでください', {
-			fontSize: 72,
-			fontFamily: 'Main',
-			fill: {
-				color: '#ffffff'
-			},
-			stroke: {
-				width: 8,
-				color: '#000000'
-			},
-			dropShadow: {
-				color: '#000000',
-				distance: 6,
-				angle: Math.PI / 4
-			},
+		const topText = blinkText({
+			content: '難易度を選んでください',
+			styleOverride: {
+				fontSize: 72
+			}
 		})
-		topText.anchor.x = 0.5
-		topText.anchor.y = 0.5
 		topText.x = constants.viewWidth / 2
 		topText.y = 72
-		const animationStart = performance.now()
-		const topTextTicker = () => {
-			topText.alpha = Math.abs(Math.sin((performance.now() - animationStart) / 1000))
-		}
-		this.#io.app.ticker.add(topTextTicker)
 		this.container.addChild(topText)
 
 		const mapTexture = await Assets.load('map')
@@ -62,43 +47,22 @@ export class DifficultSelectScene {
 			map.x = 0
 			map.y = 0
 			mapContainer.addChild(map)
-			const difficultName = new Text(Object.values(this.#io.sentData.difficultList)[i].name, {
-				fontSize: 52,
-				fontFamily: 'Main',
-				fill: {
-					color: '#ffffff'
-				},
-				stroke: {
-					width: 8,
-					color: '#000000'
-				},
-				dropShadow: {
-					color: '#000000',
-					distance: 6,
-					angle: Math.PI / 4
-				},
+			const difficultName = mainText({
+				content: Object.values(this.#io.sentData.difficultList)[i].name,
+				styleOverride: {
+					fontSize: 52,
+				}
 			})
-			difficultName.anchor.x = 0.5
-			difficultName.y = -110
+			difficultName.anchor.y = 0
+			difficultName.y = -125
 			mapContainer.addChild(difficultName)
-			const difficultDescription = new Text(Object.values(this.#io.sentData.difficultList)[i].description, {
-				fontSize: 36,
-				fontFamily: 'Main',
-				lineHeight: 44,
-				fill: {
-					color: '#ffffff'
-				},
-				stroke: {
-					width: 8,
-					color: '#000000'
-				},
-				dropShadow: {
-					color: '#000000',
-					distance: 6,
-					angle: Math.PI / 4
-				},
+			const difficultDescription = mainText({
+				content: Object.values(this.#io.sentData.difficultList)[i].description,
+				styleOverride: {
+					lineHeight: 44
+				}
 			})
-			difficultDescription.anchor.x = 0.5
+			difficultDescription.anchor.y = 0
 			difficultDescription.y = -40
 			mapContainer.addChild(difficultDescription)
 		})

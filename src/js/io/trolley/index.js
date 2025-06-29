@@ -6,8 +6,10 @@ import { constants } from './constants.js'
 import { DifficultSelectScene } from './scene/difficultSelect.js'
 
 export class TrolleyIO extends GameIO {
+	static instance
 	constructor(game) {
 		super(game)
+		TrolleyIO.instance = this
 		game.onAny(console.log)
 		game.once(gameEvents.sessionLoaded, data => this.init(data))
 	}
