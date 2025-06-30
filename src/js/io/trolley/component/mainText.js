@@ -7,10 +7,6 @@ export const mainText = ({ content, styleOverride }) => {
 		fill: {
 			color: '#ffffff'
 		},
-		stroke: {
-			width: 8,
-			color: '#000000'
-		},
 		dropShadow: {
 			color: '#000000',
 			distance: 6,
