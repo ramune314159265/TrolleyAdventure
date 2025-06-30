@@ -1,4 +1,4 @@
-import { Container } from '../../libraries/pixi.min.mjs'
+import { Container } from '../../libraries/pixi.mjs'
 
 export class SceneManager {
 	constructor() {

@@ -1,4 +1,4 @@
-import { Assets, Container, Sprite } from '../../../libraries/pixi.min.mjs'
+import { Assets, Container, Sprite } from '../../../libraries/pixi.mjs'
 import { blinkText } from '../component/blinkText.js'
 import { mainText } from '../component/mainText.js'
 import { constants } from '../constants.js'

@@ -1,5 +1,5 @@
 import { gameEvents } from '../../enum.js'
-import { Application, Assets } from '../../libraries/pixi.min.mjs'
+import { Application, Assets } from '../../libraries/pixi.mjs'
 import { GameIO } from '../index.js'
 import { assetManifest } from './assets.js'
 import { constants } from './constants.js'
@@ -22,18 +22,18 @@ export class TrolleyIO extends GameIO {
 			height: constants.viewHeight,
 		})
 		const parent = document.querySelector('#main')
-		parent.appendChild(this.app.view)
+		parent.appendChild(this.app.canvas)
 		window.__PIXI_DEVTOOLS__ = { app: this.app }
 		const resizeHandle = () => {
 			const parentWidth = parent.clientWidth
 			const parentHeight = parent.clientHeight
 
 			if ((parentWidth / parentHeight) > constants.viewAspectRatio) {
-				this.app.view.style.height = `${parentHeight}px`
-				this.app.view.style.width = `${parentHeight * constants.viewAspectRatio}px`
+				this.app.canvas.style.height = `${parentHeight}px`
+				this.app.canvas.style.width = `${parentHeight * constants.viewAspectRatio}px`
 			} else {
-				this.app.view.style.width = `${parentWidth}px`
-				this.app.view.style.height = `${parentWidth / constants.viewAspectRatio}px`
+				this.app.canvas.style.width = `${parentWidth}px`
+				this.app.canvas.style.height = `${parentWidth / constants.viewAspectRatio}px`
 			}
 		}
 		window.addEventListener('resize', resizeHandle)
