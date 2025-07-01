@@ -38,7 +38,7 @@ export const hologramContainer = () => {
 			lineOffset = 0
 		}
 		grid.clear()
-		for (let i = 0; i <= maxHeight; i += lineDistance) {
+		for (let i = 0; i < maxHeight; i += lineDistance) {
 			grid.moveTo(lineGap, i + lineOffset).lineTo(width - lineGap, i + lineOffset)
 		}
 		grid.stroke({
