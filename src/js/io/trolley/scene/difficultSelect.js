@@ -1,5 +1,6 @@
 import { Assets, Container, Sprite } from '../../../libraries/pixi.mjs'
 import { blinkText } from '../component/blinkText.js'
+import { hologramContainer } from '../component/hologramContainer.js'
 import { mainText } from '../component/mainText.js'
 import { constants } from '../constants.js'
 
@@ -39,14 +40,8 @@ export class DifficultSelectScene {
 			mapContainer.x = (constants.viewWidth / 4) * p[0]
 			mapContainer.y = 150 * p[1]
 			mapsContainer.addChild(mapContainer)
-			const map = new Sprite(mapTexture)
-			map.width = 600
-			map.height = 270
-			map.anchor.x = 0.5
-			map.anchor.y = 0.5
-			map.x = 0
-			map.y = 0
-			mapContainer.addChild(map)
+			const hologram = hologramContainer({ maxWidth: 550, maxHeight: 270 })
+			mapContainer.addChild(hologram)
 			const difficultName = mainText({
 				content: Object.values(this.#io.sentData.difficultList)[i].name,
 				styleOverride: {
@@ -66,6 +61,7 @@ export class DifficultSelectScene {
 			difficultDescription.y = -40
 			mapContainer.addChild(difficultDescription)
 		})
+
 		this.container.addChild(mapsContainer)
 	}
 }

@@ -3,11 +3,9 @@ import { Container, Graphics, NoiseFilter } from '../../../libraries/pixi.mjs'
 import { easeOutQuint } from '../../../util/easing.js'
 import { TrolleyIO } from '../index.js'
 
-export const hologramContainer = () => {
+export const hologramContainer = ({ maxWidth, maxHeight }) => {
 	const container = new Container()
 
-	const maxWidth = 400
-	const maxHeight = 300
 	const lineGap = 25
 	const lineDistance = 20
 	const animationTick = 40
