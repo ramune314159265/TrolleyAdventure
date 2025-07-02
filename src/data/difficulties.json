@@ -36,7 +36,8 @@
 		"id": "hard",
 		"name": "ハード",
 		"description": "まあまあ難しいモードです\n最終問題は最高レベル！",
-		"color": "#d42215",
+		"text_color": "#ffa9a3",
+		"hologram_color": "#d16668",
 		"question_levels": [
 			3,
 			3,
@@ -53,8 +54,9 @@
 	{
 		"id": "extreme",
 		"name": "エクストリーム",
-		"description": "ハイレベルな問題×ライフ１つ\nの超難易度！",
-		"color": "#b53fa9",
+		"description": "ハイレベル問題×ライフ１つ\nの超難易度！",
+		"text_color": "#ffbff9",
+		"hologram_color" : "#d67ecd",
 		"question_levels": [
 			4,
 			4,

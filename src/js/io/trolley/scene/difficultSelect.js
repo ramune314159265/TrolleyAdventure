@@ -35,19 +35,24 @@ export class DifficultSelectScene {
 		mapsContainer.y = 425
 		const mapPositions = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
 		mapPositions.forEach((p, i) => {
+			const difficultData = Object.values(this.#io.sentData.difficultList)[i]
 			const innerContainer = new Container()
 			const hologramWidth = 550
 			const hologramHeight = 270
-			const hologram = hologramContainer({ maxWidth: hologramWidth, maxHeight: hologramHeight, innerContainer })
+			const hologram = hologramContainer({
+				maxWidth: hologramWidth,
+				maxHeight: hologramHeight,
+				color: difficultData.hologram_color ?? colors.hologramMain,
+				innerContainer,
+			})
 			mapsContainer.addChild(hologram)
 			hologram.x = (constants.viewWidth / 4) * p[0]
 			hologram.y = 150 * p[1]
-			const difficultData = Object.values(this.#io.sentData.difficultList)[i]
 			const difficultName = mainText({
 				content: difficultData.name,
 				styleOverride: {
-					fill: difficultData.color ?? colors.hologramText,
-					fontSize: 64,
+					fill: difficultData.text_color ?? colors.hologramText,
+					fontSize: 72,
 				}
 			})
 			difficultName.anchor.y = 0
@@ -57,8 +62,8 @@ export class DifficultSelectScene {
 			const difficultDescription = mainText({
 				content: difficultData.description,
 				styleOverride: {
-					fill: difficultData.color ?? colors.hologramText,
-					fontSize: 44,
+					fill: difficultData.text_color ?? colors.hologramText,
+					fontSize: 48,
 					lineHeight: 64
 				}
 			})
