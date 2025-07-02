@@ -1,10 +1,11 @@
 import { GlitchFilter, GlowFilter } from '../../../libraries/pixi-filters.mjs'
-import { Container, Graphics, NoiseFilter } from '../../../libraries/pixi.mjs'
+import { Container, Graphics, NoiseFilter, Rectangle } from '../../../libraries/pixi.mjs'
 import { easeOutQuint } from '../../../util/easing.js'
 import { TrolleyIO } from '../index.js'
 
 export const hologramContainer = ({ maxWidth, maxHeight, color, innerContainer }) => {
 	const container = new Container()
+	innerContainer.alpha = 0
 
 	const lineGap = 25
 	const lineDistance = 20
@@ -28,6 +29,15 @@ export const hologramContainer = ({ maxWidth, maxHeight, color, innerContainer }
 		tick++
 		if (0 <= tick && tick <= animationTick) {
 			width = easeOutQuint(tick / animationTick) * maxWidth
+		}
+		if (25 <= tick && tick < 30) {
+			innerContainer.alpha = 0.3
+		}
+		if (30 <= tick && tick < 50) {
+			innerContainer.alpha = 0
+		}
+		if (50 <= tick && tick <= 50 + animationTick) {
+			innerContainer.alpha = easeOutQuint((tick - 50) / animationTick)
 		}
 
 		lineOffset += 0.2
@@ -78,6 +88,7 @@ export const hologramContainer = ({ maxWidth, maxHeight, color, innerContainer }
 		glitch,
 		new NoiseFilter({ noise: 0.4 }),
 	]
+	container.filterArea = new Rectangle(-lineDistance - 10, -lineDistance - 10, maxWidth + lineDistance * 2 + 50, maxHeight + 5 + 50)
 	container.addChild(innerContainer)
 	return container
 }
