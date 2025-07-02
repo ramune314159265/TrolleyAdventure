@@ -10,9 +10,13 @@ export class QuestionManager {
 		const data = await this.#dataLoader.load('questions')
 		this.allQuestions = data.flatMap(question => {
 			return question.options.map(option => {
+				question.answer.isCorrect = true
+				option.isCorrect = false
+				const options = [question.answer, option].toSorted(() => Math.random() - 0.5)
 				return {
 					...question,
-					option
+					option,
+					options
 				}
 			})
 		})
