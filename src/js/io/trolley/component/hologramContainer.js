@@ -37,7 +37,7 @@ export const hologramContainer = ({ maxWidth, maxHeight }) => {
 		}
 		grid.clear()
 		for (let i = 0; i < maxHeight; i += lineDistance) {
-			grid.moveTo(lineGap, i + lineOffset).lineTo(width - lineGap, i + lineOffset)
+			grid.moveTo(lineGap, Math.min(i + lineOffset, maxHeight)).lineTo(width - lineGap, Math.min(i + lineOffset, maxHeight))
 		}
 		grid.stroke({
 			width: 3,
@@ -50,12 +50,12 @@ export const hologramContainer = ({ maxWidth, maxHeight }) => {
 		grid.alpha = 0.4
 		grid.filters = [new GlowFilter({
 			color,
-			outerStrength: 3
+			outerStrength: 4
 		})]
 		flame.clear()
 		flame.filters = [new GlowFilter({
 			color: `${color}50`,
-			outerStrength: 4
+			outerStrength: 6
 		})]
 		flame.roundRect(0, 0, width, maxHeight, 24)
 		flame.stroke({
@@ -64,6 +64,12 @@ export const hologramContainer = ({ maxWidth, maxHeight }) => {
 		})
 		flame.fill({
 			color: `${color}10`
+		})
+		flame.moveTo(-lineDistance, -5).lineTo(-lineDistance, maxHeight + 5)
+		flame.moveTo(width + lineDistance, -5).lineTo(width + lineDistance, maxHeight + 5)
+		flame.stroke({
+			width: 1,
+			color: color
 		})
 		container.pivot.x = width / 2
 		container.pivot.y = maxHeight / 2
