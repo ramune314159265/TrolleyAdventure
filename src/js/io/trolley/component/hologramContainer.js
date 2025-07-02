@@ -1,15 +1,15 @@
 import { GlitchFilter, GlowFilter } from '../../../libraries/pixi-filters.mjs'
 import { Container, Graphics, NoiseFilter } from '../../../libraries/pixi.mjs'
 import { easeOutQuint } from '../../../util/easing.js'
+import { colors } from '../constants.js'
 import { TrolleyIO } from '../index.js'
 
-export const hologramContainer = ({ maxWidth, maxHeight }) => {
+export const hologramContainer = ({ maxWidth, maxHeight, innerContainer }) => {
 	const container = new Container()
 
 	const lineGap = 25
 	const lineDistance = 20
 	const animationTick = 40
-	const color = '#00ffcc'
 
 	const grid = new Graphics()
 	container.addChild(grid)
@@ -41,7 +41,7 @@ export const hologramContainer = ({ maxWidth, maxHeight }) => {
 		}
 		grid.stroke({
 			width: 3,
-			color: color
+			color: colors.hologramMain
 		})
 		if (Math.random() < 0.2) {
 			glitch.refresh()
@@ -49,27 +49,27 @@ export const hologramContainer = ({ maxWidth, maxHeight }) => {
 
 		grid.alpha = 0.4
 		grid.filters = [new GlowFilter({
-			color,
+			color: colors.hologramMain,
 			outerStrength: 4
 		})]
 		flame.clear()
 		flame.filters = [new GlowFilter({
-			color: `${color}50`,
+			color: `${colors.hologramMain}50`,
 			outerStrength: 6
 		})]
 		flame.roundRect(0, 0, width, maxHeight, 24)
 		flame.stroke({
 			width: 2,
-			color: `${color}bb`
+			color: `${colors.hologramMain}bb`
 		})
 		flame.fill({
-			color: `${color}10`
+			color: `${colors.hologramMain}10`
 		})
 		flame.moveTo(-lineDistance, -5).lineTo(-lineDistance, maxHeight + 5)
 		flame.moveTo(width + lineDistance, -5).lineTo(width + lineDistance, maxHeight + 5)
 		flame.stroke({
 			width: 1,
-			color: color
+			color: colors.hologramMain
 		})
 		container.pivot.x = width / 2
 		container.pivot.y = maxHeight / 2
@@ -79,5 +79,6 @@ export const hologramContainer = ({ maxWidth, maxHeight }) => {
 		glitch,
 		new NoiseFilter({ noise: 0.4 }),
 	]
+	container.addChild(innerContainer)
 	return container
 }

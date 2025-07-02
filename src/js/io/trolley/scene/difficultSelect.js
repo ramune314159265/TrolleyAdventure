@@ -2,7 +2,7 @@ import { Assets, Container, Sprite } from '../../../libraries/pixi.mjs'
 import { blinkText } from '../component/blinkText.js'
 import { hologramContainer } from '../component/hologramContainer.js'
 import { mainText } from '../component/mainText.js'
-import { constants } from '../constants.js'
+import { colors, constants } from '../constants.js'
 
 export class DifficultSelectScene {
 	#io
@@ -30,36 +30,42 @@ export class DifficultSelectScene {
 		topText.y = 72
 		this.container.addChild(topText)
 
-		const mapTexture = await Assets.load('map')
 		const mapsContainer = new Container()
 		mapsContainer.x = constants.viewWidth / 2
 		mapsContainer.y = 425
 		const mapPositions = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
 		mapPositions.forEach((p, i) => {
-			const mapContainer = new Container()
-			mapContainer.x = (constants.viewWidth / 4) * p[0]
-			mapContainer.y = 150 * p[1]
-			mapsContainer.addChild(mapContainer)
-			const hologram = hologramContainer({ maxWidth: 550, maxHeight: 270 })
-			mapContainer.addChild(hologram)
+			const innerContainer = new Container()
+			const hologramWidth = 550
+			const hologramHeight = 270
+			const hologram = hologramContainer({ maxWidth: hologramWidth, maxHeight: hologramHeight, innerContainer })
+			mapsContainer.addChild(hologram)
+			hologram.x = (constants.viewWidth / 4) * p[0]
+			hologram.y = 150 * p[1]
+			const difficultData = Object.values(this.#io.sentData.difficultList)[i]
 			const difficultName = mainText({
-				content: Object.values(this.#io.sentData.difficultList)[i].name,
+				content: difficultData.name,
 				styleOverride: {
-					fontSize: 52,
+					fill: difficultData.color ?? colors.hologramText,
+					fontSize: 64,
 				}
 			})
 			difficultName.anchor.y = 0
-			difficultName.y = -125
-			mapContainer.addChild(difficultName)
+			difficultName.x = hologramWidth / 2
+			difficultName.y = 10
+			innerContainer.addChild(difficultName)
 			const difficultDescription = mainText({
-				content: Object.values(this.#io.sentData.difficultList)[i].description,
+				content: difficultData.description,
 				styleOverride: {
-					lineHeight: 44
+					fill: difficultData.color ?? colors.hologramText,
+					fontSize: 44,
+					lineHeight: 64
 				}
 			})
 			difficultDescription.anchor.y = 0
-			difficultDescription.y = -40
-			mapContainer.addChild(difficultDescription)
+			difficultDescription.x = hologramWidth / 2
+			difficultDescription.y = 75
+			innerContainer.addChild(difficultDescription)
 		})
 
 		this.container.addChild(mapsContainer)
