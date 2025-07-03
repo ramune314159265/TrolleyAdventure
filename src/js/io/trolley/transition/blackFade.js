@@ -11,7 +11,7 @@ export class BlackFaceTransition {
 		this.graphics = new Graphics()
 		this.graphics.rect(0, 0, constants.viewWidth, constants.viewHeight)
 		this.graphics.fill({
-			color: '#ffffff'
+			color: '#000000'
 		})
 		this.graphics.alpha = 0
 		this.container.addChild(this.graphics)
