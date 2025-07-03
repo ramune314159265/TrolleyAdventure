@@ -43,6 +43,8 @@ export class DifficultSelectScene {
 				color: difficultData.hologram_color ?? colors.hologramMain,
 				innerContainer,
 			})
+			hologram.show()
+			console.log(hologram)
 			mapsContainer.addChild(hologram)
 			hologram.x = (constants.viewWidth / 4) * p[0]
 			hologram.y = 150 * p[1]

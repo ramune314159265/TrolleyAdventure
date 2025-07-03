@@ -6,11 +6,15 @@ import { TrolleyIO } from '../index.js'
 export class HologramContainer extends Container {
 	constructor({ maxWidth, maxHeight, color, innerContainer }) {
 		super()
+		this.innerContainer = innerContainer
+		this.maxWidth = maxWidth
+		this.maxHeight = maxHeight
+		this.containerWidth = 20
+
 		innerContainer.alpha = 0
 
 		const lineGap = 25
 		const lineDistance = 20
-		const animationTick = 40
 
 		const grid = new Graphics()
 		this.addChild(grid)
@@ -24,30 +28,14 @@ export class HologramContainer extends Container {
 			fillMode: 1,
 		})
 		let lineOffset = 0
-		let width = 20
-		let tick = 0
 		TrolleyIO.instance.app.ticker.add(() => {
-			tick++
-			if (0 <= tick && tick <= animationTick) {
-				width = easeOutQuint(tick / animationTick) * maxWidth
-			}
-			if (25 <= tick && tick < 30) {
-				innerContainer.alpha = 0.3
-			}
-			if (30 <= tick && tick < 50) {
-				innerContainer.alpha = 0
-			}
-			if (50 <= tick && tick <= 50 + animationTick) {
-				innerContainer.alpha = easeOutQuint((tick - 50) / animationTick)
-			}
-
 			lineOffset += 0.2
 			if (lineDistance < lineOffset) {
 				lineOffset = 0
 			}
 			grid.clear()
 			for (let i = 0; i < maxHeight; i += lineDistance) {
-				grid.moveTo(lineGap, Math.min(i + lineOffset, maxHeight)).lineTo(width - lineGap, Math.min(i + lineOffset, maxHeight))
+				grid.moveTo(lineGap, Math.min(i + lineOffset, maxHeight)).lineTo(this.containerWidth - lineGap, Math.min(i + lineOffset, maxHeight))
 			}
 			grid.stroke({
 				width: 3,
@@ -67,7 +55,7 @@ export class HologramContainer extends Container {
 				color: `${color}50`,
 				outerStrength: 6
 			})]
-			flame.roundRect(0, 0, width, maxHeight, 24)
+			flame.roundRect(0, 0, this.containerWidth, maxHeight, 24)
 			flame.stroke({
 				width: 2,
 				color: `${color}bb`
@@ -76,12 +64,12 @@ export class HologramContainer extends Container {
 				color: `${color}10`
 			})
 			flame.moveTo(-lineDistance, -5).lineTo(-lineDistance, maxHeight + 5)
-			flame.moveTo(width + lineDistance, -5).lineTo(width + lineDistance, maxHeight + 5)
+			flame.moveTo(this.containerWidth + lineDistance, -5).lineTo(this.containerWidth + lineDistance, maxHeight + 5)
 			flame.stroke({
 				width: 1,
 				color: color
 			})
-			this.pivot.x = width / 2
+			this.pivot.x = this.containerWidth / 2
 			this.pivot.y = maxHeight / 2
 		})
 
@@ -91,5 +79,47 @@ export class HologramContainer extends Container {
 		]
 		this.filterArea = new Rectangle(-lineDistance - 10, -lineDistance - 10, maxWidth + lineDistance * 2 + 50, maxHeight + 5 + 50)
 		this.addChild(innerContainer)
+	}
+	show() {
+		const animationTick = 40
+		let tick = 0
+		const handleTick = () => {
+			if (0 <= tick && tick <= animationTick) {
+				this.containerWidth = easeOutQuint(tick / animationTick) * this.maxWidth
+				this.alpha = easeOutQuint(tick / animationTick)
+			}
+			if (25 <= tick && tick < 30) {
+				this.innerContainer.alpha = 0.3
+			}
+			if (30 <= tick && tick < 50) {
+				this.innerContainer.alpha = 0
+			}
+			if (50 <= tick && tick <= 50 + animationTick) {
+				this.innerContainer.alpha = easeOutQuint((tick - 50) / animationTick)
+			}
+			if (50 + animationTick < tick) {
+				TrolleyIO.instance.app.ticker.remove(handleTick)
+			}
+			tick++
+		}
+		TrolleyIO.instance.app.ticker.add(handleTick)
+	}
+	hide() {
+		const animationTick = 40
+		let tick = 0
+		const handleTick = () => {
+			if (0 <= tick && tick <= animationTick) {
+				this.innerContainer.alpha = 1 - easeOutQuint(tick / animationTick)
+			}
+			if (animationTick <= tick && tick <= animationTick + animationTick) {
+				this.containerWidth = (1 - easeOutQuint((tick - animationTick) / animationTick)) * this.maxWidth
+				this.alpha = (1 - easeOutQuint((tick - animationTick) / animationTick))
+			}
+			if (animationTick + animationTick < tick) {
+				TrolleyIO.instance.app.ticker.remove(handleTick)
+			}
+			tick++
+		}
+		TrolleyIO.instance.app.ticker.add(handleTick)
 	}
 }
