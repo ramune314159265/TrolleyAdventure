@@ -1,7 +1,7 @@
 import { Assets, Container, Sprite } from '../../../libraries/pixi.mjs'
-import { blinkText } from '../component/blinkText.js'
-import { hologramContainer } from '../component/hologramContainer.js'
-import { mainText } from '../component/mainText.js'
+import { BlinkText } from '../component/blinkText.js'
+import { HologramContainer } from '../component/hologramContainer.js'
+import { MainText } from '../component/mainText.js'
 import { colors, constants } from '../constants.js'
 import { TrolleyIO } from '../index.js'
 
@@ -18,7 +18,7 @@ export class DifficultSelectScene {
 		background.height = constants.viewHeight
 		this.container.addChild(background)
 
-		const topText = blinkText({
+		const topText = new BlinkText({
 			content: '難易度を選んでください',
 			styleOverride: {
 				fontSize: 72
@@ -37,7 +37,7 @@ export class DifficultSelectScene {
 			const innerContainer = new Container()
 			const hologramWidth = 550
 			const hologramHeight = 270
-			const hologram = hologramContainer({
+			const hologram = new HologramContainer({
 				maxWidth: hologramWidth,
 				maxHeight: hologramHeight,
 				color: difficultData.hologram_color ?? colors.hologramMain,
@@ -46,7 +46,7 @@ export class DifficultSelectScene {
 			mapsContainer.addChild(hologram)
 			hologram.x = (constants.viewWidth / 4) * p[0]
 			hologram.y = 150 * p[1]
-			const difficultName = mainText({
+			const difficultName = new MainText({
 				content: difficultData.name,
 				styleOverride: {
 					fill: difficultData.text_color ?? colors.hologramText,
@@ -57,7 +57,7 @@ export class DifficultSelectScene {
 			difficultName.x = hologramWidth / 2
 			difficultName.y = 10
 			innerContainer.addChild(difficultName)
-			const difficultDescription = mainText({
+			const difficultDescription = new MainText({
 				content: difficultData.description,
 				styleOverride: {
 					fill: difficultData.text_color ?? colors.hologramText,

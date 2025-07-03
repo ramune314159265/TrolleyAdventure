@@ -14,11 +14,14 @@ export class TrolleyIO extends GameIO {
 		super(game)
 		TrolleyIO.instance = this
 		game.onAny(console.log)
-		game.once(gameEvents.sessionLoaded, data => this.init(data))
+		game.once(gameEvents.sessionLoaded, data => {
+			this.sentData = data
+			this.difficultSelect()
+		})
 		game.once(gameEvents.gameStarted, () => this.gameStart())
+		this.init()
 	}
-	async init(data) {
-		this.sentData = data
+	async init() {
 		this.app = new Application()
 		await this.app.init({
 			background: '#000000',
@@ -47,7 +50,8 @@ export class TrolleyIO extends GameIO {
 
 		await Assets.init({ manifest: assetManifest })
 		await Assets.loadBundle('first_load')
-
+	}
+	difficultSelect() {
 		const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
 		const difficultSelectScene = new DifficultSelectScene()
 		this.sceneManager.changeScene(difficultSelectScene, transition)
