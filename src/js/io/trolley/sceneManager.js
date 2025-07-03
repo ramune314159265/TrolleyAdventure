@@ -10,9 +10,9 @@ export class SceneManager {
 		this.currentScene = null
 	}
 	async changeScene(scene, transition) {
+		await this.currentScene?.exit?.()
 		await transition.start()
 		if (this.currentScene) {
-			await this.currentScene.exit?.()
 			this.mainLayerContainer.removeChild(this.currentScene.container)
 		}
 		this.currentScene = scene

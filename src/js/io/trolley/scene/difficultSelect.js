@@ -1,3 +1,4 @@
+import { ioCommands } from '../../../enum.js'
 import { Assets, Container, Sprite } from '../../../libraries/pixi.mjs'
 import { BlinkText } from '../component/blinkText.js'
 import { HologramContainer } from '../component/hologramContainer.js'
@@ -18,15 +19,15 @@ export class DifficultSelectScene {
 		background.height = constants.viewHeight
 		this.container.addChild(background)
 
-		const topText = new BlinkText({
+		this.topText = new BlinkText({
 			content: '難易度を選んでください',
 			styleOverride: {
 				fontSize: 72
 			}
 		})
-		topText.x = constants.viewWidth / 2
-		topText.y = 72
-		this.container.addChild(topText)
+		this.topText.x = constants.viewWidth / 2
+		this.topText.y = 72
+		this.container.addChild(this.topText)
 
 		const mapsContainer = new Container()
 		mapsContainer.x = constants.viewWidth / 2
@@ -44,7 +45,6 @@ export class DifficultSelectScene {
 				innerContainer,
 			})
 			hologram.show()
-			console.log(hologram)
 			mapsContainer.addChild(hologram)
 			hologram.x = (constants.viewWidth / 4) * p[0]
 			hologram.y = 150 * p[1]
@@ -71,8 +71,22 @@ export class DifficultSelectScene {
 			difficultDescription.x = hologramWidth / 2
 			difficultDescription.y = 75
 			innerContainer.addChild(difficultDescription)
+			TrolleyIO.instance.game.once(ioCommands.gameStart, ({ difficultId }) => {
+				if (difficultData.id !== difficultId) {
+					hologram.hide()
+					return
+				}
+			})
 		})
 
 		this.container.addChild(mapsContainer)
+	}
+	exit() {
+		this.topText.text = `Let's Go!`
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve()
+			}, 2000)
+		})
 	}
 }
