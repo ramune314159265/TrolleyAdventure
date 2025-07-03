@@ -4,6 +4,7 @@ import { GameIO } from '../index.js'
 import { assetManifest } from './assets.js'
 import { constants } from './constants.js'
 import { DifficultSelectScene } from './scene/difficultSelect.js'
+import { QuestionScene } from './scene/question.js'
 import { SceneManager } from './sceneManager.js'
 import { BlackFaceTransition } from './transition/blackFade.js'
 
@@ -14,6 +15,7 @@ export class TrolleyIO extends GameIO {
 		TrolleyIO.instance = this
 		game.onAny(console.log)
 		game.once(gameEvents.sessionLoaded, data => this.init(data))
+		game.once(gameEvents.gameStarted, () => this.gameStart())
 	}
 	async init(data) {
 		this.sentData = data
@@ -49,5 +51,10 @@ export class TrolleyIO extends GameIO {
 		const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
 		const difficultSelectScene = new DifficultSelectScene()
 		this.sceneManager.changeScene(difficultSelectScene, transition)
+	}
+	gameStart() {
+		const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
+		const questionScene = new QuestionScene()
+		this.sceneManager.changeScene(questionScene, transition)
 	}
 }
