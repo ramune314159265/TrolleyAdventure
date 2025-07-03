@@ -4,6 +4,8 @@ import { GameIO } from '../index.js'
 import { assetManifest } from './assets.js'
 import { constants } from './constants.js'
 import { DifficultSelectScene } from './scene/difficultSelect.js'
+import { SceneManager } from './sceneManager.js'
+import { BlackFaceTransition } from './transition/blackFade.js'
 
 export class TrolleyIO extends GameIO {
 	static instance
@@ -39,10 +41,13 @@ export class TrolleyIO extends GameIO {
 		window.addEventListener('resize', resizeHandle)
 		resizeHandle()
 
+		this.sceneManager = new SceneManager()
+
 		await Assets.init({ manifest: assetManifest })
 		await Assets.loadBundle('first_load')
 
-		const difficultSelectScene = new DifficultSelectScene({ io: this })
-		this.app.stage.addChild(difficultSelectScene.container)
+		const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
+		const difficultSelectScene = new DifficultSelectScene()
+		this.sceneManager.changeScene(difficultSelectScene, transition)
 	}
 }

@@ -3,13 +3,11 @@ import { blinkText } from '../component/blinkText.js'
 import { hologramContainer } from '../component/hologramContainer.js'
 import { mainText } from '../component/mainText.js'
 import { colors, constants } from '../constants.js'
+import { TrolleyIO } from '../index.js'
 
 export class DifficultSelectScene {
-	#io
-	constructor({ io }) {
-		this.#io = io
+	constructor() {
 		this.container = new Container()
-		this.init()
 	}
 	async init() {
 		await Assets.loadBundle('difficult_select')
@@ -35,7 +33,7 @@ export class DifficultSelectScene {
 		mapsContainer.y = 425
 		const mapPositions = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
 		mapPositions.forEach((p, i) => {
-			const difficultData = Object.values(this.#io.sentData.difficultList)[i]
+			const difficultData = Object.values(TrolleyIO.instance.sentData.difficultList)[i]
 			const innerContainer = new Container()
 			const hologramWidth = 550
 			const hologramHeight = 270
