@@ -73,7 +73,9 @@ export class QuestionScene {
 				await optionHologram.hide()
 				await wait(1000)
 				const isCorrectText = new MainText({
-					content: isCorrect ? '正解' : '不正解',
+					content: TrolleyIO.instance.state === TrolleyIO.states.quiz ?
+						(isCorrect ? '正解' : '不正解') :
+						(TrolleyIO.instance.state === TrolleyIO.states.gameClear) ? 'Game Clear' : 'Game Over',
 					styleOverride: {
 						fontSize: 72,
 					}
@@ -101,7 +103,6 @@ export class QuestionScene {
 				explanationTopText.x = hologramWidth / 2
 				explanationTopText.y = 50
 				explanationInnerContainer.addChild(explanationTopText)
-				console.log([stringSplitByLength(questionInfo.questionData.answer.explanation, 12), stringSplitByLength(questionInfo.questionData.option.explanation, 12)])
 				const explanationText = new MainText({
 					content: [
 						...stringSplitByLength(questionInfo.questionData.answer.explanation, 12),
@@ -116,10 +117,12 @@ export class QuestionScene {
 				explanationText.y = 100
 				explanationInnerContainer.addChild(explanationText)
 				await explanationHologram.show()
-				await wait(3000)
-				await explanationHologram.hide()
-				this.container.removeChild(this.questionContainer)
-				this.nextQuestion()
+				if (TrolleyIO.instance.state === TrolleyIO.states.quiz) {
+					await wait(3000)
+					await explanationHologram.hide()
+					this.container.removeChild(this.questionContainer)
+					this.nextQuestion()
+				}
 			})
 		})
 		this.questionContainer.addChild(optionsContainer)

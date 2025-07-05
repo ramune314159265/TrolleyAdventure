@@ -9,20 +9,33 @@ import { SceneManager } from './sceneManager.js'
 import { BlackFaceTransition } from './transition/blackFade.js'
 
 export class TrolleyIO extends GameIO {
+	static states = {
+		difficultSelect: Symbol(),
+		quiz: Symbol(),
+		gameClear: Symbol(),
+		gameOver: Symbol(),
+	}
 	static instance
 	constructor(game) {
 		super(game)
 		TrolleyIO.instance = this
 		this.gameInfo = null
 		this.questionInfo = null
+		this.state = null
 		game.onAny(console.log)
 		game.once(gameEvents.sessionLoaded, data => {
 			this.gameInfo = data
 			this.difficultSelect()
 		})
 		game.once(gameEvents.gameStarted, () => this.gameStart())
-		TrolleyIO.instance.game.on(gameEvents.nextQuestionStarted, data => {
+		game.on(gameEvents.nextQuestionStarted, data => {
 			this.questionInfo = data
+		})
+		game.on(gameEvents.gameCleared, () => {
+			this.state = TrolleyIO.states.gameClear
+		})
+		game.on(gameEvents.gameOvered, () => {
+			this.state = TrolleyIO.states.gameOver
 		})
 		this.init()
 	}
@@ -57,11 +70,13 @@ export class TrolleyIO extends GameIO {
 		await Assets.loadBundle('first_load')
 	}
 	difficultSelect() {
+		this.state = TrolleyIO.states.difficultSelect
 		const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
 		const difficultSelectScene = new DifficultSelectScene()
 		this.sceneManager.changeScene(difficultSelectScene, transition)
 	}
 	gameStart() {
+		this.state = TrolleyIO.states.quiz
 		const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
 		const questionScene = new QuestionScene()
 		this.sceneManager.changeScene(questionScene, transition)
