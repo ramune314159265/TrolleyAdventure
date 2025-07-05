@@ -11,6 +11,7 @@ export class HologramContainer extends Container {
 		this.maxHeight = maxHeight
 		this.containerWidth = 20
 
+		this.alpha = 0
 		innerContainer.alpha = 0
 
 		const lineGap = 25
