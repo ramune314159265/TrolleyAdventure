@@ -1,5 +1,6 @@
 import { ioCommands } from '../../../enum.js'
 import { Assets, Container, Sprite } from '../../../libraries/pixi.mjs'
+import { wait } from '../../../util/wait.js'
 import { BlinkText } from '../component/blinkText.js'
 import { HologramContainer } from '../component/hologramContainer.js'
 import { MainText } from '../component/mainText.js'
@@ -81,12 +82,8 @@ export class DifficultSelectScene {
 
 		this.container.addChild(mapsContainer)
 	}
-	exit() {
+	async exit() {
 		this.topText.text = `Let's Go!`
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve()
-			}, 2000)
-		})
+		await wait(2000)
 	}
 }
