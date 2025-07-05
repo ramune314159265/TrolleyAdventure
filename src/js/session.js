@@ -49,6 +49,7 @@ export class Session extends EventRegister {
 		this.currentQuestionData = questionData
 		this.game.emit(gameEvents.nextQuestionStarted, {
 			questionData,
+			level: questionLevel,
 			lives: this.lives,
 			questionNo: this.currentQuestionNo
 		})

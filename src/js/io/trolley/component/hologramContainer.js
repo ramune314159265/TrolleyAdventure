@@ -82,45 +82,51 @@ export class HologramContainer extends Container {
 		this.addChild(innerContainer)
 	}
 	show() {
-		const animationTick = 40
-		let tick = 0
-		const handleTick = () => {
-			if (0 <= tick && tick <= animationTick) {
-				this.containerWidth = easeOutQuint(tick / animationTick) * this.maxWidth
-				this.alpha = easeOutQuint(tick / animationTick)
+		return new Promise(resolve => {
+			const animationTick = 40
+			let tick = 0
+			const handleTick = () => {
+				if (0 <= tick && tick <= animationTick) {
+					this.containerWidth = easeOutQuint(tick / animationTick) * this.maxWidth
+					this.alpha = easeOutQuint(tick / animationTick)
+				}
+				if (25 <= tick && tick < 30) {
+					this.innerContainer.alpha = 0.3
+				}
+				if (30 <= tick && tick < 50) {
+					this.innerContainer.alpha = 0
+				}
+				if (50 <= tick && tick <= 50 + animationTick) {
+					this.innerContainer.alpha = easeOutQuint((tick - 50) / animationTick)
+				}
+				if (50 + animationTick < tick) {
+					TrolleyIO.instance.app.ticker.remove(handleTick)
+					resolve()
+				}
+				tick++
 			}
-			if (25 <= tick && tick < 30) {
-				this.innerContainer.alpha = 0.3
-			}
-			if (30 <= tick && tick < 50) {
-				this.innerContainer.alpha = 0
-			}
-			if (50 <= tick && tick <= 50 + animationTick) {
-				this.innerContainer.alpha = easeOutQuint((tick - 50) / animationTick)
-			}
-			if (50 + animationTick < tick) {
-				TrolleyIO.instance.app.ticker.remove(handleTick)
-			}
-			tick++
-		}
-		TrolleyIO.instance.app.ticker.add(handleTick)
+			TrolleyIO.instance.app.ticker.add(handleTick)
+		})
 	}
 	hide() {
-		const animationTick = 40
-		let tick = 0
-		const handleTick = () => {
-			if (0 <= tick && tick <= animationTick) {
-				this.innerContainer.alpha = 1 - easeOutQuint(tick / animationTick)
+		return new Promise(resolve => {
+			const animationTick = 40
+			let tick = 0
+			const handleTick = () => {
+				if (0 <= tick && tick <= animationTick) {
+					this.innerContainer.alpha = 1 - easeOutQuint(tick / animationTick)
+				}
+				if (animationTick <= tick && tick <= animationTick + animationTick) {
+					this.containerWidth = (1 - easeOutQuint((tick - animationTick) / animationTick)) * this.maxWidth
+					this.alpha = (1 - easeOutQuint((tick - animationTick) / animationTick))
+				}
+				if (animationTick + animationTick < tick) {
+					TrolleyIO.instance.app.ticker.remove(handleTick)
+					resolve()
+				}
+				tick++
 			}
-			if (animationTick <= tick && tick <= animationTick + animationTick) {
-				this.containerWidth = (1 - easeOutQuint((tick - animationTick) / animationTick)) * this.maxWidth
-				this.alpha = (1 - easeOutQuint((tick - animationTick) / animationTick))
-			}
-			if (animationTick + animationTick < tick) {
-				TrolleyIO.instance.app.ticker.remove(handleTick)
-			}
-			tick++
-		}
-		TrolleyIO.instance.app.ticker.add(handleTick)
+			TrolleyIO.instance.app.ticker.add(handleTick)
+		})
 	}
 }

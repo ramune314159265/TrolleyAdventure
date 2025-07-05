@@ -56,7 +56,7 @@ export class KeyboardIO extends GameIO {
 				if (!(0 < number && number <= questionData.options.length)) {
 					break
 				}
-				this.game.emit(ioCommands.answerQuestion, { isCorrect: questionData.options[number - 1].isCorrect })
+				this.game.emit(ioCommands.answerQuestion, { isCorrect: questionData.options[number - 1].isCorrect, index: number - 1 })
 			}
 		}
 	}

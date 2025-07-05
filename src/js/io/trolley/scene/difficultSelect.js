@@ -30,12 +30,12 @@ export class DifficultSelectScene {
 		this.topText.y = 72
 		this.container.addChild(this.topText)
 
-		const mapsContainer = new Container()
-		mapsContainer.x = constants.viewWidth / 2
-		mapsContainer.y = 425
-		const mapPositions = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
-		mapPositions.forEach((p, i) => {
-			const difficultData = Object.values(TrolleyIO.instance.sentData.difficultList)[i]
+		const difficultiesContainer = new Container()
+		difficultiesContainer.x = constants.viewWidth / 2
+		difficultiesContainer.y = 425
+		const difficultPositions = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
+		difficultPositions.forEach((p, i) => {
+			const difficultData = Object.values(TrolleyIO.instance.gameInfo.difficultList)[i]
 			const innerContainer = new Container()
 			const hologramWidth = 550
 			const hologramHeight = 270
@@ -45,10 +45,10 @@ export class DifficultSelectScene {
 				color: difficultData.hologram_color ?? colors.hologramMain,
 				innerContainer,
 			})
-			hologram.show()
-			mapsContainer.addChild(hologram)
 			hologram.x = (constants.viewWidth / 4) * p[0]
 			hologram.y = 150 * p[1]
+			difficultiesContainer.addChild(hologram)
+			hologram.show()
 			const difficultName = new MainText({
 				content: difficultData.name,
 				styleOverride: {
@@ -80,7 +80,7 @@ export class DifficultSelectScene {
 			})
 		})
 
-		this.container.addChild(mapsContainer)
+		this.container.addChild(difficultiesContainer)
 	}
 	async exit() {
 		this.topText.text = `Let's Go!`

@@ -13,12 +13,17 @@ export class TrolleyIO extends GameIO {
 	constructor(game) {
 		super(game)
 		TrolleyIO.instance = this
+		this.gameInfo = null
+		this.questionInfo = null
 		game.onAny(console.log)
 		game.once(gameEvents.sessionLoaded, data => {
-			this.sentData = data
+			this.gameInfo = data
 			this.difficultSelect()
 		})
 		game.once(gameEvents.gameStarted, () => this.gameStart())
+		TrolleyIO.instance.game.on(gameEvents.nextQuestionStarted, data => {
+			this.questionInfo = data
+		})
 		this.init()
 	}
 	async init() {

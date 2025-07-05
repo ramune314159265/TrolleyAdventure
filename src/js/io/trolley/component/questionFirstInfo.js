@@ -44,10 +44,10 @@ export class QuestionFirstInfoComponent extends Container {
 		this.levelText.y = 140
 		this.innerContainer.addChild(this.levelText)
 	}
-	show() {
-		this.hologram.show()
+	async show() {
+		await this.hologram.show()
 	}
-	hide() {
-		this.hologram.hide()
+	async hide() {
+		await this.hologram.hide()
 	}
 }
