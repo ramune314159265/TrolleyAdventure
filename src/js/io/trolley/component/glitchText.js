@@ -1,4 +1,4 @@
-import { GlitchFilter } from '../../../libraries/pixi-filters.mjs'
+import { GlitchFilter } from 'pixi-filters'
 import { TrolleyIO } from '../index.js'
 import { MainText } from './mainText.js'
 

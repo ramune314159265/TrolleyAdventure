@@ -1,5 +1,5 @@
+import { Application, Assets } from 'pixi.js'
 import { gameEvents } from '../../enum.js'
-import { Application, Assets } from '../../libraries/pixi.mjs'
 import { GameIO } from '../index.js'
 import { assetManifest } from './assets.js'
 import { constants } from './constants.js'

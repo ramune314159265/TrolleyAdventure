@@ -1,4 +1,4 @@
-import { Graphics } from '../../../libraries/pixi.mjs'
+import { Graphics } from 'pixi.js'
 import { easeOutQuint } from '../../../util/easing.js'
 import { constants } from '../constants.js'
 import { TrolleyIO } from '../index.js'

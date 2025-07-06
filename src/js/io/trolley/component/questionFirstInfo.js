@@ -1,4 +1,4 @@
-import { Container } from '../../../libraries/pixi.mjs'
+import { Container } from 'pixi.js'
 import { colors, constants } from '../constants.js'
 import { HologramContainer } from './hologramContainer.js'
 import { MainText } from './mainText.js'

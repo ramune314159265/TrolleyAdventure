@@ -1,4 +1,4 @@
-import { Container } from '../../libraries/pixi.mjs'
+import { Container } from 'pixi.js'
 import { TrolleyIO } from './index.js'
 
 export class SceneManager {

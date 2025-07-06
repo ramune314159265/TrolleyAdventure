@@ -1,4 +1,4 @@
-import { Text } from '../../../libraries/pixi.mjs'
+import { Text } from 'pixi.js'
 
 export class MainText extends Text {
 	constructor({ content, styleOverride }) {

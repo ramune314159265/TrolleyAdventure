@@ -1,5 +1,5 @@
+import { Container } from 'pixi.js'
 import { ioCommands, ioEvents } from '../../../enum.js'
-import { Container } from '../../../libraries/pixi.mjs'
 import { stringSplitByLength } from '../../../util/split.js'
 import { wait } from '../../../util/wait.js'
 import { HologramContainer } from '../component/hologramContainer.js'

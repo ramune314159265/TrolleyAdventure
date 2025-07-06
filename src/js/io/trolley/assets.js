@@ -1,7 +1,7 @@
 export const fonts = [
 	{
 		name: 'mainfont',
-		src: './asset/fonts/main.otf'
+		src: './fonts/main.otf'
 	}
 ]
 
@@ -12,7 +12,7 @@ export const assetManifest = {
 			assets: [
 				{
 					alias: 'mainfont',
-					src: './asset/fonts/main.otf',
+					src: './fonts/main.otf',
 				},
 			]
 		},
@@ -21,10 +21,10 @@ export const assetManifest = {
 			assets: [
 				{
 					alias: 'background',
-					src: './asset/images/nc173341_洞窟の中_ignore.png',
+					src: './images/nc173341_洞窟の中_ignore.png',
 				}, {
 					alias: 'map',
-					src: './asset/images/856371_ignore.png',
+					src: './images/856371_ignore.png',
 				},
 			]
 		},

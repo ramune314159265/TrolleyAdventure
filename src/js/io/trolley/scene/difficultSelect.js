@@ -1,5 +1,5 @@
+import { Assets, Container, Sprite } from 'pixi.js'
 import { ioCommands } from '../../../enum.js'
-import { Assets, Container, Sprite } from '../../../libraries/pixi.mjs'
 import { wait } from '../../../util/wait.js'
 import { BlinkText } from '../component/blinkText.js'
 import { HologramContainer } from '../component/hologramContainer.js'

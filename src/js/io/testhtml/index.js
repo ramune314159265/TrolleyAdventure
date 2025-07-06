@@ -33,10 +33,10 @@ export class TestHtmlIO extends GameIO {
 		const div = document.createElement('div')
 		div.innerText = data.questionData.content
 		this.main.append(div)
-		data.questionData.options.forEach(o => {
+		data.questionData.options.forEach((o, i) => {
 			const button = document.createElement('button')
 			button.innerText = o.content
-			button.onclick = () => this.game.emit(ioCommands.answerQuestion, { isCorrect: o.isCorrect,, index: number - 1 })
+			button.onclick = () => this.game.emit(ioCommands.answerQuestion, { isCorrect: o.isCorrect, index: i - 1 })
 			this.main.append(button)
 		})
 	}

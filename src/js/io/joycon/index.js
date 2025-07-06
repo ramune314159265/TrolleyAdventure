@@ -1,5 +1,5 @@
+import { connectJoyCon, connectedJoyCons } from 'joy-con-webhid'
 import { gameEvents, ioCommands, ioEvents } from '../../enum.js'
-import { connectJoyCon, connectedJoyCons } from '../../libraries/joy-con-webhid/index.js'
 import { wait } from '../../util/wait.js'
 import { GameIO } from '../index.js'
 
@@ -25,7 +25,6 @@ export class JoyConIO extends GameIO {
 			yAndLeft: false
 		}
 		this.direction = JoyConIO.directions.horizontal
-		document.addEventListener('keydown', e => this.keyPressHandle(e.key))
 		game.once(gameEvents.sessionLoaded, data => {
 			this.difficultList = data.difficultList
 			this.state = JoyConIO.states.difficultSelect
@@ -81,6 +80,7 @@ export class JoyConIO extends GameIO {
 						this.game.emit(ioCommands.gameStart, { difficultId: Object.values(this.difficultList)[3].id })
 					}
 					this.buttonState.yAndLeft = (detail.buttonStatus.y || detail.buttonStatus.left)
+					break
 				}
 				case JoyConIO.states.questionAnswer: {
 					if (0.2 < detail.accelerometers[0]?.y?.acc) { // 左
@@ -109,6 +109,7 @@ export class JoyConIO extends GameIO {
 						this.game.emit(ioEvents.deselected)
 						this.direction = JoyConIO.directions.horizontal
 					}
+					break
 				}
 			}
 		})
