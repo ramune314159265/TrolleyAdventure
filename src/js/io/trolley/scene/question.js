@@ -1,4 +1,4 @@
-import { ioCommands } from '../../../enum.js'
+import { ioCommands, ioEvents } from '../../../enum.js'
 import { Container } from '../../../libraries/pixi.mjs'
 import { stringSplitByLength } from '../../../util/split.js'
 import { wait } from '../../../util/wait.js'
@@ -63,6 +63,18 @@ export class QuestionScene {
 			optionText.x = hologramWidth / 2
 			optionText.y = hologramHeight / 2
 			optionInnerContainer.addChild(optionText)
+			TrolleyIO.instance.game.onAny(eventName => {
+				const observerEvents = [ioEvents.deselected, ioEvents.leftSelected, ioEvents.rightSelected]
+				if (!Object.values(observerEvents).includes(eventName)) {
+					return
+				}
+				const targetEvent = i === 0 ? ioEvents.leftSelected : ioEvents.rightSelected
+				if (eventName == targetEvent) {
+					optionHologram.scale = { x: 1.05, y: 1.05 }
+				} else {
+					optionHologram.scale = { x: 1, y: 1 }
+				}
+			})
 			TrolleyIO.instance.game.once(ioCommands.answerQuestion, async ({ index, isCorrect }) => {
 				if (i !== index) {
 					optionHologram.hide()

@@ -11,3 +11,9 @@ export const ioCommands = Object.freeze({
 	gameStart: Symbol('gameStart'),
 	answerQuestion: Symbol('answerQuestion')
 })
+
+export const ioEvents = Object.freeze({
+	leftSelected: Symbol('leftSelected'),
+	rightSelected: Symbol('rightSelected'),
+	deselected: Symbol('deselected')
+})

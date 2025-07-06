@@ -1,3 +1,4 @@
+import { JoyConIO } from './io/joycon/index.js'
 import { KeyboardIO } from './io/keyboard/index.js'
 import { TrolleyIO } from './io/trolley/index.js'
 import { Session } from './session.js'
@@ -9,7 +10,8 @@ export class Game extends EventRegister {
 		this.session = null
 		this.ioList = [
 			new TrolleyIO(this),
-			new KeyboardIO(this)
+			new KeyboardIO(this),
+			new JoyConIO(this)
 		]
 	}
 	newSession() {
