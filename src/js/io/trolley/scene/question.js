@@ -2,6 +2,7 @@ import { Container } from 'pixi.js'
 import { ioCommands, ioEvents } from '../../../enum'
 import { stringSplitByLength } from '../../../util/split'
 import { wait } from '../../../util/wait'
+import { FitText } from '../component/fitText'
 import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
 import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
@@ -26,11 +27,13 @@ export class QuestionScene {
 		await this.questionFirstInfo.hide()
 		this.questionContainer = new Container()
 		this.container.addChild(this.questionContainer)
-		const topText = new MainText({
+		const topText = new FitText({
 			content: questionInfo.questionData.content,
-			styleOverride: {
-				fontSize: 72
-			}
+			styleOverride: {},
+			width: constants.viewWidth * 0.9,
+			height: 125,
+			maxFontSize: 72,
+			minFontSize: 16
 		})
 		topText.x = constants.viewWidth / 2
 		topText.y = 125
@@ -53,12 +56,15 @@ export class QuestionScene {
 			optionHologram.x = (constants.viewWidth / 4) * p
 			optionsContainer.addChild(optionHologram)
 			optionHologram.show()
-			const optionText = new MainText({
+			const optionText = new FitText({
 				content: questionInfo.questionData.options[i].content,
 				styleOverride: {
 					fill: colors.hologramText,
-					fontSize: 72,
-				}
+				},
+				width: hologramWidth * 0.9,
+				height: 150,
+				maxFontSize: 144,
+				minFontSize: 16
 			})
 			optionText.x = hologramWidth / 2
 			optionText.y = hologramHeight / 2
