@@ -1,7 +1,7 @@
 import { Container } from 'pixi.js'
-import { colors, constants } from '../constants.js'
-import { HologramContainer } from './hologramContainer.js'
-import { MainText } from './mainText.js'
+import { colors, constants } from '../constants'
+import { HologramContainer } from './hologramContainer'
+import { MainText } from './mainText'
 
 export class QuestionFirstInfoComponent extends Container {
 	constructor({ questionNo, level }) {

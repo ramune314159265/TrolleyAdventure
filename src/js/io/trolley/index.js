@@ -1,12 +1,12 @@
 import { Application, Assets } from 'pixi.js'
-import { gameEvents } from '../../enum.js'
-import { GameIO } from '../index.js'
-import { assetManifest } from './assets.js'
-import { constants } from './constants.js'
-import { DifficultSelectScene } from './scene/difficultSelect.js'
-import { QuestionScene } from './scene/question.js'
-import { SceneManager } from './sceneManager.js'
-import { BlackFaceTransition } from './transition/blackFade.js'
+import { gameEvents } from '../../enum'
+import { GameIO } from '../index'
+import { assetManifest } from './assets'
+import { constants } from './constants'
+import { DifficultSelectScene } from './scene/difficultSelect'
+import { QuestionScene } from './scene/question'
+import { SceneManager } from './sceneManager'
+import { BlackFaceTransition } from './transition/blackFade'
 
 export class TrolleyIO extends GameIO {
 	static states = {

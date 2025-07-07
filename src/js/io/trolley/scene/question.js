@@ -1,12 +1,12 @@
 import { Container } from 'pixi.js'
-import { ioCommands, ioEvents } from '../../../enum.js'
-import { stringSplitByLength } from '../../../util/split.js'
-import { wait } from '../../../util/wait.js'
-import { HologramContainer } from '../component/hologramContainer.js'
-import { MainText } from '../component/mainText.js'
-import { QuestionFirstInfoComponent } from '../component/questionFirstInfo.js'
-import { colors, constants } from '../constants.js'
-import { TrolleyIO } from '../index.js'
+import { ioCommands, ioEvents } from '../../../enum'
+import { stringSplitByLength } from '../../../util/split'
+import { wait } from '../../../util/wait'
+import { HologramContainer } from '../component/hologramContainer'
+import { MainText } from '../component/mainText'
+import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
+import { colors, constants } from '../constants'
+import { TrolleyIO } from '../index'
 
 export class QuestionScene {
 	constructor() {

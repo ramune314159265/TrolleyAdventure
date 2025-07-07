@@ -1,5 +1,5 @@
-import { gameEvents, ioCommands } from '../../enum.js'
-import { GameIO } from '../index.js'
+import { gameEvents, ioCommands } from '../../enum'
+import { GameIO } from '../index'
 
 export class TestHtmlIO extends GameIO {
 	constructor(game) {

@@ -1,5 +1,5 @@
-import { TrolleyIO } from '../index.js'
-import { MainText } from './mainText.js'
+import { TrolleyIO } from '../index'
+import { MainText } from './mainText'
 
 export class BlinkText extends MainText {
 	constructor({ content, styleOverride }) {

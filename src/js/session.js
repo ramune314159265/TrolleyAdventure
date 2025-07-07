@@ -1,9 +1,9 @@
-import { Configs } from './configs.js'
-import { DifficultManager } from './difficultManager.js'
-import { gameEvents, ioCommands } from './enum.js'
-import { QuestionManager } from './questionsManager.js'
-import { DataLoader } from './util/dataLoader.js'
-import { EventRegister } from './util/eventRegister.js'
+import { Configs } from './configs'
+import { DifficultManager } from './difficultManager'
+import { gameEvents, ioCommands } from './enum'
+import { QuestionManager } from './questionsManager'
+import { DataLoader } from './util/dataLoader'
+import { EventRegister } from './util/eventRegister'
 
 export class Session extends EventRegister {
 	constructor({ game }) {

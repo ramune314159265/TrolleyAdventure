@@ -1,4 +1,4 @@
-import { EventRegister } from '../util/eventRegister.js'
+import { EventRegister } from '../util/eventRegister'
 
 export class GameIO extends EventRegister {
 	static instance

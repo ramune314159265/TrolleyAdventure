@@ -1,7 +1,7 @@
 import { Graphics } from 'pixi.js'
-import { easeOutQuint } from '../../../util/easing.js'
-import { constants } from '../constants.js'
-import { TrolleyIO } from '../index.js'
+import { easeOutQuint } from '../../../util/easing'
+import { constants } from '../constants'
+import { TrolleyIO } from '../index'
 
 export class BlackFaceTransition {
 	constructor(container) {

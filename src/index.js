@@ -1,4 +1,4 @@
-import { Game } from './js/index.js'
+import { Game } from './js/index'
 
 const run = () => {
 	const gameMain = new Game({})

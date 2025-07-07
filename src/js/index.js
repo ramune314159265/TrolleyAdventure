@@ -1,8 +1,8 @@
-import { JoyConIO } from './io/joycon/index.js'
-import { KeyboardIO } from './io/keyboard/index.js'
-import { TrolleyIO } from './io/trolley/index.js'
-import { Session } from './session.js'
-import { EventRegister } from './util/eventRegister.js'
+import { JoyConIO } from './io/joycon/index'
+import { KeyboardIO } from './io/keyboard/index'
+import { TrolleyIO } from './io/trolley/index'
+import { Session } from './session'
+import { EventRegister } from './util/eventRegister'
 
 export class Game extends EventRegister {
 	constructor() {

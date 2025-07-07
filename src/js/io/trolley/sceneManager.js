@@ -1,5 +1,5 @@
 import { Container } from 'pixi.js'
-import { TrolleyIO } from './index.js'
+import { TrolleyIO } from './index'
 
 export class SceneManager {
 	constructor() {

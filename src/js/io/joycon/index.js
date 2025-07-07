@@ -1,7 +1,7 @@
 import { connectJoyCon, connectedJoyCons } from 'joy-con-webhid'
-import { gameEvents, ioCommands, ioEvents } from '../../enum.js'
-import { wait } from '../../util/wait.js'
-import { GameIO } from '../index.js'
+import { gameEvents, ioCommands, ioEvents } from '../../enum'
+import { wait } from '../../util/wait'
+import { GameIO } from '../index'
 
 export class JoyConIO extends GameIO {
 	static states = {

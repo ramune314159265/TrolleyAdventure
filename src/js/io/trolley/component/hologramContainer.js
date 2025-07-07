@@ -1,7 +1,7 @@
 import { GlitchFilter, GlowFilter } from 'pixi-filters'
 import { Container, Graphics, NoiseFilter, Rectangle } from 'pixi.js'
-import { easeOutQuint } from '../../../util/easing.js'
-import { TrolleyIO } from '../index.js'
+import { easeOutQuint } from '../../../util/easing'
+import { TrolleyIO } from '../index'
 
 export class HologramContainer extends Container {
 	constructor({ maxWidth, maxHeight, color, innerContainer }) {

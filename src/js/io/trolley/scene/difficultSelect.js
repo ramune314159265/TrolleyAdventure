@@ -1,11 +1,11 @@
 import { Assets, Container, Sprite } from 'pixi.js'
-import { ioCommands } from '../../../enum.js'
-import { wait } from '../../../util/wait.js'
-import { BlinkText } from '../component/blinkText.js'
-import { HologramContainer } from '../component/hologramContainer.js'
-import { MainText } from '../component/mainText.js'
-import { colors, constants } from '../constants.js'
-import { TrolleyIO } from '../index.js'
+import { ioCommands } from '../../../enum'
+import { wait } from '../../../util/wait'
+import { BlinkText } from '../component/blinkText'
+import { HologramContainer } from '../component/hologramContainer'
+import { MainText } from '../component/mainText'
+import { colors, constants } from '../constants'
+import { TrolleyIO } from '../index'
 
 export class DifficultSelectScene {
 	constructor() {
