@@ -69,7 +69,7 @@ export class QuestionScene {
 			optionText.x = hologramWidth / 2
 			optionText.y = hologramHeight / 2
 			optionInnerContainer.addChild(optionText)
-			TrolleyIO.instance.game.onAny(eventName => {
+			const selectedEvent = TrolleyIO.instance.game.onAny(eventName => {
 				const observerEvents = [ioEvents.deselected, ioEvents.leftSelected, ioEvents.rightSelected]
 				if (!Object.values(observerEvents).includes(eventName)) {
 					return
@@ -82,6 +82,7 @@ export class QuestionScene {
 				}
 			})
 			TrolleyIO.instance.game.once(ioCommands.answerQuestion, async ({ index, isCorrect }) => {
+				TrolleyIO.instance.game.offAny(selectedEvent)
 				if (i !== index) {
 					optionHologram.hide()
 					return

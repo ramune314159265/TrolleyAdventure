@@ -16,14 +16,26 @@ export class EventRegister {
 
 	on(name, func) {
 		this.#events[name] ??= []
-		this.#events[name].push(new EventData({ func, name }))
+		const eventData = new EventData({ func, name })
+		this.#events[name].push(eventData)
+		return eventData
+	}
+	off(name, eventData) {
+		this.#events[name] = this.#events[name]?.filter(data => data !== eventData)
 	}
 	once(name, func) {
 		this.#events[name] ??= []
-		this.#events[name].push(new EventData({ func, name, once: true }))
+		const eventData = new EventData({ func, name, once: true })
+		this.#events[name].push(eventData)
+		return eventData
 	}
 	onAny(func) {
-		this.#anyEvents.push(new EventData({ func }))
+		const eventData = new EventData({ func })
+		this.#anyEvents.push(eventData)
+		return eventData
+	}
+	offAny(eventData) {
+		this.#anyEvents = this.#anyEvents.filter(data => data !== eventData)
 	}
 	emit(name, ...arg) {
 		this.#anyEvents.forEach(data => data.func(name, ...arg))
