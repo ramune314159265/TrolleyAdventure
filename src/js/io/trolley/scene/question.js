@@ -132,7 +132,7 @@ export class QuestionScene {
 					}
 				})
 				explanationText.anchor = { x: 0, y: 0 }
-				explanationText.x = 0
+				explanationText.x = 10
 				explanationText.y = 100
 				explanationInnerContainer.addChild(explanationText)
 				await explanationHologram.show()
