@@ -3,7 +3,6 @@
 		"id": 1,
 		"group": "eel",
 		"content": "ニホンウナギの主な産卵場所はどこ？",
-		"option_type": "text",
 		"options": [
 			{
 				"content": "日本海",
@@ -35,20 +34,22 @@
 		"id": 2,
 		"group": "eel",
 		"content": "ニホンウナギの寿命は平均どのぐらい？",
-		"option_type": "text",
 		"options": [
 			{
 				"content": "3年",
+				"image": "images/question/unagi_ignore.png",
 				"accuracy": 0.524,
 				"explanation": ""
 			},
 			{
 				"content": "80年",
+				"image": "images/question/unagi_ignore.png",
 				"accuracy": 0.48,
 				"explanation": ""
 			},
 			{
 				"content": "50年",
+				"image": "images/question/unagi_ignore.png",
 				"accuracy": 0.35,
 				"explanation": ""
 			}
@@ -62,7 +63,6 @@
 		"id": 3,
 		"group": "eel",
 		"content": "「ウナギ」を漢字でどう書く？",
-		"option_type": "text",
 		"options": [
 			{
 				"content": "鮭",
@@ -114,7 +114,6 @@
 		"id": 4,
 		"group": "eel",
 		"content": "ニホンウナギの体長は最大でどのぐらい？",
-		"option_type": "text",
 		"options": [
 			{
 				"content": "30cm",
@@ -146,7 +145,6 @@
 		"id": 5,
 		"group": "rocket",
 		"content": "地球の大気圏と宇宙との境目(カーマンライン)は高度何Km？",
-		"option_type": "text",
 		"options": [
 			{
 				"content": "75Km",
@@ -188,7 +186,6 @@
 		"id": 6,
 		"group": "hot_spring_algae",
 		"content": "温泉に生息する藻、ガルディエリアの性質として正しいのはどっち？",
-		"option_type": "text",
 		"options": [
 			{
 				"content": "毒を持つ",
@@ -220,7 +217,6 @@
 		"id": 7,
 		"group": "water_flea",
 		"content": "ミジンコのサイズは一般的にどのぐらい?",
-		"option_type": "text",
 		"options": [
 			{
 				"content": "50μm",
@@ -247,7 +243,6 @@
 		"id": 8,
 		"group": "water_flea",
 		"content": "ミジンコの目の数は?",
-		"option_type": "text",
 		"options": [
 			{
 				"content": "2つ",
