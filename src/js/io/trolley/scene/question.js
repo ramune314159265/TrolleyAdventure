@@ -145,6 +145,15 @@ export class QuestionScene {
 				explanationText.y = 100
 				explanationInnerContainer.addChild(explanationText)
 				await explanationHologram.show()
+				if (questionInfo.questionData.answer.explanationImage) {
+					console.log(questionInfo.questionData,questionInfo.questionData.answer.explanationImage)
+					const texture = await Assets.load(questionInfo.questionData.answer.explanationImage)
+					const image = new Sprite(texture)
+					image.setSize(hologramWidth, hologramHeight)
+					image.anchor = { x: 0.5, y: 0.5 }
+					image.x = (constants.viewWidth / 4) * -p
+					optionsContainer.addChild(image)
+				}
 				if (TrolleyIO.instance.state === TrolleyIO.states.quiz) {
 					await wait(3000)
 					await explanationHologram.hide()

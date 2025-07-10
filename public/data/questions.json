@@ -56,7 +56,9 @@
 		],
 		"answer": {
 			"content": "30年",
-			"explanation": ""
+			"image": "images/question/unagi_ignore.png",
+			"explanation": "",
+			"explanationImage": "images/question/unagi_ignore.png"
 		}
 	},
 	{
