@@ -1,7 +1,8 @@
-import { Assets, Container, Sprite } from 'pixi.js'
+import { Assets, Container } from 'pixi.js'
 import { ioCommands, ioEvents } from '../../../enum'
 import { stringSplitByLength } from '../../../util/split'
 import { wait } from '../../../util/wait'
+import { FitSprite } from '../component/fitSprite'
 import { FitText } from '../component/fitText'
 import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
@@ -70,9 +71,7 @@ export class QuestionScene {
 			optionText.y = questionInfo.questionData.options[i].image ? hologramHeight * 0.8 : hologramHeight / 2
 			if (questionInfo.questionData.options[i].image) {
 				const texture = await Assets.load(questionInfo.questionData.options[i].image)
-				const image = new Sprite(texture)
-				image.setSize(hologramWidth * 0.9, hologramHeight * 0.9)
-				image.anchor = { x: 0.5, y: 0.5 }
+				const image = new FitSprite({ texture, width: hologramWidth * 0.9, height: hologramHeight * 0.9 })
 				image.x = hologramWidth / 2
 				image.y = hologramHeight / 2
 				optionInnerContainer.addChild(image)
@@ -146,11 +145,8 @@ export class QuestionScene {
 				explanationInnerContainer.addChild(explanationText)
 				await explanationHologram.show()
 				if (questionInfo.questionData.answer.explanationImage) {
-					console.log(questionInfo.questionData,questionInfo.questionData.answer.explanationImage)
 					const texture = await Assets.load(questionInfo.questionData.answer.explanationImage)
-					const image = new Sprite(texture)
-					image.setSize(hologramWidth, hologramHeight)
-					image.anchor = { x: 0.5, y: 0.5 }
+					const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
 					image.x = (constants.viewWidth / 4) * -p
 					optionsContainer.addChild(image)
 				}
