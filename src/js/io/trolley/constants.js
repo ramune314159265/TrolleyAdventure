@@ -6,5 +6,6 @@ export const constants = {
 
 export const colors = {
 	hologramMain: '#00ffc8',
-	hologramText: '#80ffce'
+	hologramText: '#80ffce',
+	gray: '#bbbbbb'
 }

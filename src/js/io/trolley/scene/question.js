@@ -1,4 +1,4 @@
-import { Assets, Container } from 'pixi.js'
+import { Assets, Container, Graphics } from 'pixi.js'
 import { ioCommands, ioEvents } from '../../../enum'
 import { stringSplitByLength } from '../../../util/split'
 import { wait } from '../../../util/wait'
@@ -149,6 +149,21 @@ export class QuestionScene {
 					const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
 					image.x = (constants.viewWidth / 4) * -p
 					optionsContainer.addChild(image)
+				} else {
+					const backgroundGraphics = new Graphics()
+					backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
+					backgroundGraphics.x = (constants.viewWidth / 4) * -p
+					backgroundGraphics.fill({ color: colors.gray })
+					optionsContainer.addChild(backgroundGraphics)
+					const noImageText = new MainText({
+						content: 'No Image',
+						styleOverride: {
+							fontSize: 72,
+							fill: '#ffffff'
+						}
+					})
+					noImageText.x = (constants.viewWidth / 4) * -p
+					optionsContainer.addChild(noImageText)
 				}
 				if (TrolleyIO.instance.state === TrolleyIO.states.quiz) {
 					await wait(3000)
