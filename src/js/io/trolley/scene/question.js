@@ -1,6 +1,5 @@
 import { Assets, Container, Graphics } from 'pixi.js'
 import { ioCommands, ioEvents } from '../../../enum'
-import { stringSplitByLength } from '../../../util/split'
 import { wait } from '../../../util/wait'
 import { FitSprite } from '../component/fitSprite'
 import { FitText } from '../component/fitText'
@@ -132,15 +131,18 @@ export class QuestionScene {
 				explanationInnerContainer.addChild(explanationTopText)
 				const explanationText = new MainText({
 					content: [
-						...stringSplitByLength(questionInfo.questionData.answer.explanation, 12),
-						...stringSplitByLength(questionInfo.questionData.option.explanation, 12)
+						questionInfo.questionData.answer.explanation,
+						questionInfo.questionData.option.explanation
 					].join('\n'),
 					styleOverride: {
 						fontSize: 48,
+						wordWrap: true,
+						wordWrapWidth: hologramWidth,
+						breakWords: true,
 					}
 				})
-				explanationText.anchor = { x: 0, y: 0 }
-				explanationText.x = 10
+				explanationText.anchor = { x: 0.5, y: 0 }
+				explanationText.x = hologramWidth / 2
 				explanationText.y = 100
 				explanationInnerContainer.addChild(explanationText)
 				await explanationHologram.show()
