@@ -25,6 +25,7 @@ export class QuestionScene {
 		await this.questionFirstInfo.show()
 		await wait(1000)
 		await this.questionFirstInfo.hide()
+		this.container.removeChild(this.questionFirstInfo)
 		this.questionContainer = new Container()
 		this.container.addChild(this.questionContainer)
 		const topText = new FitText({
