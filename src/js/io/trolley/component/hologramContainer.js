@@ -1,4 +1,4 @@
-import { GlitchFilter, GlowFilter } from 'pixi-filters'
+import { GlitchFilter, GlowFilter, GrayscaleFilter, HslAdjustmentFilter } from 'pixi-filters'
 import { Container, Graphics, NoiseFilter, Rectangle } from 'pixi.js'
 import { easeOutQuint } from '../../../util/easing'
 import { TrolleyIO } from '../index'
@@ -10,6 +10,7 @@ export class HologramContainer extends Container {
 		this.maxWidth = maxWidth
 		this.maxHeight = maxHeight
 		this.containerWidth = 30
+		this.isActive = true
 
 		this.alpha = 0
 		innerContainer.alpha = 0
@@ -128,5 +129,27 @@ export class HologramContainer extends Container {
 			}
 			TrolleyIO.instance.app.ticker.add(handleTick)
 		})
+	}
+	activate() {
+		if (this.isActive) {
+			return
+		}
+		const filters = [...this.filters]
+		filters.pop()
+		filters.pop()
+		this.filters = filters
+		this.isActive = true
+	}
+	deactivate() {
+		if (!this.isActive) {
+			return
+		}
+		const filters = [...this.filters]
+		filters.push(new GrayscaleFilter())
+		const hslFilter = new HslAdjustmentFilter()
+		hslFilter.lightness = -0.4
+		filters.push(hslFilter)
+		this.filters = filters
+		this.isActive = false
 	}
 }

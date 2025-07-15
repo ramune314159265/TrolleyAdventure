@@ -90,10 +90,16 @@ export class QuestionScene {
 					return
 				}
 				const targetEvent = i === 0 ? ioEvents.leftSelected : ioEvents.rightSelected
-				if (eventName == targetEvent) {
-					optionHologram.scale = { x: 1.05, y: 1.05 }
+				if (eventName === targetEvent) {
+					optionHologram.scale = { x: 1.1, y: 1.1 }
 				} else {
 					optionHologram.scale = { x: 1, y: 1 }
+				}
+
+				if (eventName === targetEvent || eventName === ioEvents.deselected) {
+					optionHologram.activate()
+				} else {
+					optionHologram.deactivate()
 				}
 			})
 			TrolleyIO.instance.game.once(ioCommands.answerQuestion, async ({ index, isCorrect }) => {
