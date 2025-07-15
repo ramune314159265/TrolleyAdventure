@@ -15,8 +15,7 @@ export const assetManifest = {
 					src: './fonts/main.otf',
 				},
 			]
-		},
-		{
+		}, {
 			name: 'difficult_select',
 			assets: [
 				{
@@ -25,6 +24,14 @@ export const assetManifest = {
 				}, {
 					alias: 'map',
 					src: './images/856371_ignore.png',
+				},
+			]
+		}, {
+			name: 'question',
+			assets: [
+				{
+					alias: 'stars',
+					src: './videos/stars.webm',
 				},
 			]
 		},

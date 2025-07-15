@@ -1,4 +1,4 @@
-import { Assets, Container, Graphics } from 'pixi.js'
+import { Assets, Container, Graphics, Sprite } from 'pixi.js'
 import { ioCommands, ioEvents } from '../../../enum'
 import { wait } from '../../../util/wait'
 import { FitSprite } from '../component/fitSprite'
@@ -14,6 +14,13 @@ export class QuestionScene {
 		this.container = new Container()
 	}
 	async init() {
+		await Assets.loadBundle('question')
+		const stars = await Assets.load('stars')
+		const starsBackground = new Sprite(stars)
+		starsBackground.texture.source.resource.loop = true
+		starsBackground.width = constants.viewWidth
+		starsBackground.height = constants.viewHeight
+		this.container.addChild(starsBackground)
 	}
 	async enter() {
 		this.nextQuestion()
