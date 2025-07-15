@@ -23,22 +23,22 @@ export class DifficultSelectScene {
 		this.topText = new BlinkText({
 			content: '難易度を選んでください',
 			styleOverride: {
-				fontSize: 72
+				fontSize: 108
 			}
 		})
 		this.topText.x = constants.viewWidth / 2
-		this.topText.y = 72
+		this.topText.y = 108
 		this.container.addChild(this.topText)
 
 		const difficultiesContainer = new Container()
 		difficultiesContainer.x = constants.viewWidth / 2
-		difficultiesContainer.y = 425
+		difficultiesContainer.y = 625
 		const difficultPositions = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
 		difficultPositions.forEach((p, i) => {
 			const difficultData = Object.values(TrolleyIO.instance.gameInfo.difficultList)[i]
 			const innerContainer = new Container()
-			const hologramWidth = 550
-			const hologramHeight = 270
+			const hologramWidth = 750
+			const hologramHeight = 400
 			const hologram = new HologramContainer({
 				maxWidth: hologramWidth,
 				maxHeight: hologramHeight,
@@ -46,14 +46,14 @@ export class DifficultSelectScene {
 				innerContainer,
 			})
 			hologram.x = (constants.viewWidth / 4) * p[0]
-			hologram.y = 150 * p[1]
+			hologram.y = 225 * p[1]
 			difficultiesContainer.addChild(hologram)
 			hologram.show()
 			const difficultName = new MainText({
 				content: difficultData.name,
 				styleOverride: {
 					fill: difficultData.text_color ?? colors.hologramText,
-					fontSize: 72,
+					fontSize: 108,
 				}
 			})
 			difficultName.anchor.y = 0
@@ -64,13 +64,13 @@ export class DifficultSelectScene {
 				content: difficultData.description,
 				styleOverride: {
 					fill: difficultData.text_color ?? colors.hologramText,
-					fontSize: 48,
-					lineHeight: 64
+					fontSize: 72,
+					lineHeight: 80
 				}
 			})
 			difficultDescription.anchor.y = 0
 			difficultDescription.x = hologramWidth / 2
-			difficultDescription.y = 75
+			difficultDescription.y = 125
 			innerContainer.addChild(difficultDescription)
 			TrolleyIO.instance.game.once(ioCommands.gameStart, ({ difficultId }) => {
 				if (difficultData.id !== difficultId) {

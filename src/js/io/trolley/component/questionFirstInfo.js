@@ -12,8 +12,8 @@ export class QuestionFirstInfoComponent extends Container {
 	}
 	init() {
 		this.innerContainer = new Container()
-		const hologramWidth = 400
-		const hologramHeight = 175
+		const hologramWidth = 600
+		const hologramHeight = 300
 		this.hologram = new HologramContainer({
 			maxWidth: hologramWidth,
 			maxHeight: hologramHeight,
@@ -27,21 +27,21 @@ export class QuestionFirstInfoComponent extends Container {
 			content: `第${this.questionNo}問`,
 			styleOverride: {
 				fill: colors.hologramText,
-				fontSize: 96,
+				fontSize: 144,
 			}
 		})
 		this.questionNoText.x = hologramWidth / 2
-		this.questionNoText.y = 60
+		this.questionNoText.y = 90
 		this.innerContainer.addChild(this.questionNoText)
 		this.levelText = new MainText({
 			content: `Level ${this.level}`,
 			styleOverride: {
 				fill: colors.hologramText,
-				fontSize: 52,
+				fontSize: 80,
 			}
 		})
 		this.levelText.x = hologramWidth / 2
-		this.levelText.y = 140
+		this.levelText.y = 210
 		this.innerContainer.addChild(this.levelText)
 	}
 	async show() {

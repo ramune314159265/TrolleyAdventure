@@ -40,21 +40,21 @@ export class QuestionScene {
 			styleOverride: {},
 			width: constants.viewWidth * 0.9,
 			height: 125,
-			maxFontSize: 72,
-			minFontSize: 16
+			maxFontSize: 120,
+			minFontSize: 32
 		})
 		topText.x = constants.viewWidth / 2
-		topText.y = 125
+		topText.y = 200
 		this.questionContainer.addChild(topText)
 		const optionsContainer = new Container()
 		optionsContainer.x = constants.viewWidth / 2
-		optionsContainer.y = 400
+		optionsContainer.y = 600
 		const optionPositions = [-1, 1]
 		optionPositions.forEach(async (p, i) => {
 			await wait(200 * i)
 			const optionInnerContainer = new Container()
-			const hologramWidth = 500
-			const hologramHeight = 425
+			const hologramWidth = 750
+			const hologramHeight = 650
 			const optionHologram = new HologramContainer({
 				maxWidth: hologramWidth,
 				maxHeight: hologramHeight,
@@ -70,9 +70,9 @@ export class QuestionScene {
 					fill: colors.hologramText,
 				},
 				width: hologramWidth * 0.9,
-				height: 150,
-				maxFontSize: 144,
-				minFontSize: 16
+				height: 225,
+				maxFontSize: 216,
+				minFontSize: 32
 			})
 			optionText.x = hologramWidth / 2
 			optionText.y = questionInfo.questionData.options[i].image ? hologramHeight * 0.8 : hologramHeight / 2
@@ -111,7 +111,7 @@ export class QuestionScene {
 						(isCorrect ? '正解' : '不正解') :
 						(TrolleyIO.instance.state === TrolleyIO.states.gameClear) ? 'Game Clear' : 'Game Over',
 					styleOverride: {
-						fontSize: 72,
+						fontSize: 108,
 					}
 				})
 				isCorrectText.x = constants.viewWidth / 2
@@ -131,11 +131,11 @@ export class QuestionScene {
 				const explanationTopText = new MainText({
 					content: '解説',
 					styleOverride: {
-						fontSize: 72,
+						fontSize: 108,
 					}
 				})
 				explanationTopText.x = hologramWidth / 2
-				explanationTopText.y = 50
+				explanationTopText.y = 75
 				explanationInnerContainer.addChild(explanationTopText)
 				const explanationText = new MainText({
 					content: [
@@ -143,7 +143,7 @@ export class QuestionScene {
 						questionInfo.questionData.option.explanation
 					].join('\n'),
 					styleOverride: {
-						fontSize: 48,
+						fontSize: 72,
 						wordWrap: true,
 						wordWrapWidth: hologramWidth,
 						breakWords: true,
@@ -151,7 +151,7 @@ export class QuestionScene {
 				})
 				explanationText.anchor = { x: 0.5, y: 0 }
 				explanationText.x = hologramWidth / 2
-				explanationText.y = 100
+				explanationText.y = 75
 				explanationInnerContainer.addChild(explanationText)
 				await explanationHologram.show()
 				if (questionInfo.questionData.answer.explanationImage) {
@@ -168,7 +168,7 @@ export class QuestionScene {
 					const noImageText = new MainText({
 						content: 'No Image',
 						styleOverride: {
-							fontSize: 72,
+							fontSize: 108,
 							fill: '#ffffff'
 						}
 					})

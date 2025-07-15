@@ -9,13 +9,13 @@ export class HologramContainer extends Container {
 		this.innerContainer = innerContainer
 		this.maxWidth = maxWidth
 		this.maxHeight = maxHeight
-		this.containerWidth = 20
+		this.containerWidth = 30
 
 		this.alpha = 0
 		innerContainer.alpha = 0
 
-		const lineGap = 25
-		const lineDistance = 20
+		const lineGap = 35
+		const lineDistance = 30
 
 		const grid = new Graphics()
 		this.addChild(grid)
@@ -39,7 +39,7 @@ export class HologramContainer extends Container {
 				grid.moveTo(lineGap, Math.min(i + lineOffset, maxHeight)).lineTo(this.containerWidth - lineGap, Math.min(i + lineOffset, maxHeight))
 			}
 			grid.stroke({
-				width: 3,
+				width: 4,
 				color
 			})
 			if (Math.random() < 0.2) {
@@ -58,7 +58,7 @@ export class HologramContainer extends Container {
 			})]
 			flame.roundRect(0, 0, this.containerWidth, maxHeight, 24)
 			flame.stroke({
-				width: 2,
+				width: 3,
 				color: `${color}bb`
 			})
 			flame.fill({
@@ -67,7 +67,7 @@ export class HologramContainer extends Container {
 			flame.moveTo(-lineDistance, -5).lineTo(-lineDistance, maxHeight + 5)
 			flame.moveTo(this.containerWidth + lineDistance, -5).lineTo(this.containerWidth + lineDistance, maxHeight + 5)
 			flame.stroke({
-				width: 1,
+				width: 2,
 				color: color
 			})
 			this.pivot.x = this.containerWidth / 2
@@ -76,7 +76,7 @@ export class HologramContainer extends Container {
 
 		this.filters = [
 			glitch,
-			new NoiseFilter({ noise: 0.4 }),
+			new NoiseFilter({ noise: 0.5 }),
 		]
 		this.filterArea = new Rectangle(-lineDistance - 10, -lineDistance - 10, maxWidth + lineDistance * 2 + 50, maxHeight + 5 + 50)
 		this.addChild(innerContainer)

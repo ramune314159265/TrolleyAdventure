@@ -1,6 +1,6 @@
 export const constants = {
-	viewWidth: 1280,
-	viewHeight: 720,
+	viewWidth: 1920,
+	viewHeight: 1080,
 	viewAspectRatio: 16 / 9
 }
 
