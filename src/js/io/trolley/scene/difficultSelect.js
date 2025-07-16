@@ -32,6 +32,7 @@ export class DifficultSelectScene {
 		})
 		topHologram.x = constants.viewWidth / 2
 		topHologram.y = 108
+		topHologram.show()
 		this.topText = new BlinkText({
 			content: '難易度を選んでください',
 			styleOverride: {
