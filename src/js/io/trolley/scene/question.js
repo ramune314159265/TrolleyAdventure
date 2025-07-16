@@ -169,7 +169,7 @@ export class QuestionScene {
 					const backgroundGraphics = new Graphics()
 					backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
 					backgroundGraphics.x = (constants.viewWidth / 4) * -p
-					backgroundGraphics.fill({ color: colors.gray })
+					backgroundGraphics.fill({ color: `${colors.gray}a0` })
 					optionsContainer.addChild(backgroundGraphics)
 					const noImageText = new MainText({
 						content: 'No Image',
