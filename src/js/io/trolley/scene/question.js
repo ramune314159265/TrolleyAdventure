@@ -147,7 +147,7 @@ export class QuestionScene {
 					content: [
 						questionInfo.questionData.answer.explanation,
 						questionInfo.questionData.option.explanation
-					].join('\n'),
+					].filter(c => c).join('\n'),
 					styleOverride: {
 						fontSize: 72,
 						wordWrap: true,
@@ -157,7 +157,7 @@ export class QuestionScene {
 				})
 				explanationText.anchor = { x: 0.5, y: 0 }
 				explanationText.x = hologramWidth / 2
-				explanationText.y = 75
+				explanationText.y = 125
 				explanationInnerContainer.addChild(explanationText)
 				await explanationHologram.show()
 				if (questionInfo.questionData.answer.explanationImage) {
