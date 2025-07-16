@@ -2,6 +2,7 @@ import { Assets, Container, Sprite } from 'pixi.js'
 import { ioCommands } from '../../../enum'
 import { wait } from '../../../util/wait'
 import { BlinkText } from '../component/blinkText'
+import { FilledHologramContainer } from '../component/filledHologramContainer'
 import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
 import { colors, constants } from '../constants'
@@ -20,15 +21,27 @@ export class DifficultSelectScene {
 		background.height = constants.viewHeight
 		this.container.addChild(background)
 
+		const topHologramInnerContainer = new Container()
+		const topHologramWidth = constants.viewWidth * 0.7
+		const topHologramHeight = 125
+		const topHologram = new FilledHologramContainer({
+			maxWidth: topHologramWidth,
+			maxHeight: topHologramHeight,
+			color: colors.hologramMain,
+			innerContainer: topHologramInnerContainer
+		})
+		topHologram.x = constants.viewWidth / 2
+		topHologram.y = 108
 		this.topText = new BlinkText({
 			content: '難易度を選んでください',
 			styleOverride: {
 				fontSize: 108
 			}
 		})
-		this.topText.x = constants.viewWidth / 2
-		this.topText.y = 108
-		this.container.addChild(this.topText)
+		this.topText.x = topHologramWidth / 2
+		this.topText.y = topHologramHeight / 2
+		topHologramInnerContainer.addChild(this.topText)
+		this.container.addChild(topHologram)
 
 		const difficultiesContainer = new Container()
 		difficultiesContainer.x = constants.viewWidth / 2
