@@ -1,4 +1,4 @@
-import { gameEvents, ioCommands } from '../../enum'
+import { gameEvents, ioCommands, ioEvents } from '../../enum'
 import { GameIO } from '../index'
 
 export class KeyboardIO extends GameIO {
@@ -30,6 +30,8 @@ export class KeyboardIO extends GameIO {
 	}
 	keyPressHandle(key) {
 		console.log(key)
+		const keyMap = { a: ioEvents.leftSelected, s: ioEvents.rightSelected, d: ioEvents.deselected }
+		Object.keys(keyMap).includes(key) ? this.game.emit(keyMap[key]) : ''
 		switch (this.state) {
 			case KeyboardIO.states.difficultSelect: {
 				const number = parseInt(key)
