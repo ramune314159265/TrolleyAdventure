@@ -1,13 +1,13 @@
 import { Graphics } from 'pixi.js'
 import { easeOutQuint } from '../../../util/easing'
+import { animateSimple } from '../animation'
 import { constants } from '../constants'
-import { TrolleyIO } from '../index'
 
 export class BlackFaceTransition {
 	constructor(container) {
 		this.container = container
 	}
-	start() {
+	async start() {
 		this.graphics = new Graphics()
 		this.graphics.rect(0, 0, constants.viewWidth, constants.viewHeight)
 		this.graphics.fill({
@@ -15,34 +15,13 @@ export class BlackFaceTransition {
 		})
 		this.graphics.alpha = 0
 		this.container.addChild(this.graphics)
-		const animationTick = 40
-		return new Promise(resolve => {
-			let tick = 0
-			const handleTick = () => {
-				if (animationTick < tick) {
-					TrolleyIO.instance.app.ticker.remove(handleTick)
-					resolve()
-				}
-				this.graphics.alpha = easeOutQuint(tick / animationTick)
-				tick++
-			}
-			TrolleyIO.instance.app.ticker.add(handleTick)
-		})
+		await animateSimple(rate => {
+			this.graphics.alpha = rate
+		}, { easing: easeOutQuint, duration: 1000 })
 	}
 	async end() {
-		const animationTick = 40
-		return new Promise(resolve => {
-			let tick = 0
-			const handleTick = () => {
-				if (animationTick < tick) {
-					TrolleyIO.instance.app.ticker.remove(handleTick)
-					this.container.removeChild(this.graphics)
-					resolve()
-				}
-				this.graphics.alpha = 1 - easeOutQuint(tick / animationTick)
-				tick++
-			}
-			TrolleyIO.instance.app.ticker.add(handleTick)
-		})
+		await animateSimple(rate => {
+			this.graphics.alpha = 1 - rate
+		}, { easing: easeOutQuint, duration: 1000 })
 	}
 }

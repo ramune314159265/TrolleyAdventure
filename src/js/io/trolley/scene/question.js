@@ -1,6 +1,8 @@
 import { Assets, Container, Graphics, Sprite } from 'pixi.js'
 import { ioCommands, ioEvents } from '../../../enum'
+import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
+import { animateSimple } from '../animation'
 import { FitSprite } from '../component/fitSprite'
 import { FitText } from '../component/fitText'
 import { HologramContainer } from '../component/hologramContainer'
@@ -91,9 +93,13 @@ export class QuestionScene {
 				}
 				const targetEvent = i === 0 ? ioEvents.leftSelected : ioEvents.rightSelected
 				if (eventName === targetEvent) {
-					optionHologram.scale = { x: 1.1, y: 1.1 }
+					optionHologram.scale.x < 1.1 ? animateSimple(rate => {
+						optionHologram.scale = { x: 1 + (0.1 * rate), y: 1 + (0.1 * rate) }
+					}, { easing: easeOutQuint, duration: 500 }) : ''
 				} else {
-					optionHologram.scale = { x: 1, y: 1 }
+					1 < optionHologram.scale.x ? animateSimple(rate => {
+						optionHologram.scale = { x: 1.1 - (0.1 * rate), y: 1.1 - (0.1 * rate) }
+					}, { easing: easeOutQuint, duration: 500 }) : ''
 				}
 
 				if (eventName === targetEvent || eventName === ioEvents.deselected) {
