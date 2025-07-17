@@ -47,8 +47,8 @@ export class KeyboardIO extends GameIO {
 			}
 			case KeyboardIO.states.questionAnswer: {
 				const questionData = this.questionData
-				this.questionData = null
 				if (!questionData) {
+					console.log(questionData)
 					break
 				}
 				const number = parseInt(key)
@@ -58,6 +58,7 @@ export class KeyboardIO extends GameIO {
 				if (!(0 < number && number <= questionData.options.length)) {
 					break
 				}
+				this.questionData = null
 				this.game.emit(ioCommands.answerQuestion, { isCorrect: questionData.options[number - 1].isCorrect, index: number - 1 })
 			}
 		}
