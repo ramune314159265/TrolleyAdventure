@@ -135,9 +135,9 @@ export class QuestionScene {
 				await animateSimple(rate => {
 					optionHologram.x = (1 - rate) * (constants.viewWidth / 4) * p
 				}, { easing: easeOutQuint, duration: 1000 })
-				await topHologram.hide()
-				this.container.removeChild(topHologram)
+				topHologram.hide()
 				await optionHologram.hide()
+				this.container.removeChild(topHologram)
 				await wait(1000)
 				const isCorrectText = new MainText({
 					content: TrolleyIO.instance.state === TrolleyIO.states.quiz ?
