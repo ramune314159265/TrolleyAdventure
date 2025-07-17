@@ -6,11 +6,11 @@ export const animateSimple = (callback, { easing, duration }) => {
 		const handle = () => {
 			const elapsed = performance.now() - startMs
 			const rate = elapsed / duration
+			callback(easing(Math.min(1, rate)))
 			if (1 < rate) {
 				TrolleyIO.instance.app.ticker.remove(handle)
 				resolve()
 			}
-			callback(easing(rate))
 		}
 		TrolleyIO.instance.app.ticker.add(handle)
 	})
