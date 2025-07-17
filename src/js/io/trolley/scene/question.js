@@ -3,6 +3,7 @@ import { ioCommands, ioEvents } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
+import { FilledHologramContainer } from '../component/filledHologramContainer'
 import { FitSprite } from '../component/fitSprite'
 import { FitText } from '../component/fitText'
 import { HologramContainer } from '../component/hologramContainer'
@@ -31,23 +32,42 @@ export class QuestionScene {
 		const questionInfo = TrolleyIO.instance.questionInfo
 		this.questionFirstInfo = new QuestionFirstInfoComponent({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level })
 		this.container.addChild(this.questionFirstInfo)
+
 		await this.questionFirstInfo.show()
-		await wait(1000)
-		await this.questionFirstInfo.hide()
-		this.container.removeChild(this.questionFirstInfo)
-		this.questionContainer = new Container()
-		this.container.addChild(this.questionContainer)
+		const topHologramInnerContainer = new Container()
+		const topHologramWidth = constants.viewWidth * 0.9
+		const topHologramHeight = 125
+		const topHologram = new FilledHologramContainer({
+			maxWidth: topHologramWidth,
+			maxHeight: topHologramHeight,
+			color: colors.hologramMain,
+			innerContainer: topHologramInnerContainer
+		})
+		topHologram.x = constants.viewWidth / 2
+		topHologram.y = constants.viewHeight / 2
 		const topText = new FitText({
 			content: questionInfo.questionData.content,
 			styleOverride: {},
-			width: constants.viewWidth * 0.9,
-			height: 125,
+			width: topHologramWidth,
+			height: topHologramHeight,
 			maxFontSize: 120,
 			minFontSize: 32
 		})
-		topText.x = constants.viewWidth / 2
-		topText.y = 200
-		this.questionContainer.addChild(topText)
+		topText.x = topHologramWidth / 2
+		topText.y = topHologramHeight / 2
+		topHologramInnerContainer.addChild(topText)
+		this.container.addChild(topHologram)
+		await topHologram.show()
+		await wait(1000)
+		this.questionFirstInfo.hide()
+		this.container.removeChild(this.questionFirstInfo)
+		animateSimple(rate => {
+			topHologram.y = 180 - (rate - 1) * ((constants.viewHeight / 2) - 180)
+		}, { easing: easeOutQuint, duration: 1000 })
+		await wait(350)
+
+		this.questionContainer = new Container()
+		this.container.addChild(this.questionContainer)
 		const optionsContainer = new Container()
 		optionsContainer.x = constants.viewWidth / 2
 		optionsContainer.y = 600
@@ -114,8 +134,12 @@ export class QuestionScene {
 					optionHologram.hide()
 					return
 				}
-				await wait(3000)
-				this.questionContainer.removeChild(topText)
+				await wait(1000)
+				await animateSimple(rate => {
+					optionHologram.x = (1 - rate) * (constants.viewWidth / 4) * p
+				}, { easing: easeOutQuint, duration: 1000 })
+				await topHologram.hide()
+				this.container.removeChild(topHologram)
 				await optionHologram.hide()
 				await wait(1000)
 				const isCorrectText = new MainText({

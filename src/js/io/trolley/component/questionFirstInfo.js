@@ -13,7 +13,7 @@ export class QuestionFirstInfoComponent extends Container {
 	init() {
 		this.innerContainer = new Container()
 		const hologramWidth = 600
-		const hologramHeight = 300
+		const hologramHeight = 250
 		this.hologram = new HologramContainer({
 			maxWidth: hologramWidth,
 			maxHeight: hologramHeight,
@@ -21,7 +21,7 @@ export class QuestionFirstInfoComponent extends Container {
 			color: colors.hologramMain
 		})
 		this.hologram.x = constants.viewWidth / 2
-		this.hologram.y = constants.viewHeight / 2
+		this.hologram.y = constants.viewHeight / 2 * 0.6
 		this.addChild(this.hologram)
 		this.questionNoText = new MainText({
 			content: `第${this.questionNo}問`,
