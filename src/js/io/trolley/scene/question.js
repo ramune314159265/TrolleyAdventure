@@ -88,9 +88,6 @@ export class QuestionScene {
 			optionHologram.show()
 			const optionText = new FitText({
 				content: questionInfo.questionData.options[i].content,
-				styleOverride: {
-					fill: colors.hologramText,
-				},
 				width: hologramWidth * 0.9,
 				height: 225,
 				maxFontSize: 216,
