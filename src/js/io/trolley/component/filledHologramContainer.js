@@ -8,6 +8,7 @@ export class FilledHologramContainer extends Container {
 	constructor({ maxWidth, maxHeight, color, innerContainer }) {
 		super()
 		this.maxWidth = maxWidth
+		this.maxHeight = maxHeight
 		this.containerWidth = Math.min(maxHeight * Math.sin(constants.uiRadian), maxWidth)
 		this.innerContainer = innerContainer
 		innerContainer.alpha = 0
@@ -62,7 +63,7 @@ export class FilledHologramContainer extends Container {
 			let tick = 0
 			const handleTick = () => {
 				if (0 <= tick && tick <= animationTick) {
-					this.containerWidth = easeOutQuint(tick / animationTick) * this.maxWidth
+					this.containerWidth = Math.max(easeOutQuint(tick / animationTick) * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
 				}
 				if (30 <= tick && tick <= animationTick + 30) {
 					this.innerContainer.alpha = easeOutQuint((tick - 30) / animationTick)
@@ -85,7 +86,7 @@ export class FilledHologramContainer extends Container {
 					this.innerContainer.alpha = 1 - easeOutQuint(tick / animationTick)
 				}
 				if (animationTick <= tick && tick <= animationTick + animationTick) {
-					this.containerWidth = (1 - easeOutQuint((tick - animationTick) / animationTick)) * this.maxWidth
+					this.containerWidth = Math.max((1 - easeOutQuint((tick - animationTick) / animationTick)) * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
 				}
 				if (animationTick + animationTick < tick) {
 					TrolleyIO.instance.app.ticker.remove(handleTick)
