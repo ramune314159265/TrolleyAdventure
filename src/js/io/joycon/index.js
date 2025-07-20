@@ -40,18 +40,22 @@ export class JoyConIO extends GameIO {
 			this.state = JoyConIO.states.ignore
 		})
 
-		document.addEventListener('click', async e => {
-			if (!e.ctrlKey) {
-				return
-			}
-			await connectJoyCon()
+		const start = () => {
 			for (const joyCon of connectedJoyCons.values()) {
 				if (joyCon.eventListenerAttached) {
 					continue
 				}
 				this.joyConHandle(joyCon)
 			}
+		}
+		document.addEventListener('click', async e => {
+			if (!e.ctrlKey) {
+				return
+			}
+			await connectJoyCon()
+			start()
 		})
+		start()
 	}
 	async joyConHandle(joyCon) {
 		joyCon.eventListenerAttached = true
