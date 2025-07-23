@@ -57,7 +57,8 @@ export class JoyConIO extends GameIO {
 		joyCon.eventListenerAttached = true
 		await joyCon.open()
 		await joyCon.enableStandardFullMode()
-		await wait(50) // 一定期間待たないとaccelerometerを取得できない
+		await wait(100) // 一定期間待たないとaccelerometerを取得できない
+		await joyCon.setLED(0)
 		await joyCon.enableIMUMode()
 		console.log(joyCon)
 
