@@ -67,7 +67,7 @@ export class JoyConIO extends GameIO {
 		joyCon.addEventListener('hidinput', ({ detail }) => {
 			if (detail.accelerometers) {
 				this.recentAccelerometers.push(detail.accelerometers[0].y.acc)
-				if (30 < this.recentAccelerometers.length) {
+				if (10 < this.recentAccelerometers.length) {
 					this.recentAccelerometers.shift()
 				}
 			}
