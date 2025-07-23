@@ -7,6 +7,7 @@ export class CountdownText extends MainText {
 		this.additionalScale = additionalScale
 		this.visible = false
 		this.ticker = () => { }
+		this.onEnded = () => { }
 	}
 	start({ periodMs }) {
 		const endsMs = performance.now() + periodMs
@@ -15,6 +16,7 @@ export class CountdownText extends MainText {
 			const remain = endsMs - performance.now()
 			if (remain < 0) {
 				this.visible = false
+				this.onEnded()
 				TrolleyIO.instance.app.ticker.remove(this.ticker)
 				return
 			}
