@@ -10,6 +10,7 @@ import { FitText } from '../component/fitText'
 import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
 import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
+import { QuestionOverlay } from '../component/questionOverlay'
 import { colors, constants } from '../constants'
 import { TrolleyIO } from '../index'
 
@@ -25,6 +26,8 @@ export class QuestionScene {
 		starsBackground.width = constants.viewWidth
 		starsBackground.height = constants.viewHeight
 		this.container.addChild(starsBackground)
+		this.questionOverlay = new QuestionOverlay()
+		this.container.addChild(this.questionOverlay)
 	}
 	async enter() {
 		this.nextQuestion()
@@ -33,6 +36,7 @@ export class QuestionScene {
 		const questionInfo = TrolleyIO.instance.questionInfo
 		this.questionFirstInfo = new QuestionFirstInfoComponent({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level })
 		this.container.addChild(this.questionFirstInfo)
+		this.questionOverlay.changeInfo({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level })
 
 		await this.questionFirstInfo.show()
 		const topHologramInnerContainer = new Container()
