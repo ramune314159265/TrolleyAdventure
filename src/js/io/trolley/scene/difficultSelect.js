@@ -1,6 +1,9 @@
 import { Assets, Container, Sprite } from 'pixi.js'
-import { ioCommands } from '../../../enum'
+import { ioCommands, ioEvents } from '../../../enum'
+import { easeOutQuint } from '../../../util/easing'
+import { mod } from '../../../util/mod'
 import { wait } from '../../../util/wait'
+import { animateSimple } from '../animation'
 import { BlinkText } from '../component/blinkText'
 import { FilledHologramContainer } from '../component/filledHologramContainer'
 import { HologramContainer } from '../component/hologramContainer'
@@ -44,30 +47,31 @@ export class DifficultSelectScene {
 		topHologramInnerContainer.addChild(this.topText)
 		this.container.addChild(topHologram)
 
+		let selectedIndex = 0
+		const hologramWidth = constants.viewWidth * 0.7
+		const hologramHeight = constants.viewHeight - 350
+		const gap = 200
 		const difficultiesContainer = new Container()
 		difficultiesContainer.x = constants.viewWidth / 2
 		difficultiesContainer.y = 625
-		const difficultPositions = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
-		difficultPositions.forEach((p, i) => {
-			const difficultData = Object.values(TrolleyIO.instance.gameInfo.difficultList)[i]
+		const difficultPositions = Object.values(TrolleyIO.instance.gameInfo.difficultList)
+		const difficultHolograms = difficultPositions.map((data, index) => {
 			const innerContainer = new Container()
-			const hologramWidth = 750
-			const hologramHeight = 400
 			const hologram = new HologramContainer({
 				maxWidth: hologramWidth,
 				maxHeight: hologramHeight,
-				color: difficultData.hologram_color ?? colors.hologramMain,
+				color: data.hologram_color ?? colors.hologramMain,
 				innerContainer,
 			})
-			hologram.x = (constants.viewWidth / 4) * p[0]
-			hologram.y = 225 * p[1]
+			hologram.x = (hologramWidth + gap) * index
+			hologram.y = 0
 			difficultiesContainer.addChild(hologram)
 			hologram.show()
 			const difficultName = new MainText({
-				content: difficultData.name,
+				content: data.name,
 				styleOverride: {
-					fill: difficultData.text_color ?? colors.hologramText,
-					fontSize: 108,
+					fill: data.text_color ?? colors.hologramText,
+					fontSize: 160,
 				}
 			})
 			difficultName.anchor.y = 0
@@ -75,24 +79,46 @@ export class DifficultSelectScene {
 			difficultName.y = 10
 			innerContainer.addChild(difficultName)
 			const difficultDescription = new MainText({
-				content: difficultData.description,
+				content: data.description,
 				styleOverride: {
-					fill: difficultData.text_color ?? colors.hologramText,
+					fill: data.text_color ?? colors.hologramText,
 					fontSize: 72,
 					lineHeight: 80
 				}
 			})
 			difficultDescription.anchor.y = 0
 			difficultDescription.x = hologramWidth / 2
-			difficultDescription.y = 125
+			difficultDescription.y = 175
 			innerContainer.addChild(difficultDescription)
 			TrolleyIO.instance.game.once(ioCommands.gameStart, ({ difficultId }) => {
-				if (difficultData.id !== difficultId) {
+				if (data.id !== difficultId) {
 					hologram.hide()
 					return
 				}
 			})
+			return hologram
 		})
+		const move = offset => {
+			if (selectedIndex + offset < 0 || difficultHolograms.length <= selectedIndex + offset) {
+				return
+			}
+			const previousIndex = selectedIndex
+			selectedIndex += offset
+			difficultHolograms[previousIndex]?.scale?.set?.(1)
+			console.log(mod(selectedIndex, 4))
+			animateSimple(rate => {
+				difficultHolograms.forEach((hologram, index) => {
+					hologram.visible = Math.abs(index - mod(selectedIndex, difficultHolograms.length)) <= 1
+					const from = (hologramWidth + gap) * ((-previousIndex + index))
+					const to = (hologramWidth + gap) * ((-selectedIndex + index))
+					hologram.x = from + (to - from) * rate
+				})
+				difficultHolograms[selectedIndex]?.scale?.set?.(1 + 0.1 * rate)
+			}, { easing: easeOutQuint, duration: 500 })
+		}
+		console.log(move)
+		TrolleyIO.instance.game.on(ioEvents.leftSelected, () => move(-1))
+		TrolleyIO.instance.game.on(ioEvents.rightSelected, () => move(1))
 
 		this.container.addChild(difficultiesContainer)
 	}

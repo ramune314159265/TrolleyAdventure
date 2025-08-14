@@ -2,7 +2,7 @@
 	{
 		"id": "easy",
 		"name": "イージー",
-		"description": "易しめ、問題数少なめ\nのモードです",
+		"description": "易しめ、問題数少なめのモードです",
 		"question_levels": [
 			1,
 			1,
@@ -54,7 +54,7 @@
 	{
 		"id": "extreme",
 		"name": "エクストリーム",
-		"description": "ハイレベル問題×ライフ１つ\nの超難易度！",
+		"description": "ハイレベル問題×ライフ１つの超難易度！",
 		"text_color": "#ffbff9",
 		"hologram_color" : "#d67ecd",
 		"question_levels": [
