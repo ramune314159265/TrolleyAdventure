@@ -20,10 +20,14 @@ export class TrolleyIO extends GameIO {
 		super(game)
 		TrolleyIO.instance = this
 		this.gameInfo = null
+		this.difficultData
 		this.questionInfo = null
 		this.state = null
 		game.onAny(console.log)
-		game.once(gameEvents.gameStarted, () => this.gameStart())
+		game.once(gameEvents.gameStarted, ({ difficultData }) => {
+			this.difficultData = difficultData
+			this.gameStart()
+		})
 		game.on(gameEvents.nextQuestionStarted, data => {
 			this.questionInfo = data
 		})
@@ -33,7 +37,7 @@ export class TrolleyIO extends GameIO {
 		game.on(gameEvents.gameOvered, () => {
 			this.state = TrolleyIO.states.gameOver
 		})
-		game.once(gameEvents.sessionLoaded,async data => {
+		game.once(gameEvents.sessionLoaded, async data => {
 			this.gameInfo = data
 			await this.init()
 			this.difficultSelect()

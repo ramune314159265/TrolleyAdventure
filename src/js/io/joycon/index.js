@@ -4,6 +4,7 @@ import { wait } from '../../util/wait'
 import { GameIO } from '../index'
 
 export class JoyConIO extends GameIO {
+	static selectThreshold = 0.1
 	static states = {
 		difficultSelect: Symbol(),
 		questionAnswer: Symbol(),
@@ -25,6 +26,7 @@ export class JoyConIO extends GameIO {
 			yAndLeft: false
 		}
 		this.direction = JoyConIO.directions.horizontal
+		this.recentAccelerometers = []
 		game.once(gameEvents.sessionLoaded, data => {
 			this.difficultList = data.difficultList
 			this.state = JoyConIO.states.difficultSelect
@@ -61,11 +63,18 @@ export class JoyConIO extends GameIO {
 		joyCon.eventListenerAttached = true
 		await joyCon.open()
 		await joyCon.enableStandardFullMode()
-		await wait(50) // 一定期間待たないとaccelerometerを取得できない
+		await wait(100) // 一定期間待たないとaccelerometerを取得できない
+		await joyCon.setLED(0)
 		await joyCon.enableIMUMode()
 		console.log(joyCon)
 
 		joyCon.addEventListener('hidinput', ({ detail }) => {
+			if (detail.accelerometers) {
+				this.recentAccelerometers.push(detail.accelerometers[0].y.acc)
+				if (10 < this.recentAccelerometers.length) {
+					this.recentAccelerometers.shift()
+				}
+			}
 			switch (this.state) {
 				case JoyConIO.states.difficultSelect: {
 					if ((detail.buttonStatus.a || detail.buttonStatus.right) && !this.buttonState.aAndRight) {
@@ -87,7 +96,8 @@ export class JoyConIO extends GameIO {
 					break
 				}
 				case JoyConIO.states.questionAnswer: {
-					if (0.2 < detail.accelerometers[0]?.y?.acc) { // 左
+					const averageAccelerometer = this.recentAccelerometers.reduce((a, b) => a + b) / this.recentAccelerometers.length
+					if (JoyConIO.selectThreshold < averageAccelerometer) { // 左
 						if ((detail.buttonStatus.a || detail.buttonStatus.right) && !this.buttonState.aAndRight) {
 							this.game.emit(ioCommands.answerQuestion, { isCorrect: this.questionData.options[0].isCorrect, index: 0 })
 						}
@@ -96,7 +106,7 @@ export class JoyConIO extends GameIO {
 							this.direction = JoyConIO.directions.left
 						}
 					}
-					if (detail.accelerometers[0]?.y?.acc < -0.2) { // 右
+					if (averageAccelerometer < -JoyConIO.selectThreshold) { // 右
 						if ((detail.buttonStatus.a || detail.buttonStatus.right) && !this.buttonState.aAndRight) {
 							this.game.emit(ioCommands.answerQuestion, { isCorrect: this.questionData.options[1].isCorrect, index: 1 })
 						}
@@ -106,7 +116,7 @@ export class JoyConIO extends GameIO {
 						}
 					}
 					this.buttonState.aAndRight = (detail.buttonStatus.a || detail.buttonStatus.right)
-					if (-0.2 <= detail.accelerometers[0]?.y?.acc && detail.accelerometers[0]?.y?.acc <= 0.2) {
+					if (-JoyConIO.selectThreshold <= averageAccelerometer && averageAccelerometer <= JoyConIO.selectThreshold) {
 						if (this.direction === JoyConIO.directions.horizontal) {
 							return
 						}

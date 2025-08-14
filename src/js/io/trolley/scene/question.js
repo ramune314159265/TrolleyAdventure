@@ -3,12 +3,14 @@ import { ioCommands, ioEvents } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
+import { CountdownText } from '../component/countdownText'
 import { FilledHologramContainer } from '../component/filledHologramContainer'
 import { FitSprite } from '../component/fitSprite'
 import { FitText } from '../component/fitText'
 import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
 import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
+import { QuestionOverlay } from '../component/questionOverlay'
 import { colors, constants } from '../constants'
 import { TrolleyIO } from '../index'
 
@@ -24,6 +26,8 @@ export class QuestionScene {
 		starsBackground.width = constants.viewWidth
 		starsBackground.height = constants.viewHeight
 		this.container.addChild(starsBackground)
+		this.questionOverlay = new QuestionOverlay()
+		this.container.addChild(this.questionOverlay)
 	}
 	async enter() {
 		this.nextQuestion()
@@ -32,6 +36,7 @@ export class QuestionScene {
 		const questionInfo = TrolleyIO.instance.questionInfo
 		this.questionFirstInfo = new QuestionFirstInfoComponent({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level })
 		this.container.addChild(this.questionFirstInfo)
+		this.questionOverlay.changeInfo({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level })
 
 		await this.questionFirstInfo.show()
 		const topHologramInnerContainer = new Container()
@@ -85,6 +90,18 @@ export class QuestionScene {
 			})
 			optionHologram.x = (constants.viewWidth / 4) * p
 			optionsContainer.addChild(optionHologram)
+			const optionCountdown = new CountdownText({
+				styleOverride: {
+					fontSize: 200,
+					fill: colors.hologramText
+				},
+				additionalScale: 0.5
+			})
+			optionCountdown.x = (constants.viewWidth / 4) * p
+			optionCountdown.onEnded = () => {
+				TrolleyIO.instance.game.emit(ioCommands.answerQuestion, { isCorrect: questionInfo.questionData.options[i].isCorrect, index: i })
+			}
+			optionsContainer.addChild(optionCountdown)
 			optionHologram.show()
 			const optionText = new FitText({
 				content: questionInfo.questionData.options[i].content,
@@ -113,10 +130,12 @@ export class QuestionScene {
 					optionHologram.scale.x < 1.1 ? animateSimple(rate => {
 						optionHologram.scale = { x: 1 + (0.1 * rate), y: 1 + (0.1 * rate) }
 					}, { easing: easeOutQuint, duration: 500 }) : ''
+					optionCountdown.start({ periodMs: TrolleyIO.instance.difficultData.selected_time_limit * 1000 })
 				} else {
 					1 < optionHologram.scale.x ? animateSimple(rate => {
 						optionHologram.scale = { x: 1.1 - (0.1 * rate), y: 1.1 - (0.1 * rate) }
 					}, { easing: easeOutQuint, duration: 500 }) : ''
+					optionCountdown.abort()
 				}
 
 				if (eventName === targetEvent || eventName === ioEvents.deselected) {
