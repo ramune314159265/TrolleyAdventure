@@ -54,8 +54,8 @@ export class DifficultSelectScene {
 		const difficultiesContainer = new Container()
 		difficultiesContainer.x = constants.viewWidth / 2
 		difficultiesContainer.y = 625
-		const difficultPositions = Object.values(TrolleyIO.instance.gameInfo.difficultList)
-		const difficultHolograms = difficultPositions.map((data, index) => {
+		const difficulties = Object.values(TrolleyIO.instance.gameInfo.difficultList)
+		const difficultHolograms = difficulties.map((data, index) => {
 			const innerContainer = new Container()
 			const hologram = new HologramContainer({
 				maxWidth: hologramWidth,
@@ -109,6 +109,7 @@ export class DifficultSelectScene {
 			animateSimple(rate => {
 				difficultHolograms.forEach((hologram, index) => {
 					hologram.visible = Math.abs(index - mod(selectedIndex, difficultHolograms.length)) <= 1
+					index === mod(selectedIndex, difficultHolograms.length) ? hologram.activate() : hologram.deactivate()
 					const from = (hologramWidth + gap) * ((-previousIndex + index))
 					const to = (hologramWidth + gap) * ((-selectedIndex + index))
 					hologram.x = from + (to - from) * rate
@@ -116,14 +117,16 @@ export class DifficultSelectScene {
 				difficultHolograms[selectedIndex]?.scale?.set?.(1 + 0.1 * rate)
 			}, { easing: easeOutQuint, duration: 500 })
 		}
-		console.log(move)
 		TrolleyIO.instance.game.on(ioEvents.leftSelected, () => move(-1))
 		TrolleyIO.instance.game.on(ioEvents.rightSelected, () => move(1))
+		TrolleyIO.instance.game.on(ioEvents.decided, () => {
+			TrolleyIO.instance.game.emit(ioCommands.gameStart, { difficultId: difficulties[mod(selectedIndex, difficultHolograms.length)].id })
+		})
 
 		this.container.addChild(difficultiesContainer)
 	}
 	async exit() {
 		this.topText.text = `Let's Go!`
-		await wait(2000)
+		await wait(500)
 	}
 }

@@ -15,5 +15,6 @@ export const ioCommands = Object.freeze({
 export const ioEvents = Object.freeze({
 	leftSelected: Symbol('leftSelected'),
 	rightSelected: Symbol('rightSelected'),
-	deselected: Symbol('deselected')
+	deselected: Symbol('deselected'),
+	decided: Symbol('decided')
 })
