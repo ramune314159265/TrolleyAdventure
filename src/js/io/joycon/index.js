@@ -1,5 +1,5 @@
 import { connectJoyCon, connectedJoyCons } from 'joy-con-webhid'
-import { gameEvents, ioCommands, ioEvents } from '../../enum'
+import { gameEvents, ioEvents } from '../../enum'
 import { wait } from '../../util/wait'
 import { GameIO } from '../index'
 
@@ -19,12 +19,7 @@ export class JoyConIO extends GameIO {
 		super(game)
 		this.state = JoyConIO.states.ignore
 		this.questionData = null
-		this.buttonState = {
-			aAndRight: false,
-			bAndDown: false,
-			xAndUp: false,
-			yAndLeft: false
-		}
+		this.buttonPressed = false
 		this.direction = JoyConIO.directions.horizontal
 		this.recentAccelerometers = []
 		game.once(gameEvents.sessionLoaded, data => {
@@ -75,57 +70,36 @@ export class JoyConIO extends GameIO {
 					this.recentAccelerometers.shift()
 				}
 			}
-			switch (this.state) {
-				case JoyConIO.states.difficultSelect: {
-					if ((detail.buttonStatus.a || detail.buttonStatus.right) && !this.buttonState.aAndRight) {
-						this.game.emit(ioCommands.gameStart, { difficultId: Object.values(this.difficultList)[0].id })
-					}
-					this.buttonState.aAndRight = (detail.buttonStatus.a || detail.buttonStatus.right)
-					if ((detail.buttonStatus.b || detail.buttonStatus.down) && !this.buttonState.bAndDown) {
-						this.game.emit(ioCommands.gameStart, { difficultId: Object.values(this.difficultList)[1].id })
-					}
-					this.buttonState.bAndDown = (detail.buttonStatus.b || detail.buttonStatus.down)
-					if ((detail.buttonStatus.x || detail.buttonStatus.up) && !this.buttonState.xAndUp) {
-						this.game.emit(ioCommands.gameStart, { difficultId: Object.values(this.difficultList)[2].id })
-					}
-					this.buttonState.xAndUp = (detail.buttonStatus.x || detail.buttonStatus.up)
-					if ((detail.buttonStatus.y || detail.buttonStatus.left) && !this.buttonState.yAndLeft) {
-						this.game.emit(ioCommands.gameStart, { difficultId: Object.values(this.difficultList)[3].id })
-					}
-					this.buttonState.yAndLeft = (detail.buttonStatus.y || detail.buttonStatus.left)
-					break
-				}
-				case JoyConIO.states.questionAnswer: {
-					const averageAccelerometer = this.recentAccelerometers.reduce((a, b) => a + b) / this.recentAccelerometers.length
-					if (JoyConIO.selectThreshold < averageAccelerometer) { // 左
-						if ((detail.buttonStatus.a || detail.buttonStatus.right) && !this.buttonState.aAndRight) {
-							this.game.emit(ioCommands.answerQuestion, { isCorrect: this.questionData.options[0].isCorrect, index: 0 })
-						}
-						if (this.direction !== JoyConIO.directions.left) {
-							this.game.emit(ioEvents.leftSelected)
-							this.direction = JoyConIO.directions.left
-						}
-					}
-					if (averageAccelerometer < -JoyConIO.selectThreshold) { // 右
-						if ((detail.buttonStatus.a || detail.buttonStatus.right) && !this.buttonState.aAndRight) {
-							this.game.emit(ioCommands.answerQuestion, { isCorrect: this.questionData.options[1].isCorrect, index: 1 })
-						}
-						if (this.direction !== JoyConIO.directions.right) {
-							this.game.emit(ioEvents.rightSelected)
-							this.direction = JoyConIO.directions.right
-						}
-					}
-					this.buttonState.aAndRight = (detail.buttonStatus.a || detail.buttonStatus.right)
-					if (-JoyConIO.selectThreshold <= averageAccelerometer && averageAccelerometer <= JoyConIO.selectThreshold) {
-						if (this.direction === JoyConIO.directions.horizontal) {
-							return
-						}
-						this.game.emit(ioEvents.deselected)
-						this.direction = JoyConIO.directions.horizontal
-					}
-					break
+			const averageAccelerometer = this.recentAccelerometers.reduce((a, b) => a + b) / this.recentAccelerometers.length
+			if (JoyConIO.selectThreshold < averageAccelerometer || detail.analogStickRight.horizontal < -0.8) { // 左
+				if (this.direction !== JoyConIO.directions.left) {
+					this.game.emit(ioEvents.leftSelected)
+					this.direction = JoyConIO.directions.left
 				}
 			}
+			if (averageAccelerometer < -JoyConIO.selectThreshold || 1.2 < detail.analogStickRight.horizontal) { // 右
+				if (this.direction !== JoyConIO.directions.right) {
+					this.game.emit(ioEvents.rightSelected)
+					this.direction = JoyConIO.directions.right
+				}
+			}
+			if (this.isButtonPressed(detail) && !this.buttonPressed) {
+				this.game.emit(ioEvents.decided)
+			}
+			this.buttonPressed = this.isButtonPressed(detail)
+			if (
+				(-JoyConIO.selectThreshold <= averageAccelerometer && averageAccelerometer <= JoyConIO.selectThreshold) &&
+				(-0.8 <= detail.analogStickRight.horizontal && detail.analogStickRight.horizontal <= 1.2)
+			) {
+				if (this.direction === JoyConIO.directions.horizontal) {
+					return
+				}
+				this.game.emit(ioEvents.deselected)
+				this.direction = JoyConIO.directions.horizontal
+			}
 		})
+	}
+	isButtonPressed(detail) {
+		return Object.values(detail.buttonStatus).some(s => (typeof s) === 'boolean' && s)
 	}
 }
