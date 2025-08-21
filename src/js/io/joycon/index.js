@@ -6,6 +6,7 @@ import { GameIO } from '../index'
 export class JoyConIO extends GameIO {
 	static selectThreshold = 0.1
 	static decideButtons = ['a', 'plus', 'home', 'rightStick']
+	static konamiCommand = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a']
 	static states = {
 		difficultSelect: Symbol(),
 		questionAnswer: Symbol(),
@@ -20,7 +21,7 @@ export class JoyConIO extends GameIO {
 		super(game)
 		this.state = JoyConIO.states.ignore
 		this.questionData = null
-		this.pastButtonStatus = null
+		this.pastInputStatus = null
 		this.averageAccelerometer = 0
 		this.isBlinkingHomeLED = false
 		this.direction = JoyConIO.directions.horizontal
@@ -66,11 +67,12 @@ export class JoyConIO extends GameIO {
 		await joyCon.enableIMUMode()
 		await wait(100)
 		console.log(joyCon)
+		this.joyCon = joyCon
 
-		this.setBlinkHomeLED(joyCon, true)
+		this.setBlinkHomeLED(true)
 
 		this.game.on(gameEvents.nextQuestionStarted, () => {
-			this.setBlinkHomeLED(joyCon, false)
+			this.setBlinkHomeLED(false)
 		})
 
 		joyCon.addEventListener('hidinput', ({ detail }) => {
@@ -81,66 +83,71 @@ export class JoyConIO extends GameIO {
 				}
 			}
 			this.averageAccelerometer = this.recentAccelerometers.reduce((a, b) => a + b) / this.recentAccelerometers.length
-			if (!this.pastButtonStatus) {
-				this.pastButtonStatus = detail.buttonStatus
+			if (!this.pastInputStatus) {
+				this.pastInputStatus = detail.buttonStatus
 				return
 			}
-			Object.entries(detail.buttonStatus).forEach(([k, v]) => {
+			const inputStatus = {
+				...detail.buttonStatus,
+				up: detail.analogStickRight.vertical < -0.6,
+				down: 1 < detail.analogStickRight.vertical,
+				right: 1.2 < detail.analogStickRight.horizontal || this.averageAccelerometer < -JoyConIO.selectThreshold,
+				left: detail.analogStickRight.horizontal < -0.8 || JoyConIO.selectThreshold < this.averageAccelerometer,
+			}
+			Object.entries(inputStatus).forEach(([k, v]) => {
 				if (typeof v !== 'boolean') {
 					return
 				}
-				if (!this.pastButtonStatus[k] && v) {
-					this.buttonPressHandle(k)
+				if (this.pastInputStatus[k] !== v) {
+					this.inputChange(k, v)
 				}
 			})
-			this.pastButtonStatus = detail.buttonStatus
-			if (JoyConIO.selectThreshold < this.averageAccelerometer || detail.analogStickRight.horizontal < -0.8) { // 左
-				if (this.direction !== JoyConIO.directions.left) {
-					this.game.emit(ioEvents.leftSelected)
-					this.direction = JoyConIO.directions.left
-					this.setBlinkHomeLED(joyCon, true)
-				}
-			}
-			if (this.averageAccelerometer < -JoyConIO.selectThreshold || 1.2 < detail.analogStickRight.horizontal) { // 右
-				if (this.direction !== JoyConIO.directions.right) {
-					this.game.emit(ioEvents.rightSelected)
-					this.direction = JoyConIO.directions.right
-					this.setBlinkHomeLED(joyCon, true)
-				}
-			}
-			if (
-				(-JoyConIO.selectThreshold <= this.averageAccelerometer && this.averageAccelerometer <= JoyConIO.selectThreshold) &&
-				(-0.8 <= detail.analogStickRight.horizontal && detail.analogStickRight.horizontal <= 1.2)
-			) {
-				if (this.direction === JoyConIO.directions.horizontal) {
-					return
-				}
-				this.game.emit(ioEvents.deselected)
-				this.direction = JoyConIO.directions.horizontal
-				if (this.state !== JoyConIO.states.questionAnswer) {
-					return
-				}
-				this.setBlinkHomeLED(joyCon, false)
-			}
+			this.pastInputStatus = inputStatus
 		})
 	}
-	setBlinkHomeLED(joyCon, state) {
+	setBlinkHomeLED(state) {
 		if (this.isBlinkingHomeLED === state) {
 			return
 		}
 		this.isBlinkingHomeLED = state
 		if (state) {
-			joyCon.setHomeLEDPattern(5, 0, 15, [
+			this.joyCon.setHomeLEDPattern(5, 0, 15, [
 				{ intensity: 0, fadeDuration: 10, duration: 0 },
 				{ intensity: 15, fadeDuration: 10, duration: 0 }
 			])
 		} else {
-			joyCon.setHomeLED(false)
+			this.joyCon.setHomeLED(false)
 		}
 	}
-	buttonPressHandle(button) {
-		if (JoyConIO.decideButtons.includes(button)) {
-			this.game.emit(ioEvents.decided)
+	inputChange(key, newState) {
+		switch (true) {
+			case (JoyConIO.decideButtons.includes(key) && newState):
+				this.game.emit(ioEvents.decided)
+				break
+
+			case (key === 'right' || key === 'left') && !newState:
+				this.game.emit(ioEvents.deselected)
+				this.direction = JoyConIO.directions.horizontal
+				if (this.state !== JoyConIO.states.questionAnswer) {
+					break
+				}
+				this.setBlinkHomeLED(false)
+				break
+
+			case key === 'right':
+				this.game.emit(ioEvents.rightSelected)
+				this.direction = JoyConIO.directions.right
+				this.setBlinkHomeLED(this.joyCon, true)
+				break
+
+			case key === 'left':
+				this.game.emit(ioEvents.leftSelected)
+				this.direction = JoyConIO.directions.left
+				this.setBlinkHomeLED(this.joyCon, true)
+				break
+
+			default:
+				break
 		}
 	}
 }
