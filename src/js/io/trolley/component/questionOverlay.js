@@ -46,9 +46,18 @@ export class QuestionOverlay extends Container {
 		this.questionInfoOverlayText.y = height / 2
 		this.addChild(this.questionInfoOverlayText)
 
+		this.hpBar = new Graphics()
+		this.addChild(this.hpBar)
+
 		this.filters = [new NoiseFilter({ noise: 0.5 })]
 	}
-	changeInfo({ questionNo, level }) {
+	changeInfo({ questionNo, level, health }) {
 		this.questionInfoOverlayText.text = `QuestionNo.${questionNo} Lv.${level}`
+		this.hpBar
+			.moveTo(20, constants.viewHeight - 20)
+			.moveTo(500, constants.viewHeight - 20)
+			.moveTo(500 + 80 * Math.sin(constants.uiRadian), constants.viewHeight - 100)
+			.moveTo(20 + 80 * Math.sin(constants.uiRadian), constants.viewHeight - 100)
+		this.hpBar.fill({ color: colors.hologramMain })
 	}
 }
