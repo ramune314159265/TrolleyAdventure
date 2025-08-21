@@ -47,17 +47,50 @@ export class QuestionOverlay extends Container {
 		this.addChild(this.questionInfoOverlayText)
 
 		this.hpBar = new Graphics()
+		this.hpBar.filters = [
+			new GlowFilter({
+				color: colors.hologramMain,
+				outerStrength: 2
+			})
+		]
 		this.addChild(this.hpBar)
+		this.hpText = new MainText({
+			content: '- HP',
+			styleOverride: {
+				fontSize: 60,
+				fill: colors.hologramText
+			}
+		})
+		this.hpText.anchor.x = 0
+		this.hpText.x = 30
+		this.hpText.y = constants.viewHeight - 110
+		this.addChild(this.hpText)
 
 		this.filters = [new NoiseFilter({ noise: 0.5 })]
 	}
-	changeInfo({ questionNo, level, health }) {
+	changeInfo({ questionNo, level, lives }) {
 		this.questionInfoOverlayText.text = `QuestionNo.${questionNo} Lv.${level}`
+		this.hpBar.clear()
+		for (let i = 0; i < Math.min(lives, 20); i++) {
+			this.hpBar
+				.moveTo(20 + (130 + 15) * i, constants.viewHeight - 35)
+				.lineTo(20 + (130 + 15) * i + 130, constants.viewHeight - 35)
+				.lineTo(20 + (130 + 15) * i + 130 + 50 * Math.sin(constants.uiRadian), constants.viewHeight - 85)
+				.lineTo(20 + (130 + 15) * i + 50 * Math.sin(constants.uiRadian), constants.viewHeight - 85)
+				.lineTo(20 + (130 + 15) * i, constants.viewHeight - 35)
+			this.hpBar.stroke({
+				width: 5,
+				color: colors.hologramMain,
+			})
+			this.hpBar.fill({ color: `${colors.hologramMain}10` })
+		}
 		this.hpBar
 			.moveTo(20, constants.viewHeight - 20)
-			.moveTo(500, constants.viewHeight - 20)
-			.moveTo(500 + 80 * Math.sin(constants.uiRadian), constants.viewHeight - 100)
-			.moveTo(20 + 80 * Math.sin(constants.uiRadian), constants.viewHeight - 100)
-		this.hpBar.fill({ color: colors.hologramMain })
+			.lineTo(20 + (130 + 15) * 3 - 15, constants.viewHeight - 20)
+		this.hpBar.stroke({
+			width: 8,
+			color: colors.hologramMain
+		})
+		this.hpText.text = `${lives} HP`
 	}
 }

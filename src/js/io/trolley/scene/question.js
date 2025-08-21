@@ -36,7 +36,7 @@ export class QuestionScene {
 		const questionInfo = TrolleyIO.instance.questionInfo
 		this.questionFirstInfo = new QuestionFirstInfoComponent({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level })
 		this.container.addChild(this.questionFirstInfo)
-		this.questionOverlay.changeInfo({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level })
+		this.questionOverlay.changeInfo({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level, lives: questionInfo.lives })
 
 		await this.questionFirstInfo.show()
 		const topHologramInnerContainer = new Container()
