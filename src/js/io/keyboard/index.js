@@ -30,7 +30,7 @@ export class KeyboardIO extends GameIO {
 	}
 	keyPressHandle(key) {
 		console.log(key)
-		const keyMap = { a: ioEvents.leftSelected, s: ioEvents.rightSelected, d: ioEvents.deselected, f: ioEvents.decided }
+		const keyMap = { a: ioEvents.leftSelected, s: ioEvents.rightSelected, d: ioEvents.deselected, f: ioEvents.decided, k: ioCommands.konamiCommand }
 		Object.keys(keyMap).includes(key) ? this.game.emit(keyMap[key]) : ''
 		switch (this.state) {
 			case KeyboardIO.states.difficultSelect: {

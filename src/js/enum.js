@@ -9,12 +9,13 @@ export const gameEvents = Object.freeze({
 
 export const ioCommands = Object.freeze({
 	gameStart: Symbol('gameStart'),
-	answerQuestion: Symbol('answerQuestion')
+	answerQuestion: Symbol('answerQuestion'),
+	konamiCommand: Symbol('konamiCommand')
 })
 
 export const ioEvents = Object.freeze({
 	leftSelected: Symbol('leftSelected'),
 	rightSelected: Symbol('rightSelected'),
 	deselected: Symbol('deselected'),
-	decided: Symbol('decided')
+	decided: Symbol('decided'),
 })

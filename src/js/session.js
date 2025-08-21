@@ -13,7 +13,7 @@ export class Session extends EventRegister {
 		this.configs = new Configs({ dataLoader: this.dataLoader })
 		this.difficultManager = new DifficultManager({ dataLoader: this.dataLoader })
 		this.questionsManager = new QuestionManager({ dataLoader: this.dataLoader, configs: this.configs })
-		this.lives = 1
+		this.lives = null
 		this.currentQuestionNo = 0
 		this.currentQuestionData = null
 	}
@@ -25,6 +25,9 @@ export class Session extends EventRegister {
 
 		this.game.on(ioCommands.answerQuestion, ({ isCorrect }) => this.handleAnswer({ isCorrect }))
 		this.game.once(ioCommands.gameStart, ({ difficultId }) => this.start({ difficultId }))
+		this.game.once(ioCommands.konamiCommand, () => {
+			this.lives = 2 ** 16 - 1
+		})
 
 		this.game.emit(gameEvents.sessionLoaded, {
 			difficultList: this.difficultManager.difficultConfigs
@@ -32,7 +35,7 @@ export class Session extends EventRegister {
 	}
 	start({ difficultId }) {
 		this.difficultManager.setDifficult(difficultId)
-		this.lives = this.difficultManager.getDifficultConfig('lives')
+		this.lives ??= this.difficultManager.getDifficultConfig('lives')
 
 		this.game.emit(gameEvents.gameStarted, {
 			difficultData: this.difficultManager.getDifficultConfig()

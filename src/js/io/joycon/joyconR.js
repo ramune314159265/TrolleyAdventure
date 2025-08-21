@@ -1,5 +1,5 @@
 import { JoyConIO } from '.'
-import { gameEvents, ioEvents } from '../../enum'
+import { gameEvents, ioCommands, ioEvents } from '../../enum'
 
 export class JoyConR {
 	static selectThreshold = 0.1
@@ -14,6 +14,7 @@ export class JoyConR {
 		this.isBlinkingHomeLED = false
 		this.direction = JoyConIO.directions.horizontal
 		this.recentAccelerometers = [0]
+		this.recentInputs = []
 	}
 	start() {
 		this.setBlinkHomeLED(true)
@@ -66,6 +67,16 @@ export class JoyConR {
 		}
 	}
 	inputChange(key, newState) {
+		if (newState) {
+			this.recentInputs.push(key)
+			if (JoyConR.konamiCommand.length < this.recentInputs.length) {
+				this.recentInputs.shift()
+			}
+			const isKonamiCommand = JoyConR.konamiCommand.every((k, i) => this.recentInputs[i] === k)
+			if(isKonamiCommand) {
+				this.game.emit(ioCommands.konamiCommand)
+			}
+		}
 		switch (true) {
 			case (JoyConR.decideButtons.includes(key) && newState):
 				this.game.emit(ioEvents.decided)
