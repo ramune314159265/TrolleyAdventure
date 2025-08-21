@@ -99,23 +99,18 @@ export class DifficultSelectScene {
 			return hologram
 		})
 		const move = offset => {
-			if (selectedIndex + offset < 0 || difficultHolograms.length <= selectedIndex + offset) {
-				return
-			}
 			const previousIndex = selectedIndex
 			selectedIndex += offset
 			difficultHolograms[previousIndex]?.scale?.set?.(1)
-			console.log(mod(selectedIndex, 4))
 			animateSimple(rate => {
 				difficultHolograms.forEach((hologram, index) => {
-					hologram.visible = Math.abs(index - mod(selectedIndex, difficultHolograms.length)) <= 1
 					index === mod(selectedIndex, difficultHolograms.length) ? hologram.activate() : hologram.deactivate()
-					const from = (hologramWidth + gap) * ((-previousIndex + index))
-					const to = (hologramWidth + gap) * ((-selectedIndex + index))
+					const from = (hologramWidth + gap) * (index - mod(previousIndex, difficultHolograms.length))
+					const to = (hologramWidth + gap) * (index - mod(selectedIndex, difficultHolograms.length))
 					hologram.x = from + (to - from) * rate
 				})
 				difficultHolograms[selectedIndex]?.scale?.set?.(1 + 0.1 * rate)
-			}, { easing: easeOutQuint, duration: 500 })
+			}, { easing: easeOutQuint, duration: 1000 })
 		}
 		TrolleyIO.instance.game.on(ioEvents.leftSelected, () => move(-1))
 		TrolleyIO.instance.game.on(ioEvents.rightSelected, () => move(1))
