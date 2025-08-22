@@ -113,7 +113,7 @@ export class QuestionScene {
 			optionText.x = hologramWidth / 2
 			optionText.y = questionInfo.questionData.options[i].image ? hologramHeight * 0.8 : hologramHeight / 2
 			if (questionInfo.questionData.options[i].image) {
-				const texture = await Assets.load(questionInfo.questionData.options[i].image)
+				const texture = await Assets.load(`images/question/${questionInfo.questionData.options[i].image}`)
 				const image = new FitSprite({ texture, width: hologramWidth * 0.9, height: hologramHeight * 0.9 })
 				image.x = hologramWidth / 2
 				image.y = hologramHeight / 2
@@ -207,7 +207,7 @@ export class QuestionScene {
 				explanationInnerContainer.addChild(explanationText)
 				await explanationHologram.show()
 				if (questionInfo.questionData.answer.explanationImage) {
-					const texture = await Assets.load(questionInfo.questionData.answer.explanationImage)
+					const texture = await Assets.load(`images/question/${questionInfo.questionData.answer.explanationImage}`)
 					const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
 					image.x = (constants.viewWidth / 4) * -p
 					optionsContainer.addChild(image)

@@ -37,28 +37,28 @@
 		"options": [
 			{
 				"content": "3年",
-				"image": "images/question/unagi_ignore.png",
+				"image": "unagi_ignore.png",
 				"accuracy": 0.524,
 				"explanation": ""
 			},
 			{
 				"content": "80年",
-				"image": "images/question/unagi_ignore.png",
+				"image": "unagi_ignore.png",
 				"accuracy": 0.48,
 				"explanation": ""
 			},
 			{
 				"content": "50年",
-				"image": "images/question/unagi_ignore.png",
+				"image": "unagi_ignore.png",
 				"accuracy": 0.35,
 				"explanation": ""
 			}
 		],
 		"answer": {
 			"content": "30年",
-			"image": "images/question/unagi_ignore.png",
+			"image": "unagi_ignore.png",
 			"explanation": "",
-			"explanationImage": "images/question/unagi_ignore.png"
+			"explanationImage": "unagi_ignore.png"
 		}
 	},
 	{
