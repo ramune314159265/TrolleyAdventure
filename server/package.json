@@ -1,0 +1,17 @@
+{
+  "name": "trolleyadventure-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ramune314159265",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hono/node-server": "^1.19.0",
+    "hono": "^4.9.4"
+  }
+}

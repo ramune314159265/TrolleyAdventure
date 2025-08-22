@@ -1,0 +1,480 @@
+[
+	{
+		"id": "4e41aa09-8bd5-4bc5-beb0-41ca08883f62",
+		"group": "matcha",
+		"content": "抹茶に含まれていない成分はどれ？",
+		"options": [
+			{
+				"content": "カテキン",
+				"explanation": "お茶全般に含まれている苦味成分です。日本カテキン学会というものがあります。",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "エリタデニン",
+			"image": "",
+			"explanation": "ほぼどんな食材にも含まれていません。椎茸に含まれているかもです。",
+			"explanationImage": ""
+		},
+		"index": 0
+	},
+	{
+		"id": "68655b3d-9ce6-4f4c-87fa-e874bcfb4d7f",
+		"group": "water_examination",
+		"content": "CODとは何？",
+		"options": [
+			{
+				"content": "溶存酸素濃度",
+				"image": "9fd0ccb6-2402-4d37-9a3f-94d96ab925c9.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "化学的酸素要求量",
+			"image": "924fed39-7366-4abe-a852-3bdd2a838022.webp",
+			"explanation": "Chemical Oxygen Demand(化学的酸素要求量)の頭文字をとってCODといいます！高校2,3年生のみんなは分かったかな！？",
+			"explanationImage": "ac697b9a-470f-4c8c-90cb-a86bf9c8c05b.webp"
+		},
+		"index": 3
+	},
+	{
+		"id": "7405178d-fe2a-4f96-8f40-23da576c507e",
+		"group": "cactus",
+		"content": "一般的にサボテンには毒がある？",
+		"options": [
+			{
+				"content": "NO",
+				"image": "f7761740-0b5e-46d2-a758-d5e56db82071.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "YES",
+			"image": "495a7f9d-df6c-4c26-957c-d7b86bf5bd4c.webp",
+			"explanation": "一般的にサボテンには毒があるとされています！！",
+			"explanationImage": "b8939082-e313-4462-b96f-ec1f8a8d647d.webp"
+		},
+		"index": 0
+	},
+	{
+		"id": "a70ad9c7-fc4d-40d9-a357-b081cbb5127f",
+		"group": "cactus",
+		"content": "サボテンは英語で何という？",
+		"options": [
+			{
+				"content": "cato",
+				"image": "57ee0672-af5f-44fa-8065-55b1f257b96f.webp",
+				"explanation": "英語ではcactusと言います！catoはポルトガル語です！"
+			}
+		],
+		"answer": {
+			"content": "cactus",
+			"image": "ba9d6055-30f0-4f57-8e58-219f6d8a2a19.webp",
+			"explanation": "",
+			"explanationImage": "5023e30b-e35d-4d31-b039-6a5f46f90e2c.webp"
+		},
+		"index": 1
+	},
+	{
+		"id": "d0f6230b-35ba-4a30-93e3-d05cb7f0cd7f",
+		"group": "cactus",
+		"content": "サボテンの生産量日本一の県は？",
+		"options": [
+			{
+				"content": "鳥取県",
+				"image": "d568f452-01dc-4759-84f6-b47225475ee8.webp",
+				"explanation": ""
+			},
+			{
+				"content": "島根県",
+				"image": "eeaaec84-5850-4f0e-bc31-3225144422aa.webp",
+				"explanation": ""
+			},
+			{
+				"content": "沖縄県",
+				"image": "5a9561b8-8bec-48ce-bdf7-a6b9a3d09ac5.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "愛知県",
+			"image": "cd32c2b7-3862-4225-af01-cfe3a65aeb6d.webp",
+			"explanation": "愛知県の春日井市はサボテンの名産地です！",
+			"explanationImage": "b9b5e960-4787-4ec0-a2a0-a41cf2a74b06.webp"
+		},
+		"index": 2
+	},
+	{
+		"id": "2807bdf0-58d7-466a-9757-1d404abdd4ed",
+		"group": "eel",
+		"content": "「ウナギ」を漢字でどう書く？",
+		"options": [
+			{
+				"content": "鮭",
+				"explanation": "「鮭」は「さけ」と読みます。",
+				"image": ""
+			},
+			{
+				"content": "鯉",
+				"explanation": "「鯉」は「こい」と読みます。",
+				"image": ""
+			},
+			{
+				"content": "鮪",
+				"explanation": "「鮪」は「まぐろ」と読みます。",
+				"image": ""
+			},
+			{
+				"content": "鱒",
+				"explanation": "「鱒」は「ます」と読みます。",
+				"image": ""
+			},
+			{
+				"content": "鰯",
+				"explanation": "「鰯」は「いわし」と読みます。",
+				"image": ""
+			},
+			{
+				"content": "鰆",
+				"explanation": "「鰆」は「さわら」と読みます。",
+				"image": ""
+			},
+			{
+				"content": "鯛",
+				"explanation": "「鯛」は「たい」と読みます。",
+				"image": ""
+			},
+			{
+				"content": "鰊",
+				"explanation": "「鰊」は「にしん」と読みます。",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "鰻",
+			"image": "",
+			"explanation": "",
+			"explanationImage": ""
+		},
+		"index": 2
+	},
+	{
+		"id": "34aeeb47-7ec6-43ba-b2dc-b290818d21d5",
+		"group": "eel",
+		"content": "ニホンウナギの体長は最大でどのぐらい？",
+		"options": [
+			{
+				"content": "30cm",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "50cm",
+				"explanation": "ニホンウナギの平均的な体長が50cmです。",
+				"image": ""
+			},
+			{
+				"content": "3m",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "1m",
+			"image": "",
+			"explanation": "ニホンウナギの体長は最大で1.3m程です。(画像出典: 日テレNEWS)",
+			"explanationImage": "edfe84ab-169c-4e4e-b0a6-e76b4e838681.webp"
+		},
+		"index": 3
+	},
+	{
+		"id": "5b56fce8-7479-4bc8-8051-7a0c77724fb8",
+		"group": "eel",
+		"content": "天然のニホンウナギの一般的な寿命はどのぐらい？",
+		"options": [
+			{
+				"content": "3年",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "80年",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "50年",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "30年",
+			"image": "",
+			"explanation": "ニホンウナギの寿命は環境によって差はあるが、だいたい20~30年程で割と長いです。また80年以上生きたウナギの記録もあるようです。",
+			"explanationImage": ""
+		},
+		"index": 1
+	},
+	{
+		"id": "0ed70915-73de-44f7-a308-4328a63802fb",
+		"group": "eel",
+		"content": "ウナギの生産量（養殖）で一位の都道府県は？",
+		"options": [
+			{
+				"content": "愛知県",
+				"explanation": "2位である",
+				"image": ""
+			},
+			{
+				"content": "静岡県",
+				"explanation": "4位である",
+				"image": ""
+			},
+			{
+				"content": "宮崎県",
+				"explanation": "3位である",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "鹿児島県",
+			"image": "",
+			"explanation": "全国のウナギの4割が鹿児島で生産されている",
+			"explanationImage": ""
+		},
+		"index": 1
+	},
+	{
+		"id": "546fcccd-5880-4ab5-b963-cdd7cc007ff4",
+		"group": "eel",
+		"content": "ウナギの名前の由来の一つは？",
+		"options": [
+			{
+				"content": "「ウ（海）」＋「ナギ（凪）」からきている",
+				"explanation": "それっぽく考えました",
+				"image": ""
+			},
+			{
+				"content": "「宇奈城（うなしろ）」という地名に由来",
+				"explanation": "うなしろなんて地名はありません",
+				"image": ""
+			},
+			{
+				"content": "「うねる」が変化した",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "「む（身）」＋「なぎ（長い）」からきている",
+			"image": "",
+			"explanation": "万葉集ではうなぎがそう書かれている　この説が一番有力とされている",
+			"explanationImage": ""
+		},
+		"index": 2
+	},
+	{
+		"id": "a74aefd7-e859-4415-af47-ab8d89590b99",
+		"group": "eel",
+		"content": "ウナギの血液中の毒の名前は？",
+		"options": [
+			{
+				"content": "シガトキシン",
+				"explanation": "熱帯、亜熱帯のプランクトンが持つ神経毒　症状の一つに水に触るとドライアイスのように感じるというのがある",
+				"image": ""
+			},
+			{
+				"content": "ポツリヌストキシンA",
+				"explanation": "世界最強の神経毒の一つ　1gで100万人の人間を死亡させることができる",
+				"image": ""
+			},
+			{
+				"content": "エラブトキシン",
+				"explanation": "沖縄に生息するウミヘビが持つ神経毒　強さはハブの80倍である",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "イクシオヘモトキシン",
+			"image": "",
+			"explanation": "ウナギ目の魚類が血液中に持つ神経毒の通称　ウナギの刺身がないのもこれが原因（熱で毒性が消える）",
+			"explanationImage": "66f99512-910b-400c-b1fe-e0d40cb6dec4.webp"
+		},
+		"index": 0
+	},
+	{
+		"id": "35c2d7c5-e9b0-4c77-b760-9c42347c2149",
+		"group": "physics",
+		"content": "半田高校化学室の重力加速度はどっち？",
+		"options": [
+			{
+				"content": "9.8066m/s²",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "9.7806m/s²",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "9.8306m/s²",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "9.7777m/s²",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "9.7971",
+			"image": "",
+			"explanation": "半田高校の重力加速度は9.797137m/s² 出典：国土地理院 重力値推定計算サイト",
+			"explanationImage": ""
+		},
+		"index": 0
+	},
+	{
+		"id": "0d732b5f-2e37-4c5d-9d33-2e7f7f2ffbac",
+		"group": "eel",
+		"content": "ニホンウナギの完全養殖が初めて成功したのは日本のどの研究機関か？",
+		"options": [
+			{
+				"content": "近畿大学",
+				"image": "15f8b135-5754-4271-bda2-be9707dc9e68.webp",
+				"explanation": "近畿大学は2023年に完全養殖を成功させたが、初めてではない"
+			},
+			{
+				"content": "京都大学",
+				"image": "907f9377-b165-40fa-ac67-113657c0b765.webp",
+				"explanation": "京大も研究にかかわっていますが、実績は上げていない"
+			},
+			{
+				"content": "JAMSTEC",
+				"explanation": "JAMSTEC（海洋研究開発機構）は深海や気候研究が中心である",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "FRA 水産研究・教育機構",
+			"image": "ec1fbf08-00ff-4cec-a712-18021430d13e.webp",
+			"explanation": "日本の水産研究・教育機構（旧：水産総合研究センター）が、世界で初めてニホンウナギの人工ふ化から産卵までの完全養殖に成功した",
+			"explanationImage": "97b56d26-91ea-45bf-afe8-e74c314f16ba.webp"
+		},
+		"index": 3
+	},
+	{
+		"id": "20c6d5bd-dab7-4de9-a6d7-f7e8fb411f0e",
+		"group": "eel",
+		"content": "ニホンウナギの回遊型（海から川、もしくはその逆）は何か",
+		"options": [
+			{
+				"content": "遡河回遊",
+				"explanation": "サケのように海で育って川で産卵する魚に使われる分類",
+				"image": ""
+			},
+			{
+				"content": "死滅回遊",
+				"explanation": "熱帯魚が海流に流されて本来住むべきところではないところに来てしまう回遊のこと、本来の生息地に戻ることができず、そのまま死滅する",
+				"image": ""
+			},
+			{
+				"content": "季節回遊",
+				"explanation": "ブリ、サバ、イワシなどが行う回遊方法。季節によってルートが決まる",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "両側回遊",
+			"image": "",
+			"explanation": "ニホンウナギは「海で生まれて川で育ち、また海へ戻る」生活を送るため、両側回遊（カタドロマス型）に分類される",
+			"explanationImage": ""
+		},
+		"index": 1
+	},
+	{
+		"id": "29ba6527-a357-4ce0-8125-fb4efe2c6c2b",
+		"group": "other",
+		"content": "x⁴+y⁴+z⁴-x²y²-y²z²-z²x²は因数分解できるか？",
+		"options": [
+			{
+				"content": "(x²-y²-z²)²で因数分解可能",
+				"explanation": "展開するとx⁴+y⁴+z⁴-2x²y²-2y²z²+2z²x²",
+				"image": ""
+			},
+			{
+				"content": "(x²-y²+z²)(x²+y²-z²)(-x²+y²+z²)で因数分解可能",
+				"explanation": "展開すると-x⁶+x⁴y²+x⁴z²+x²y⁴-2x²y²z²+x²z⁴-y⁶+y⁴z²+y²z⁴-z⁶",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "ない！",
+			"image": "",
+			"explanation": "この企画を考案した設楽博士（自然科学部部長）が間違えて2年TSクラスに出してしまった悪問　博士曰く神問らしい",
+			"explanationImage": ""
+		},
+		"index": 4
+	},
+	{
+		"id": "b7402645-0ccc-490c-8407-3a1eee6df07e",
+		"group": "eel",
+		"content": "ニホンウナギの個体群は東アジア全域でほぼ同じ遺伝的構造をもつ。こうした個体群を何と呼ぶか？",
+		"options": [
+			{
+				"content": "クローン個体群",
+				"explanation": "遺伝的に同一な個体の集団（クローン）のこと。ゾウリムシがあげられる",
+				"image": ""
+			},
+			{
+				"content": "地理的分化個体群",
+				"explanation": "同じ種の生き物が別の地域に運ばれ、本来と違う形質を持つ種（亜種）の集団のこと。トラがその一例",
+				"image": ""
+			},
+			{
+				"content": "多地域個体群",
+				"explanation": "そんな個体群はないよ☆",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "パンミクティック（汎生殖）個体群",
+			"image": "",
+			"explanation": "ニホンウナギは、産卵場所が一か所に集中しており、回遊後に様々な河川に分散するため、地域ごとの遺伝的差がないことが特徴",
+			"explanationImage": ""
+		},
+		"index": 2
+	},
+	{
+		"id": "f8b16e9c-9967-4868-bd6f-3abfa0c33e56",
+		"group": "eel",
+		"content": "ニホンウナギが産卵する海域はどこか？",
+		"options": [
+			{
+				"content": "南シナ海",
+				"image": "1f78efb5-934c-43d8-9961-a7b041fd03d8.webp",
+				"explanation": "ウナギ類が通過するルートではあるが、産卵場所ではない"
+			},
+			{
+				"content": "日本海",
+				"image": "e7930a41-e424-4910-9bbf-d02e34ff68c3.webp",
+				"explanation": "そもそも外洋ではないため、産卵には適さない"
+			},
+			{
+				"content": "フィリピン沖",
+				"image": "861e8ed1-6959-4832-837e-8343568e655c.webp",
+				"explanation": "ウナギ類が通過するルートではあるものの、産卵海ではない"
+			}
+		],
+		"answer": {
+			"content": "マリアナ諸島西方",
+			"image": "04cb0c52-152c-4f65-8c8a-edfbac3a3538.webp",
+			"explanation": "2009年以降の研究でマリアナ諸島の西方海域（北緯12~15度付近）であることが確認された",
+			"explanationImage": "7fc3a3fd-7085-470d-a2e2-3f5f85852060.webp"
+		},
+		"index": 0
+	}
+]
