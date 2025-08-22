@@ -2,3 +2,4 @@ node_modules/
 build/
 dist/
 *_ignore.*
+public/images/question/
