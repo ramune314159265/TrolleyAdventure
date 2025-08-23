@@ -4,7 +4,7 @@ import globals from "globals"
 
 
 export default defineConfig([
-  { ignores: ["client/dist/*"] },
+  { ignores: ["dist/**/*.{js,mjs,cjs}"] },
   { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"] },
   {
     files: ["client/**/*.{js,mjs,cjs}"],

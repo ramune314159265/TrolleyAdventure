@@ -7,7 +7,7 @@ export class QuestionManager {
 		this.pickedIds = []
 	}
 	async init() {
-		const data = await this.#dataLoader.load('questions')
+		const data = await this.#dataLoader.get('questions')
 		this.allQuestions = data.flatMap(question => {
 			return question.options.map(option => {
 				question.answer.isCorrect = true

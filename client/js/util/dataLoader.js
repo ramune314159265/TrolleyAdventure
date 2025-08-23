@@ -1,17 +1,32 @@
+const resources = {
+	questions: [
+		'./api/questions',
+		'./data/questions.json'
+	],
+	difficulties: ['./data/difficulties.json'],
+	config: ['./data/config.json'],
+}
+
 export class DataLoader {
-	static dataIds = ['questions', 'difficulties', 'config']
 	constructor() {
 		this.cache = new Map()
 	}
 	async loadAll() {
 		await Promise.all(
-			DataLoader.dataIds.map(async id => this.load(id))
+			Object.keys(resources).map(async id => this.load(id))
 		)
 	}
-	async load(id) {
-		const data = await (await fetch(`./data/${id}.json`)).json()
-		this.cache.set(id, data)
-		return data
+	async load(id, attempt = 0) {
+		try {
+			const data = await (await fetch(resources[id][attempt])).json()
+			this.cache.set(id, data)
+			return data
+		} catch {
+			if (!resources[id][attempt + 1]) {
+				throw new Error(`resource ${id} couldn't be loaded`)
+			}
+			return await this.load(id, attempt + 1)
+		}
 	}
 	async get(id) {
 		if (this.cache.has(id)) {

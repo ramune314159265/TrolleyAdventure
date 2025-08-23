@@ -5,7 +5,7 @@ export class Configs {
 		this.data = {}
 	}
 	async init() {
-		const config = await this.#dataLoader.load('config')
+		const config = await this.#dataLoader.get('config')
 		Object.entries(config).forEach(([k, v]) => this.set(k, v))
 	}
 	get(key) {

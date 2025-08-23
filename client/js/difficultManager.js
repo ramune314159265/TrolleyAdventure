@@ -6,7 +6,7 @@ export class DifficultManager {
 		this.difficultConfigs = {}
 	}
 	async init() {
-		const data = await this.#dataLoader.load('difficulties')
+		const data = await this.#dataLoader.get('difficulties')
 		data.forEach(d => this.difficultConfigs[d.id] = d)
 	}
 	setDifficult(id) {
