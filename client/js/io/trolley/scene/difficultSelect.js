@@ -90,7 +90,7 @@ export class DifficultSelectScene {
 			difficultDescription.x = hologramWidth / 2
 			difficultDescription.y = 175
 			innerContainer.addChild(difficultDescription)
-			TrolleyIO.instance.game.once(ioCommands.gameStart, ({ difficultId }) => {
+			TrolleyIO.instance.session.once(ioCommands.gameStart, ({ difficultId }) => {
 				if (data.id !== difficultId) {
 					hologram.hide()
 					return
@@ -112,10 +112,10 @@ export class DifficultSelectScene {
 				difficultHolograms[selectedIndex]?.scale?.set?.(1 + 0.1 * rate)
 			}, { easing: easeOutQuint, duration: 1000 })
 		}
-		TrolleyIO.instance.game.on(ioEvents.leftSelected, () => move(-1))
-		TrolleyIO.instance.game.on(ioEvents.rightSelected, () => move(1))
-		TrolleyIO.instance.game.on(ioEvents.decided, () => {
-			TrolleyIO.instance.game.emit(ioCommands.gameStart, { difficultId: difficulties[mod(selectedIndex, difficultHolograms.length)].id })
+		TrolleyIO.instance.session.on(ioEvents.leftSelected, () => move(-1))
+		TrolleyIO.instance.session.on(ioEvents.rightSelected, () => move(1))
+		TrolleyIO.instance.session.on(ioEvents.decided, () => {
+			TrolleyIO.instance.session.emit(ioCommands.gameStart, { difficultId: difficulties[mod(selectedIndex, difficultHolograms.length)].id })
 		})
 
 		this.container.addChild(difficultiesContainer)

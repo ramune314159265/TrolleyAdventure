@@ -4,12 +4,14 @@ export const gameEvents = Object.freeze({
 	gameStarted: Symbol('gameStarted'),
 	nextQuestionStarted: Symbol('nextQuestionStarted'),
 	gameOvered: Symbol('gameOvered'),
-	gameCleared: Symbol('gameCleared')
+	gameCleared: Symbol('gameCleared'),
+	sessionEnded: Symbol('sessionEnded')
 })
 
 export const ioCommands = Object.freeze({
 	gameStart: Symbol('gameStart'),
 	answerQuestion: Symbol('answerQuestion'),
+	gameEnd: ('gameEnd'),
 	konamiCommand: Symbol('konamiCommand')
 })
 

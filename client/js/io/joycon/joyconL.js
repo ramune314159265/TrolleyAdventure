@@ -6,7 +6,7 @@ export class JoyConL {
 	static decideButtons = ['l', 'zl', 'leftStick']
 	constructor(io, joyCon) {
 		this.io = io
-		this.game = io.game
+		this.session = io.session
 		this.joyCon = joyCon
 		this.pastInputStatus = null
 		this.averageAccelerometer = 0
@@ -45,21 +45,21 @@ export class JoyConL {
 	inputChange(key, newState) {
 		switch (true) {
 			case (JoyConL.decideButtons.includes(key) && newState):
-				this.game.emit(ioEvents.decided)
+				this.session.emit(ioEvents.decided)
 				break
 
 			case (key === 'right' || key === 'left') && !newState:
-				this.game.emit(ioEvents.deselected)
+				this.session.emit(ioEvents.deselected)
 				this.direction = JoyConIO.directions.horizontal
 				break
 
 			case key === 'right':
-				this.game.emit(ioEvents.rightSelected)
+				this.session.emit(ioEvents.rightSelected)
 				this.direction = JoyConIO.directions.right
 				break
 
 			case key === 'left':
-				this.game.emit(ioEvents.leftSelected)
+				this.session.emit(ioEvents.leftSelected)
 				this.direction = JoyConIO.directions.left
 				break
 

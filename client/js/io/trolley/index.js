@@ -16,62 +16,78 @@ export class TrolleyIO extends GameIO {
 		gameOver: Symbol(),
 	}
 	static instance
-	constructor(game) {
-		super(game)
+	constructor() {
+		super()
 		TrolleyIO.instance = this
 		this.gameInfo = null
 		this.difficultData
 		this.questionInfo = null
 		this.state = null
-		game.onAny(console.log)
-		game.once(gameEvents.gameStarted, ({ difficultData }) => {
+
+		this.parentElement = document.querySelector('#main')
+		this.canvas = document.createElement('canvas')
+		this.parentElement.append(this.canvas)
+		const resizeHandle = () => {
+			const parentWidth = this.parentElement.clientWidth
+			const parentHeight = this.parentElement.clientHeight
+
+			if ((parentWidth / parentHeight) > constants.viewAspectRatio) {
+				this.canvas.style.height = `${parentHeight}px`
+				this.canvas.style.width = `${parentHeight * constants.viewAspectRatio}px`
+			} else {
+				this.canvas.style.width = `${parentWidth}px`
+				this.canvas.style.height = `${parentWidth / constants.viewAspectRatio}px`
+			}
+		}
+		window.addEventListener('resize', resizeHandle)
+		window.dispatchEvent(new Event('resize'))
+	}
+	connectSession(session) {
+		this.session = session
+		session.onAny(console.log)
+		session.once(gameEvents.gameStarted, ({ difficultData }) => {
 			this.difficultData = difficultData
 			this.gameStart()
 		})
-		game.on(gameEvents.nextQuestionStarted, data => {
+		session.on(gameEvents.nextQuestionStarted, data => {
 			this.questionInfo = data
 		})
-		game.on(gameEvents.gameCleared, () => {
+		session.on(gameEvents.gameCleared, () => {
 			this.state = TrolleyIO.states.gameClear
 		})
-		game.on(gameEvents.gameOvered, () => {
+		session.on(gameEvents.gameOvered, () => {
 			this.state = TrolleyIO.states.gameOver
 		})
-		game.once(gameEvents.sessionLoaded, async data => {
+		session.once(gameEvents.sessionLoaded, async data => {
 			this.gameInfo = data
 			await this.init()
 			this.difficultSelect()
 		})
 	}
 	async init() {
+		if (this.app) {
+			this.app.destroy(true, {
+				children: true,
+				textureSource: true,
+				context: true
+			})
+			this.canvas = document.createElement('canvas')
+			this.parentElement.append(this.canvas)
+			window.dispatchEvent(new Event('resize'))
+		} else {
+			await Assets.init({ manifest: assetManifest })
+			await Assets.loadBundle('first_load')
+		}
 		this.app = new Application()
 		await this.app.init({
 			background: '#000000',
 			width: constants.viewWidth,
 			height: constants.viewHeight,
+			canvas: this.canvas
 		})
-		const parent = document.querySelector('#main')
-		parent.appendChild(this.app.canvas)
 		window.__PIXI_DEVTOOLS__ = { app: this.app }
-		const resizeHandle = () => {
-			const parentWidth = parent.clientWidth
-			const parentHeight = parent.clientHeight
-
-			if ((parentWidth / parentHeight) > constants.viewAspectRatio) {
-				this.app.canvas.style.height = `${parentHeight}px`
-				this.app.canvas.style.width = `${parentHeight * constants.viewAspectRatio}px`
-			} else {
-				this.app.canvas.style.width = `${parentWidth}px`
-				this.app.canvas.style.height = `${parentWidth / constants.viewAspectRatio}px`
-			}
-		}
-		window.addEventListener('resize', resizeHandle)
-		resizeHandle()
 
 		this.sceneManager = new SceneManager()
-
-		await Assets.init({ manifest: assetManifest })
-		await Assets.loadBundle('first_load')
 	}
 	difficultSelect() {
 		this.state = TrolleyIO.states.difficultSelect

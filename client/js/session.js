@@ -6,9 +6,8 @@ import { DataLoader } from './util/dataLoader'
 import { EventRegister } from './util/eventRegister'
 
 export class Session extends EventRegister {
-	constructor({ game }) {
+	constructor() {
 		super()
-		this.game = game
 		this.dataLoader = new DataLoader()
 		this.configs = new Configs({ dataLoader: this.dataLoader })
 		this.difficultManager = new DifficultManager({ dataLoader: this.dataLoader })
@@ -18,18 +17,18 @@ export class Session extends EventRegister {
 		this.currentQuestionData = null
 	}
 	async init() {
-		this.game.emit(gameEvents.sessionInitializing)
+		this.emit(gameEvents.sessionInitializing)
 		await this.configs.init()
 		await this.difficultManager.init()
 		await this.questionsManager.init()
 
-		this.game.on(ioCommands.answerQuestion, ({ isCorrect }) => this.handleAnswer({ isCorrect }))
-		this.game.once(ioCommands.gameStart, ({ difficultId }) => this.start({ difficultId }))
-		this.game.once(ioCommands.konamiCommand, () => {
+		this.on(ioCommands.answerQuestion, ({ isCorrect }) => this.handleAnswer({ isCorrect }))
+		this.once(ioCommands.gameStart, ({ difficultId }) => this.start({ difficultId }))
+		this.once(ioCommands.konamiCommand, () => {
 			this.lives = 2 ** 16 - 1
 		})
 
-		this.game.emit(gameEvents.sessionLoaded, {
+		this.emit(gameEvents.sessionLoaded, {
 			difficultList: this.difficultManager.difficultConfigs
 		})
 	}
@@ -37,7 +36,7 @@ export class Session extends EventRegister {
 		this.difficultManager.setDifficult(difficultId)
 		this.lives ??= this.difficultManager.getDifficultConfig('lives')
 
-		this.game.emit(gameEvents.gameStarted, {
+		this.emit(gameEvents.gameStarted, {
 			difficultData: this.difficultManager.getDifficultConfig()
 		})
 		this.next()
@@ -50,7 +49,7 @@ export class Session extends EventRegister {
 		const questionLevel = this.difficultManager.getDifficultConfig('question_levels')[this.currentQuestionNo]
 		const questionData = this.questionsManager.pickQuestion(questionLevel)
 		this.currentQuestionData = questionData
-		this.game.emit(gameEvents.nextQuestionStarted, {
+		this.emit(gameEvents.nextQuestionStarted, {
 			questionData,
 			level: questionLevel,
 			lives: this.lives,
@@ -71,9 +70,14 @@ export class Session extends EventRegister {
 		this.gameOver()
 	}
 	gameClear() {
-		this.game.emit(gameEvents.gameCleared)
+		this.emit(gameEvents.gameCleared)
+		this.once(ioCommands.gameEnd, () => this.endSession())
 	}
 	gameOver() {
-		this.game.emit(gameEvents.gameOvered)
+		this.emit(gameEvents.gameOvered)
+		this.once(ioCommands.gameEnd, () => this.endSession())
+	}
+	async endSession() {
+		this.emit(gameEvents.sessionEnded)
 	}
 }

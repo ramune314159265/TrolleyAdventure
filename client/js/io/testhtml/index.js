@@ -11,7 +11,7 @@ export class TestHtmlIO extends GameIO {
 	}
 	gameLoading() {
 		this.main.innerText = '読み込み中'
-		this.game.once(gameEvents.sessionLoaded, data => this.gameStartScene(data))
+		this.session.once(gameEvents.sessionLoaded, data => this.gameStartScene(data))
 	}
 	gameStartScene(data) {
 		this.main.innerHTML = ''
@@ -21,12 +21,12 @@ export class TestHtmlIO extends GameIO {
 		Object.values(data.difficultList).forEach(d => {
 			const button = document.createElement('button')
 			button.innerText = d.name
-			button.onclick = () => this.game.emit(ioCommands.gameStart, { difficultId: d.id })
+			button.onclick = () => this.session.emit(ioCommands.gameStart, { difficultId: d.id })
 			this.main.append(button)
 		})
-		this.game.on(gameEvents.nextQuestionStarted, data => this.questionScene(data))
-		this.game.on(gameEvents.gameOvered, () => this.gameOveredScene())
-		this.game.on(gameEvents.gameCleared, () => this.gameClearedScene())
+		this.session.on(gameEvents.nextQuestionStarted, data => this.questionScene(data))
+		this.session.on(gameEvents.gameOvered, () => this.gameOveredScene())
+		this.session.on(gameEvents.gameCleared, () => this.gameClearedScene())
 	}
 	questionScene(data) {
 		this.main.innerHTML = ''
@@ -36,7 +36,7 @@ export class TestHtmlIO extends GameIO {
 		data.questionData.options.forEach((o, i) => {
 			const button = document.createElement('button')
 			button.innerText = o.content
-			button.onclick = () => this.game.emit(ioCommands.answerQuestion, { isCorrect: o.isCorrect, index: i - 1 })
+			button.onclick = () => this.session.emit(ioCommands.answerQuestion, { isCorrect: o.isCorrect, index: i - 1 })
 			this.main.append(button)
 		})
 	}

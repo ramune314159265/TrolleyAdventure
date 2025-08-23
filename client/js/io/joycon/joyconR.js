@@ -7,7 +7,7 @@ export class JoyConR {
 	static konamiCommand = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a']
 	constructor(io, joyCon) {
 		this.io = io
-		this.game = io.game
+		this.session = io.session
 		this.joyCon = joyCon
 		this.pastInputStatus = null
 		this.averageAccelerometer = 0
@@ -18,7 +18,7 @@ export class JoyConR {
 	}
 	start() {
 		this.setBlinkHomeLED(true)
-		this.game.on(gameEvents.nextQuestionStarted, () => {
+		this.session.on(gameEvents.nextQuestionStarted, () => {
 			this.setBlinkHomeLED(false)
 		})
 
@@ -74,16 +74,16 @@ export class JoyConR {
 			}
 			const isKonamiCommand = JoyConR.konamiCommand.every((k, i) => this.recentInputs[i] === k)
 			if(isKonamiCommand) {
-				this.game.emit(ioCommands.konamiCommand)
+				this.session.emit(ioCommands.konamiCommand)
 			}
 		}
 		switch (true) {
 			case (JoyConR.decideButtons.includes(key) && newState):
-				this.game.emit(ioEvents.decided)
+				this.session.emit(ioEvents.decided)
 				break
 
 			case (key === 'right' || key === 'left') && !newState:
-				this.game.emit(ioEvents.deselected)
+				this.session.emit(ioEvents.deselected)
 				this.direction = JoyConIO.directions.horizontal
 				if (this.io.state !== JoyConIO.states.questionAnswer) {
 					break
@@ -92,13 +92,13 @@ export class JoyConR {
 				break
 
 			case key === 'right':
-				this.game.emit(ioEvents.rightSelected)
+				this.session.emit(ioEvents.rightSelected)
 				this.direction = JoyConIO.directions.right
 				this.setBlinkHomeLED(this.joyCon, true)
 				break
 
 			case key === 'left':
-				this.game.emit(ioEvents.leftSelected)
+				this.session.emit(ioEvents.leftSelected)
 				this.direction = JoyConIO.directions.left
 				this.setBlinkHomeLED(this.joyCon, true)
 				break

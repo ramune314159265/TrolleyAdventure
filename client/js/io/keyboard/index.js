@@ -7,31 +7,33 @@ export class KeyboardIO extends GameIO {
 		questionAnswer: Symbol(),
 		ignore: Symbol()
 	}
-	constructor(game) {
-		super(game)
+	constructor() {
+		super()
 		this.state = KeyboardIO.states.ignore
 		this.questionData = null
 		this.eventId = document.addEventListener('keydown', e => this.keyPressHandle(e.key))
-
-		game.once(gameEvents.sessionLoaded, data => {
+	}
+	connectSession(session) {
+		this.session = session
+		session.once(gameEvents.sessionLoaded, data => {
 			this.difficultList = data.difficultList
 			this.state = KeyboardIO.states.difficultSelect
 		})
-		game.on(gameEvents.nextQuestionStarted, data => {
+		session.on(gameEvents.nextQuestionStarted, data => {
 			this.questionData = data.questionData
 			this.state = KeyboardIO.states.questionAnswer
 		})
-		game.on(gameEvents.gameCleared, () => {
+		session.on(gameEvents.gameCleared, () => {
 			this.state = KeyboardIO.states.ignore
 		})
-		game.on(gameEvents.gameOvered, () => {
+		session.on(gameEvents.gameOvered, () => {
 			this.state = KeyboardIO.states.ignore
 		})
 	}
 	keyPressHandle(key) {
 		console.log(key)
 		const keyMap = { a: ioEvents.leftSelected, s: ioEvents.rightSelected, d: ioEvents.deselected, f: ioEvents.decided, k: ioCommands.konamiCommand }
-		Object.keys(keyMap).includes(key) ? this.game.emit(keyMap[key]) : ''
+		Object.keys(keyMap).includes(key) ? this.session.emit(keyMap[key]) : ''
 		switch (this.state) {
 			case KeyboardIO.states.difficultSelect: {
 				const number = parseInt(key)
@@ -42,7 +44,7 @@ export class KeyboardIO extends GameIO {
 				if (!(0 < number && number <= difficulties.length)) {
 					break
 				}
-				this.game.emit(ioCommands.gameStart, { difficultId: difficulties[number - 1].id })
+				this.session.emit(ioCommands.gameStart, { difficultId: difficulties[number - 1].id })
 				break
 			}
 			case KeyboardIO.states.questionAnswer: {
@@ -59,7 +61,7 @@ export class KeyboardIO extends GameIO {
 					break
 				}
 				this.questionData = null
-				this.game.emit(ioCommands.answerQuestion, { isCorrect: questionData.options[number - 1].isCorrect, index: number - 1 })
+				this.session.emit(ioCommands.answerQuestion, { isCorrect: questionData.options[number - 1].isCorrect, index: number - 1 })
 			}
 		}
 	}

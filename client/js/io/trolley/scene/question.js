@@ -99,7 +99,7 @@ export class QuestionScene {
 			})
 			optionCountdown.x = (constants.viewWidth / 4) * p
 			optionCountdown.onEnded = () => {
-				TrolleyIO.instance.game.emit(ioCommands.answerQuestion, { isCorrect: questionInfo.questionData.options[i].isCorrect, index: i })
+				TrolleyIO.instance.session.emit(ioCommands.answerQuestion, { isCorrect: questionInfo.questionData.options[i].isCorrect, index: i })
 			}
 			optionsContainer.addChild(optionCountdown)
 			optionHologram.show()
@@ -120,7 +120,7 @@ export class QuestionScene {
 				optionInnerContainer.addChild(image)
 			}
 			optionInnerContainer.addChild(optionText)
-			const selectedEvent = TrolleyIO.instance.game.onAny(eventName => {
+			const selectedEvent = TrolleyIO.instance.session.onAny(eventName => {
 				const observerEvents = [ioEvents.deselected, ioEvents.leftSelected, ioEvents.rightSelected]
 				if (!Object.values(observerEvents).includes(eventName)) {
 					return
@@ -144,8 +144,8 @@ export class QuestionScene {
 					optionHologram.deactivate()
 				}
 			})
-			TrolleyIO.instance.game.once(ioCommands.answerQuestion, async ({ index, isCorrect }) => {
-				TrolleyIO.instance.game.offAny(selectedEvent)
+			TrolleyIO.instance.session.once(ioCommands.answerQuestion, async ({ index, isCorrect }) => {
+				TrolleyIO.instance.session.offAny(selectedEvent)
 				if (i !== index) {
 					optionHologram.hide()
 					return

@@ -16,24 +16,10 @@ export class JoyConIO extends GameIO {
 		right: Symbol(),
 		left: Symbol()
 	}
-	constructor(game) {
-		super(game)
+	constructor() {
+		super()
 		this.state = JoyConIO.states.ignore
 		this.questionData = null
-		game.once(gameEvents.sessionLoaded, data => {
-			this.difficultList = data.difficultList
-			this.state = JoyConIO.states.difficultSelect
-		})
-		game.on(gameEvents.nextQuestionStarted, data => {
-			this.questionData = data.questionData
-			this.state = JoyConIO.states.questionAnswer
-		})
-		game.on(gameEvents.gameCleared, () => {
-			this.state = JoyConIO.states.ignore
-		})
-		game.on(gameEvents.gameOvered, () => {
-			this.state = JoyConIO.states.ignore
-		})
 
 		const start = () => {
 			for (const joyCon of connectedJoyCons.values()) {
@@ -52,6 +38,23 @@ export class JoyConIO extends GameIO {
 		})
 		start()
 	}
+	connectSession(session) {
+		this.session = session
+		session.once(gameEvents.sessionLoaded, data => {
+			this.difficultList = data.difficultList
+			this.state = JoyConIO.states.difficultSelect
+		})
+		session.on(gameEvents.nextQuestionStarted, data => {
+			this.questionData = data.questionData
+			this.state = JoyConIO.states.questionAnswer
+		})
+		session.on(gameEvents.gameCleared, () => {
+			this.state = JoyConIO.states.ignore
+		})
+		session.on(gameEvents.gameOvered, () => {
+			this.state = JoyConIO.states.ignore
+		})
+	}
 	async joyConHandle(joyCon) {
 		joyCon.eventListenerAttached = true
 		await joyCon.open()
@@ -63,7 +66,6 @@ export class JoyConIO extends GameIO {
 		console.log(joyCon)
 		this.joyCon = joyCon
 		const joyConData = await joyCon.getRequestDeviceInfo()
-		console.log(joyConData)
 
 		if (joyConData.type === 'Right Joy-Con') {
 			new JoyConR(this, joyCon).start()
