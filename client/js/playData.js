@@ -15,7 +15,7 @@ export class PlayData {
 		this.questions.push({
 			level: data.level,
 			lives: data.lives,
-			isCorrect: data.isCorrect,
+			correct: data.isCorrect,
 			questionNo: data.questionNo,
 			questionId: data.questionData.id,
 			optionIndex: data.questionData.optionIndex

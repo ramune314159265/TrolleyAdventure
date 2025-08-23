@@ -3,3 +3,4 @@ build/
 dist/
 *_ignore.*
 client/public/images/question/
+db.json
