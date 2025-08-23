@@ -54,20 +54,24 @@ const playDataSchema = z.object({
 	cleared: z.boolean()
 })
 
-apiRoute.post('playdata', zValidator('json', playDataSchema, (result, c) => {
-	if (!result.success) {
-		return c.json({ error: 'Bad request' }, 400)
-	}
-}), (c) => {
-	db.update(({ playData, accuracyData }) => {
-		const data = c.req.valid('json')
-		playData.push(data)
-		const questionDataList = data.questions
-		questionDataList.forEach(questionData => {
-			accuracyData[questionData.questionId] ??= {}
-			accuracyData[questionData.questionId][questionData.optionIndex] ??= []
-			accuracyData[questionData.questionId][questionData.optionIndex].push(questionData.correct)
-		})
+apiRoute
+	.get('playdata', (c) => {
+		return c.json(db.data.playData)
 	})
-	return c.json({ message: 'ok' })
-})
+	.post(zValidator('json', playDataSchema, (result, c) => {
+		if (!result.success) {
+			return c.json({ error: 'Bad request' }, 400)
+		}
+	}), (c) => {
+		db.update(({ playData, accuracyData }) => {
+			const data = c.req.valid('json')
+			playData.push(data)
+			const questionDataList = data.questions
+			questionDataList.forEach(questionData => {
+				accuracyData[questionData.questionId] ??= {}
+				accuracyData[questionData.questionId][questionData.optionIndex] ??= []
+				accuracyData[questionData.questionId][questionData.optionIndex].push(questionData.correct)
+			})
+		})
+		return c.json({ message: 'ok' })
+	})
