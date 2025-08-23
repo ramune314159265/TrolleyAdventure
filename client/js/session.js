@@ -25,7 +25,7 @@ export class Session extends EventRegister {
 		this.on(ioCommands.answerQuestion, ({ isCorrect }) => this.handleAnswer({ isCorrect }))
 		this.once(ioCommands.gameStart, ({ difficultId }) => this.start({ difficultId }))
 		this.once(ioCommands.konamiCommand, () => {
-			this.lives = 2 ** 16 - 1
+			this.lives = 2 ** (32 - 1) - 1
 		})
 
 		this.emit(gameEvents.sessionLoaded, {
