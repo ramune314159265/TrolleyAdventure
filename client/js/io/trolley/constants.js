@@ -2,7 +2,8 @@ export const constants = {
 	viewWidth: 1920,
 	viewHeight: 1080,
 	viewAspectRatio: 16 / 9,
-	uiRadian: Math.PI / 6
+	uiRadian: Math.PI / 6,
+	charactersPerSecond: 20
 }
 
 export const colors = {

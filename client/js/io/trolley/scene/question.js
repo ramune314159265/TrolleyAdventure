@@ -66,7 +66,7 @@ export class QuestionScene {
 		topHologramInnerContainer.addChild(topText)
 		this.container.addChild(topHologram)
 		await topHologram.show()
-		await wait(1000)
+		await wait(500 + 1000 * questionInfo.questionData.content.length / constants.charactersPerSecond)
 		this.questionFirstInfo.hide()
 		this.container.removeChild(this.questionFirstInfo)
 		animateSimple(rate => {
@@ -193,11 +193,12 @@ export class QuestionScene {
 				explanationTopText.x = hologramWidth / 2
 				explanationTopText.y = 75
 				explanationInnerContainer.addChild(explanationTopText)
+				const explainContent = [
+					questionInfo.questionData.answer.explanation,
+					questionInfo.questionData.option.explanation
+				].filter(c => c).join('\n')
 				const explanationText = new MainText({
-					content: [
-						questionInfo.questionData.answer.explanation,
-						questionInfo.questionData.option.explanation
-					].filter(c => c).join('\n'),
+					content: explainContent,
 					styleOverride: {
 						fontSize: 72,
 						wordWrap: true,
@@ -232,7 +233,7 @@ export class QuestionScene {
 					optionsContainer.addChild(noImageText)
 				}
 				if (TrolleyIO.instance.state === TrolleyIO.states.quiz) {
-					await wait(3000)
+					await wait(2000 + 1000 * explainContent.length / constants.charactersPerSecond)
 					await explanationHologram.hide()
 					this.container.removeChild(this.questionContainer)
 					this.nextQuestion()
