@@ -9,6 +9,7 @@ import { FitSprite } from '../component/fitSprite'
 import { FitText } from '../component/fitText'
 import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
+import { QuestionCountdown } from '../component/questionCowntdown'
 import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
 import { QuestionOverlay } from '../component/questionOverlay'
 import { colors, constants } from '../constants'
@@ -28,6 +29,8 @@ export class QuestionScene {
 		this.container.addChild(starsBackground)
 		this.questionOverlay = new QuestionOverlay()
 		this.container.addChild(this.questionOverlay)
+		this.questionCountdown = new QuestionCountdown()
+		this.container.addChild(this.questionCountdown)
 	}
 	async enter() {
 		this.nextQuestion()
@@ -71,6 +74,7 @@ export class QuestionScene {
 		}, { easing: easeOutQuint, duration: 1000 })
 		await wait(350)
 
+		this.questionCountdown.start({ periodMs: TrolleyIO.instance.difficultData.time_limit * 1000 })
 		this.questionContainer = new Container()
 		this.container.addChild(this.questionContainer)
 		const optionsContainer = new Container()

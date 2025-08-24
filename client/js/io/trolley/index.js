@@ -20,7 +20,7 @@ export class TrolleyIO extends GameIO {
 		super()
 		TrolleyIO.instance = this
 		this.gameInfo = null
-		this.difficultData
+		this.difficultData = null
 		this.questionInfo = null
 		this.state = null
 
