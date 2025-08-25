@@ -1,3 +1,4 @@
+import { Stats } from 'pixi-stats'
 import { Application, Assets } from 'pixi.js'
 import { gameEvents } from '../../enum'
 import { GameIO } from '../index'
@@ -85,7 +86,10 @@ export class TrolleyIO extends GameIO {
 			height: constants.viewHeight,
 			canvas: this.canvas,
 		})
-		window.__PIXI_DEVTOOLS__ = { app: this.app }
+		if (!import.meta.env.PROD) {
+			window.__PIXI_DEVTOOLS__ = { app: this.app }
+			new Stats(this.app.render, document.querySelector('#main'))
+		}
 
 		this.sceneManager = new SceneManager()
 	}
