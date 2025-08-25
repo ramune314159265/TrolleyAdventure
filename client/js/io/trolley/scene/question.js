@@ -74,6 +74,18 @@ export class QuestionScene {
 		}, { easing: easeOutQuint, duration: 1000 })
 		await wait(350)
 
+		let lastSelected = null
+		this.questionCountdown.onEnded = () => {
+			const directionIndex = {
+				[ioEvents.leftSelected]: 0,
+				[ioEvents.rightSelected]: 0,
+			}
+			if (lastSelected) {
+				TrolleyIO.instance.session.emit(ioCommands.answerQuestion, { isCorrect: questionInfo.questionData.options[directionIndex[lastSelected]].isCorrect, index: directionIndex[lastSelected] })
+			} else {
+				TrolleyIO.instance.session.emit(ioCommands.answerQuestion, { isCorrect: false, index: 0 })
+			}
+		}
 		this.questionCountdown.start({ periodMs: TrolleyIO.instance.difficultData.time_limit * 1000 })
 		this.questionContainer = new Container()
 		this.container.addChild(this.questionContainer)
@@ -131,6 +143,7 @@ export class QuestionScene {
 				}
 				const targetEvent = i === 0 ? ioEvents.leftSelected : ioEvents.rightSelected
 				if (eventName === targetEvent) {
+					lastSelected = eventName
 					optionHologram.scale.x < 1.1 ? animateSimple(rate => {
 						optionHologram.scale = { x: 1 + (0.1 * rate), y: 1 + (0.1 * rate) }
 					}, { easing: easeOutQuint, duration: 500 }) : ''

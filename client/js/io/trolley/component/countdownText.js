@@ -15,9 +15,8 @@ export class CountdownText extends MainText {
 		this.ticker = () => {
 			const remain = endsMs - performance.now()
 			if (remain < 0) {
-				this.visible = false
+				this.abort()
 				this.onEnded()
-				TrolleyIO.instance.app.ticker.remove(this.ticker)
 				return
 			}
 			const second = Math.ceil(remain / 1000)
