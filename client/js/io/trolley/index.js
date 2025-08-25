@@ -83,7 +83,7 @@ export class TrolleyIO extends GameIO {
 			background: '#000000',
 			width: constants.viewWidth,
 			height: constants.viewHeight,
-			canvas: this.canvas
+			canvas: this.canvas,
 		})
 		window.__PIXI_DEVTOOLS__ = { app: this.app }
 
