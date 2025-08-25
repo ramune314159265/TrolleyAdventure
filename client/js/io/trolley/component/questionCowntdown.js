@@ -80,6 +80,7 @@ export class QuestionCountdown extends Container {
 			}
 			if (remain < 0) {
 				this.visible = false
+				this.hideText()
 				this.onEnded()
 				TrolleyIO.instance.app.ticker.remove(this.ticker)
 				return
@@ -96,5 +97,9 @@ export class QuestionCountdown extends Container {
 			this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2 - QuestionCountdown.textWrapperHeight * rate
 		}, { easing: easeOutQuint, duration: QuestionCountdown.animationDuration })
 		this.countdownText.start({ periodMs: QuestionCountdown.textStart })
+	}
+	hideText() {
+		this.isTextShowed = false
+		this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2
 	}
 }
