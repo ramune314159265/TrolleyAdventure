@@ -58,14 +58,17 @@ export class JoyConIO extends GameIO {
 	async joyConHandle(joyCon) {
 		joyCon.eventListenerAttached = true
 		await joyCon.open()
+		await wait(50)
 		await joyCon.enableStandardFullMode()
-		await wait(100) // 一定期間待たないとaccelerometerを取得できない
+		await wait(50)
 		await joyCon.setLED(0)
+		await wait(50)
 		await joyCon.enableIMUMode()
-		await wait(100)
+		await wait(50)
 		console.log(joyCon)
 		this.joyCon = joyCon
 		const joyConData = await joyCon.getRequestDeviceInfo()
+		await wait(50)
 
 		if (joyConData.type === 'Right Joy-Con') {
 			new JoyConR(this, joyCon).start()

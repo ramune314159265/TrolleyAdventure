@@ -11,7 +11,6 @@ export class JoyConR {
 		this.session = io.session
 		this.joyCon = joyCon
 		this.pastInputStatus = null
-		this.averageAccelerometer = 0
 		this.isBlinkingHomeLED = false
 		this.direction = JoyConIO.directions.horizontal
 		this.recentAccelerometers = [0]
@@ -24,13 +23,6 @@ export class JoyConR {
 		})
 
 		this.joyCon.addEventListener('hidinput', ({ detail }) => {
-			if (detail.accelerometers) {
-				this.recentAccelerometers.push(detail.accelerometers[0].y.acc)
-				if (10 < this.recentAccelerometers.length) {
-					this.recentAccelerometers.shift()
-				}
-			}
-			this.averageAccelerometer = this.recentAccelerometers.reduce((a, b) => a + b) / this.recentAccelerometers.length
 			const { roll } = quaternionToEuler(this.joyCon.madgwick.getQuaternion())
 			if (!this.pastInputStatus) {
 				this.pastInputStatus = detail.buttonStatus

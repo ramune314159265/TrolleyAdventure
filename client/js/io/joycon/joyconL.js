@@ -1,35 +1,29 @@
 import { JoyConIO } from '.'
 import { ioEvents } from '../../enum'
+import { quaternionToEuler } from '../../util/quaternion'
 
 export class JoyConL {
-	static selectThreshold = 0.4
+	static selectThreshold = Math.PI * (2/5)
 	static decideButtons = ['l', 'zl', 'leftStick']
 	constructor(io, joyCon) {
 		this.io = io
 		this.session = io.session
 		this.joyCon = joyCon
 		this.pastInputStatus = null
-		this.averageAccelerometer = 0
 		this.direction = JoyConIO.directions.horizontal
 		this.recentAccelerometers = [0]
 	}
 	start() {
 		this.joyCon.addEventListener('hidinput', ({ detail }) => {
-			if (detail.accelerometers) {
-				this.recentAccelerometers.push(detail.accelerometers[0].z.acc)
-				if (10 < this.recentAccelerometers.length) {
-					this.recentAccelerometers.shift()
-				}
-			}
-			this.averageAccelerometer = this.recentAccelerometers.reduce((a, b) => a + b) / this.recentAccelerometers.length
+			const { pitch, yaw } = quaternionToEuler(this.joyCon.madgwick.getQuaternion())
 			if (!this.pastInputStatus) {
 				this.pastInputStatus = detail.buttonStatus
 				return
 			}
 			const inputStatus = {
 				...detail.buttonStatus,
-				right: this.averageAccelerometer < -JoyConL.selectThreshold,
-				left: JoyConL.selectThreshold < this.averageAccelerometer,
+				right: (-JoyConL.selectThreshold < pitch && yaw < 0),
+				left: (-JoyConL.selectThreshold < pitch && 0 < yaw),
 			}
 			Object.entries(inputStatus).forEach(([k, v]) => {
 				if (typeof v !== 'boolean') {
