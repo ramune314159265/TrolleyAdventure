@@ -36,7 +36,6 @@ export class JoyConR {
 				this.pastInputStatus = detail.buttonStatus
 				return
 			}
-			console.log(roll, -JoyConR.selectThreshold < roll, JoyConR.selectThreshold < roll)
 			const inputStatus = {
 				...detail.buttonStatus,
 				up: detail.analogStickRight.vertical < -0.6,
