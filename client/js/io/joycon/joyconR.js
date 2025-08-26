@@ -1,8 +1,9 @@
 import { JoyConIO } from '.'
 import { gameEvents, ioCommands, ioEvents } from '../../enum'
+import { quaternionToEuler } from '../../util/quaternion'
 
 export class JoyConR {
-	static selectThreshold = 0.1
+	static selectThreshold = Math.PI * (170 / 180)
 	static decideButtons = ['a', 'plus', 'home', 'rightStick']
 	static konamiCommand = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a']
 	constructor(io, joyCon) {
@@ -30,16 +31,18 @@ export class JoyConR {
 				}
 			}
 			this.averageAccelerometer = this.recentAccelerometers.reduce((a, b) => a + b) / this.recentAccelerometers.length
+			const { roll } = quaternionToEuler(this.joyCon.madgwick.getQuaternion())
 			if (!this.pastInputStatus) {
 				this.pastInputStatus = detail.buttonStatus
 				return
 			}
+			console.log(roll, -JoyConR.selectThreshold < roll, JoyConR.selectThreshold < roll)
 			const inputStatus = {
 				...detail.buttonStatus,
 				up: detail.analogStickRight.vertical < -0.6,
 				down: 1 < detail.analogStickRight.vertical,
-				right: 1.2 < detail.analogStickRight.horizontal || this.averageAccelerometer < -JoyConR.selectThreshold,
-				left: detail.analogStickRight.horizontal < -0.8 || JoyConR.selectThreshold < this.averageAccelerometer,
+				right: 1.2 < detail.analogStickRight.horizontal || (-JoyConR.selectThreshold < roll && roll < -Math.PI / 2),
+				left: detail.analogStickRight.horizontal < -0.8 || (Math.PI / 2 < roll && roll < JoyConR.selectThreshold),
 			}
 			Object.entries(inputStatus).forEach(([k, v]) => {
 				if (typeof v !== 'boolean') {
@@ -73,7 +76,7 @@ export class JoyConR {
 				this.recentInputs.shift()
 			}
 			const isKonamiCommand = JoyConR.konamiCommand.every((k, i) => this.recentInputs[i] === k)
-			if(isKonamiCommand) {
+			if (isKonamiCommand) {
 				this.session.emit(ioCommands.konamiCommand)
 			}
 		}
