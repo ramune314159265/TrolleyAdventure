@@ -1,4 +1,4 @@
-import { Assets, Container, Graphics, Sprite } from 'pixi.js'
+import { Assets, Container, Graphics } from 'pixi.js'
 import { ioCommands, ioEvents } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
@@ -12,6 +12,7 @@ import { MainText } from '../component/mainText'
 import { QuestionCountdown } from '../component/questionCowntdown'
 import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
 import { QuestionOverlay } from '../component/questionOverlay'
+import { VideoBackground } from '../component/videoBackground'
 import { colors, constants } from '../constants'
 import { TrolleyIO } from '../index'
 
@@ -21,12 +22,9 @@ export class QuestionScene {
 	}
 	async init() {
 		await Assets.loadBundle('question')
-		const stars = await Assets.load('stars')
-		const starsBackground = new Sprite(stars)
-		starsBackground.texture.source.resource.loop = true
-		starsBackground.width = constants.viewWidth
-		starsBackground.height = constants.viewHeight
-		this.container.addChild(starsBackground)
+		this.background = new VideoBackground({ width: constants.width, height: constants.height })
+		this.background.changeVideo(['stars'])
+		this.container.addChild(this.background)
 		this.questionOverlay = new QuestionOverlay()
 		this.container.addChild(this.questionOverlay)
 		this.questionCountdown = new QuestionCountdown()

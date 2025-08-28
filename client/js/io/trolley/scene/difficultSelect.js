@@ -20,8 +20,8 @@ export class DifficultSelectScene {
 
 		const backgroundTexture = await Assets.load('background')
 		const background = new Sprite(backgroundTexture)
-		background.width = constants.viewWidth
-		background.height = constants.viewHeight
+		background.containerWidth = constants.viewWidth
+		background.containerHeight = constants.viewHeight
 		this.container.addChild(background)
 
 		const topHologramInnerContainer = new Container()
