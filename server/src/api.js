@@ -13,6 +13,7 @@ const db = await JSONFilePreset(path.join(import.meta.dirname, '../db.json'), {
 export const apiRoute = new Hono()
 
 const questions = JSON.parse(readFileSync(path.join(import.meta.dirname, '../data/questions.json')).toString())
+const difficulties = JSON.parse(readFileSync(path.join(import.meta.dirname, '../data/difficulties.json')).toString())
 
 apiRoute.get('questions', async (c) => {
 	const accuracyData = db.data.accuracyData
@@ -33,6 +34,25 @@ apiRoute.get('questions', async (c) => {
 					accuracy
 				}
 			})
+		}
+	})
+	return c.json(returnData)
+})
+
+apiRoute.get('difficulties', async (c) => {
+	const playData = db.data.playData
+	const returnData = difficulties.map(difficult => {
+		const difficultPlayData = playData.filter(p => p.difficult === difficult.id)
+		if (difficultPlayData.length === 0) {
+			return {
+				...difficult,
+				pass_rate: 0
+			}
+		}
+		const passRate = difficultPlayData.filter(p => p.cleared).length / difficultPlayData.length
+		return {
+			...difficult,
+			pass_rate: passRate
 		}
 	})
 	return c.json(returnData)

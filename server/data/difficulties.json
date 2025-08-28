@@ -1,0 +1,71 @@
+[
+	{
+		"id": "easy",
+		"name": "イージー",
+		"description": "易しめ、問題数少なめのモードです",
+		"question_levels": [
+			1,
+			1,
+			2,
+			2,
+			3
+		],
+		"lives": 3,
+		"time_limit": 20,
+		"selected_time_limit": 3
+	},
+	{
+		"id": "normal",
+		"name": "ノーマル",
+		"description": "普通ぐらいのモードです",
+		"question_levels": [
+			2,
+			2,
+			3,
+			3,
+			3,
+			4
+		],
+		"lives": 2,
+		"time_limit": 15,
+		"selected_time_limit": 3
+	},
+	{
+		"id": "hard",
+		"name": "ハード",
+		"description": "まあまあ難しいモードです\n最終問題は最高レベル！",
+		"text_color": "#ffa9a3",
+		"hologram_color": "#d16668",
+		"question_levels": [
+			3,
+			3,
+			4,
+			4,
+			4,
+			5
+		],
+		"lives": 2,
+		"time_limit": 10,
+		"selected_time_limit": 3
+	},
+	{
+		"id": "extreme",
+		"name": "エクストリーム",
+		"description": "ハイレベル問題×ライフ１つの超難易度！",
+		"text_color": "#ffbff9",
+		"hologram_color" : "#d67ecd",
+		"question_levels": [
+			4,
+			4,
+			5,
+			5,
+			5,
+			5,
+			5,
+			5
+		],
+		"lives": 1,
+		"time_limit": 8,
+		"selected_time_limit": 2
+	}
+]

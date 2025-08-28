@@ -3,7 +3,10 @@ const resources = {
 		'./api/questions',
 		'./data/questions.json'
 	],
-	difficulties: ['./data/difficulties.json'],
+	difficulties: [
+		'./api/difficulties',
+		'./data/difficulties.json'
+	],
 	config: ['./data/config.json'],
 }
 
