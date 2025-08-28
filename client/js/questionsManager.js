@@ -1,9 +1,8 @@
 export class QuestionManager {
+	static maxLevel = 5
 	#dataLoader
-	#configs
-	constructor({ dataLoader, configs }) {
+	constructor({ dataLoader }) {
 		this.#dataLoader = dataLoader
-		this.#configs = configs
 		this.pickedIds = []
 	}
 	async init() {
@@ -22,7 +21,7 @@ export class QuestionManager {
 		})
 	}
 	pickQuestion(level, filter = {}) {
-		const levelPerQuestions = Math.floor(this.allQuestions.length / this.#configs.get('max_level'))
+		const levelPerQuestions = Math.floor(this.allQuestions.length / QuestionManager.maxLevel)
 		const questionsAccuracySorted = this.allQuestions.sort((a, b) => b.option.accuracy - a.option.accuracy)
 		const targetLevelQuestions = questionsAccuracySorted.slice((level - 1) * levelPerQuestions, (level - 1) * levelPerQuestions + levelPerQuestions)
 		const questionsFiltered = targetLevelQuestions

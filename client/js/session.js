@@ -12,7 +12,7 @@ export class Session extends EventRegister {
 		this.dataLoader = new DataLoader()
 		this.configs = new Configs({ dataLoader: this.dataLoader })
 		this.difficultManager = new DifficultManager({ dataLoader: this.dataLoader })
-		this.questionsManager = new QuestionManager({ dataLoader: this.dataLoader, configs: this.configs })
+		this.questionsManager = new QuestionManager({ dataLoader: this.dataLoader })
 		this.playData = new PlayData()
 		this.lives = null
 		this.questionNo = 0
