@@ -2,6 +2,7 @@ import { GlitchFilter, GlowFilter } from 'pixi-filters'
 import { Container, Graphics, NoiseFilter, Rectangle } from 'pixi.js'
 import { TrolleyIO } from '..'
 import { easeOutQuint } from '../../../util/easing'
+import { animateSimple } from '../animation'
 import { constants } from '../constants'
 
 export class FilledHologramContainer extends Container {
@@ -38,7 +39,7 @@ export class FilledHologramContainer extends Container {
 		this.addChild(background)
 		this.addChild(innerContainer)
 
-		TrolleyIO.instance.app.ticker.add(() => {
+		this.ticker = () => {
 			background.clear()
 			background
 				.moveTo(maxHeight * Math.sin(constants.uiRadian), 0)
@@ -55,46 +56,27 @@ export class FilledHologramContainer extends Container {
 			if (Math.random() < 0.2) {
 				glitch.refresh()
 			}
-		})
+		}
+		TrolleyIO.instance.app.ticker.add(this.ticker)
 	}
-	show() {
-		return new Promise(resolve => {
-			const animationTick = 40
-			let tick = 0
-			const handleTick = () => {
-				if (0 <= tick && tick <= animationTick) {
-					this.containerWidth = Math.max(easeOutQuint(tick / animationTick) * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
-				}
-				if (30 <= tick && tick <= animationTick + 30) {
-					this.innerContainer.alpha = easeOutQuint((tick - 30) / animationTick)
-				}
-				if (animationTick + 30 < tick) {
-					TrolleyIO.instance.app.ticker.remove(handleTick)
-					resolve()
-				}
-				tick++
-			}
-			TrolleyIO.instance.app.ticker.add(handleTick)
-		})
+	async show() {
+		await animateSimple(rate => {
+			this.containerWidth = Math.max(rate * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
+		}, { easing: easeOutQuint, duration: 750 })
+		await animateSimple(rate => {
+			this.innerContainer.alpha = rate
+		}, { easing: easeOutQuint, duration: 500 })
 	}
-	hide() {
-		return new Promise(resolve => {
-			const animationTick = 40
-			let tick = 0
-			const handleTick = () => {
-				if (0 <= tick && tick <= animationTick) {
-					this.innerContainer.alpha = 1 - easeOutQuint(tick / animationTick)
-				}
-				if (animationTick <= tick && tick <= animationTick + animationTick) {
-					this.containerWidth = Math.max((1 - easeOutQuint((tick - animationTick) / animationTick)) * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
-				}
-				if (animationTick + animationTick < tick) {
-					TrolleyIO.instance.app.ticker.remove(handleTick)
-					resolve()
-				}
-				tick++
-			}
-			TrolleyIO.instance.app.ticker.add(handleTick)
-		})
+	async hide() {
+		await animateSimple(rate => {
+			this.innerContainer.alpha = 1 - rate
+		}, { easing: easeOutQuint, duration: 250 })
+		await animateSimple(rate => {
+			this.containerWidth = Math.max((1 - rate) * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
+		}, { easing: easeOutQuint, duration: 750 })
+	}
+	destroy(options = { children: true }) {
+		TrolleyIO.instance.app.ticker.remove(this.ticker)
+		super.destroy(options)
 	}
 }

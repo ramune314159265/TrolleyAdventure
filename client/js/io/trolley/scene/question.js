@@ -1,4 +1,5 @@
 import { Assets, Container, Graphics } from 'pixi.js'
+import { Scene } from '.'
 import { ioCommands, ioEvents } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
@@ -16,9 +17,9 @@ import { VideoBackground } from '../component/videoBackground'
 import { colors, constants } from '../constants'
 import { TrolleyIO } from '../index'
 
-export class QuestionScene {
+export class QuestionScene extends Scene {
 	constructor() {
-		this.container = new Container()
+		super()
 	}
 	async init() {
 		await Assets.loadBundle('question')
@@ -162,7 +163,8 @@ export class QuestionScene {
 			TrolleyIO.instance.session.once(ioCommands.answerQuestion, async ({ index, isCorrect }) => {
 				TrolleyIO.instance.session.offAny(selectedEvent)
 				if (i !== index) {
-					optionHologram.hide()
+					await optionHologram.hide()
+					optionHologram.destroy()
 					return
 				}
 				await wait(1000)
@@ -171,7 +173,7 @@ export class QuestionScene {
 				}, { easing: easeOutQuint, duration: 1000 })
 				topHologram.hide()
 				await optionHologram.hide()
-				this.container.removeChild(topHologram)
+				optionHologram.destroy()
 				await wait(1000)
 				const isCorrectText = new MainText({
 					content: TrolleyIO.instance.state === TrolleyIO.states.quiz ?
@@ -246,6 +248,7 @@ export class QuestionScene {
 				if (TrolleyIO.instance.state === TrolleyIO.states.quiz) {
 					await wait(2000 + 1000 * explainContent.length / constants.charactersPerSecond)
 					await explanationHologram.hide()
+					explanationHologram.hide()
 					this.container.removeChild(this.questionContainer)
 					this.nextQuestion()
 				}

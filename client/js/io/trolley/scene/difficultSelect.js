@@ -1,4 +1,5 @@
 import { Assets, Container, Sprite } from 'pixi.js'
+import { Scene } from '.'
 import { ioCommands, ioEvents } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { mod } from '../../../util/mod'
@@ -11,9 +12,9 @@ import { MainText } from '../component/mainText'
 import { colors, constants } from '../constants'
 import { TrolleyIO } from '../index'
 
-export class DifficultSelectScene {
+export class DifficultSelectScene extends Scene {
 	constructor() {
-		this.container = new Container()
+		super()
 	}
 	async init() {
 		await Assets.loadBundle('difficult_select')
@@ -27,15 +28,15 @@ export class DifficultSelectScene {
 		const topHologramInnerContainer = new Container()
 		const topHologramWidth = constants.viewWidth * 0.7
 		const topHologramHeight = 125
-		const topHologram = new FilledHologramContainer({
+		this.topHologram = new FilledHologramContainer({
 			maxWidth: topHologramWidth,
 			maxHeight: topHologramHeight,
 			color: colors.hologramMain,
 			innerContainer: topHologramInnerContainer
 		})
-		topHologram.x = constants.viewWidth / 2
-		topHologram.y = 108
-		topHologram.show()
+		this.topHologram.x = constants.viewWidth / 2
+		this.topHologram.y = 108
+		this.topHologram.show()
 		this.topText = new BlinkText({
 			content: '難易度を選んでください',
 			styleOverride: {
@@ -45,7 +46,7 @@ export class DifficultSelectScene {
 		this.topText.x = topHologramWidth / 2
 		this.topText.y = topHologramHeight / 2
 		topHologramInnerContainer.addChild(this.topText)
-		this.container.addChild(topHologram)
+		this.container.addChild(this.topHologram)
 
 		let selectedIndex = 0
 		const hologramWidth = constants.viewWidth * 0.7
@@ -55,7 +56,7 @@ export class DifficultSelectScene {
 		difficultiesContainer.x = constants.viewWidth / 2
 		difficultiesContainer.y = 625
 		const difficulties = Object.values(TrolleyIO.instance.gameInfo.difficultList)
-		const difficultHolograms = difficulties.map((data, index) => {
+		this.difficultHolograms = difficulties.map((data, index) => {
 			const innerContainer = new Container()
 			const hologram = new HologramContainer({
 				maxWidth: hologramWidth,
@@ -101,21 +102,21 @@ export class DifficultSelectScene {
 		const move = offset => {
 			const previousIndex = selectedIndex
 			selectedIndex += offset
-			difficultHolograms[previousIndex]?.scale?.set?.(1)
+			this.difficultHolograms[previousIndex]?.scale?.set?.(1)
 			animateSimple(rate => {
-				difficultHolograms.forEach((hologram, index) => {
-					index === mod(selectedIndex, difficultHolograms.length) ? hologram.activate() : hologram.deactivate()
-					const from = (hologramWidth + gap) * (index - mod(previousIndex, difficultHolograms.length))
-					const to = (hologramWidth + gap) * (index - mod(selectedIndex, difficultHolograms.length))
+				this.difficultHolograms.forEach((hologram, index) => {
+					index === mod(selectedIndex, this.difficultHolograms.length) ? hologram.activate() : hologram.deactivate()
+					const from = (hologramWidth + gap) * (index - mod(previousIndex, this.difficultHolograms.length))
+					const to = (hologramWidth + gap) * (index - mod(selectedIndex, this.difficultHolograms.length))
 					hologram.x = from + (to - from) * rate
 				})
-				difficultHolograms[selectedIndex]?.scale?.set?.(1 + 0.1 * rate)
+				this.difficultHolograms[selectedIndex]?.scale?.set?.(1 + 0.1 * rate)
 			}, { easing: easeOutQuint, duration: 1000 })
 		}
 		TrolleyIO.instance.session.on(ioEvents.leftSelected, () => move(-1))
 		TrolleyIO.instance.session.on(ioEvents.rightSelected, () => move(1))
-		TrolleyIO.instance.session.on(ioEvents.decided, () => {
-			TrolleyIO.instance.session.emit(ioCommands.gameStart, { difficultId: difficulties[mod(selectedIndex, difficultHolograms.length)].id })
+		TrolleyIO.instance.session.once(ioEvents.decided, () => {
+			TrolleyIO.instance.session.emit(ioCommands.gameStart, { difficultId: difficulties[mod(selectedIndex, this.difficultHolograms.length)].id })
 		})
 
 		this.container.addChild(difficultiesContainer)
@@ -123,5 +124,6 @@ export class DifficultSelectScene {
 	async exit() {
 		this.topText.text = `Let's Go!`
 		await wait(500)
+		this.topHologram.destroy()
 	}
 }
