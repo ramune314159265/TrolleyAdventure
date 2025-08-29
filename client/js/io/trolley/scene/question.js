@@ -53,7 +53,7 @@ export class QuestionScene extends Scene {
 		const topText = new FitText({
 			content: '',
 			styleOverride: {},
-			width: topHologramWidth,
+			width: topHologramWidth * 0.95,
 			height: topHologramHeight,
 			maxFontSize: 120,
 			minFontSize: 32
@@ -68,7 +68,7 @@ export class QuestionScene extends Scene {
 			topHologram.y = constants.viewHeight / 2
 			questionFirstInfo.setInfo({ questionNo, level, lives })
 			await questionFirstInfo.show()
-			topText.text = content
+			topText.setText(content)
 			await topHologram.show()
 			await wait(500 + 1000 * content.length / constants.charactersPerSecond)
 			TrolleyIO.instance.session.emit(inputs.confirm)
@@ -220,7 +220,7 @@ export class QuestionScene extends Scene {
 			explanationText.x = hologramWidth / 2
 			explanationText.y = 0
 			explanationInnerContainer.addChild(explanationText)
-			topText.text = '解説'
+			topText.setText('解説')
 			topHologram.show()
 			await explanationHologram.show()
 			if (imageUrl) {
