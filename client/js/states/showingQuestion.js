@@ -11,7 +11,8 @@ export class ShowingQuestionState extends State {
 		this.emit(sessionStates.showingQuestion, {
 			content: this.session.questionData.content,
 			level: this.session.level,
-			questionNo: this.session.questionNo + 1
+			questionNo: this.session.questionNo + 1,
+			lives: this.session.lives
 		})
 		this.on(inputs.confirm, () => {
 			this.session.enterState(new ShowingChoicesState({ session: this.session }))

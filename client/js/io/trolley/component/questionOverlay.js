@@ -6,6 +6,9 @@ import { MainText } from './mainText'
 export class QuestionOverlay extends Container {
 	constructor() {
 		super()
+		this.questionNo = 0
+		this.level = 0
+		this.lives = 0
 		const height = 100
 		const infoWidth = 600
 		const questionInfoOverlay = new Graphics()
@@ -68,10 +71,13 @@ export class QuestionOverlay extends Container {
 
 		this.filters = [new NoiseFilter({ noise: 0.5 })]
 	}
-	changeInfo({ questionNo, level, lives }) {
-		this.questionInfoOverlayText.text = `QuestionNo.${questionNo} Lv.${level}`
+	changeInfo(info) {
+		this.questionNo = info.questionNo ?? this.questionNo
+		this.level = info.level ?? this.level
+		this.lives = info.lives ?? this.lives
+		this.questionInfoOverlayText.text = `QuestionNo.${this.questionNo} Lv.${this.level}`
 		this.hpBar.clear()
-		for (let i = 0; i < Math.min(lives, 20); i++) {
+		for (let i = 0; i < Math.min(this.lives, 20); i++) {
 			this.hpBar
 				.moveTo(20 + (130 + 15) * i, constants.viewHeight - 35)
 				.lineTo(20 + (130 + 15) * i + 130, constants.viewHeight - 35)
@@ -91,6 +97,6 @@ export class QuestionOverlay extends Container {
 			width: 8,
 			color: colors.hologramMain
 		})
-		this.hpText.text = `${lives} HP`
+		this.hpText.text = `${this.lives} HP`
 	}
 }

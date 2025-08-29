@@ -63,9 +63,10 @@ export class QuestionScene extends Scene {
 		topHologramInnerContainer.addChild(topText)
 		this.container.addChild(topHologram)
 
-		TrolleyIO.instance.session.on(sessionStates.showingQuestion, async ({ content, level, questionNo }) => {
+		TrolleyIO.instance.session.on(sessionStates.showingQuestion, async ({ content, level, questionNo, lives }) => {
+			this.questionOverlay.changeInfo({ level, questionNo, lives })
 			topHologram.y = constants.viewHeight / 2
-			questionFirstInfo.setInfo({ questionNo, level })
+			questionFirstInfo.setInfo({ questionNo, level, lives })
 			await questionFirstInfo.show()
 			topText.text = content
 			await topHologram.show()
@@ -173,7 +174,7 @@ export class QuestionScene extends Scene {
 			})
 		})
 
-		TrolleyIO.instance.session.on(sessionStates.showingResult, async ({ isCorrect }) => {
+		TrolleyIO.instance.session.on(sessionStates.showingResult, async ({ isCorrect, lives }) => {
 			await wait(3000)
 			const isCorrectText = new MainText({
 				content: isCorrect ? '正解' : '不正解',
@@ -181,6 +182,7 @@ export class QuestionScene extends Scene {
 					fontSize: 108,
 				}
 			})
+			this.questionOverlay.changeInfo({ lives })
 			isCorrectText.x = constants.viewWidth / 2
 			isCorrectText.y = constants.viewHeight / 2
 			this.questionContainer.addChild(isCorrectText)

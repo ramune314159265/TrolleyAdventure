@@ -8,7 +8,10 @@ export class ShowingResultState extends State {
 		this.isCorrect = isCorrect
 	}
 	enter() {
-		this.emit(sessionStates.showingResult, { isCorrect: this.isCorrect })
+		if(!this.isCorrect) {
+			this.session.lives--
+		}
+		this.emit(sessionStates.showingResult, { isCorrect: this.isCorrect, lives: this.session.lives })
 		this.on(inputs.next, () => {
 			this.session.enterState(new ShowingExplanationState({ session: this.session }))
 		})
