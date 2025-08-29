@@ -245,6 +245,7 @@ export class QuestionScene extends Scene {
 				this.optionsContainer.addChild(noImageText)
 			}
 			TrolleyIO.instance.session.once(sessionStates.waitingStage, async () => {
+				this.questionCountdown.abort()
 				topHologram.hide()
 				await explanationHologram.hide()
 				this.questionContainer.destroy({ children: true })
