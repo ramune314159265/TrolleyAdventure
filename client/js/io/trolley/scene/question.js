@@ -62,12 +62,6 @@ export class QuestionScene extends Scene {
 		topText.y = topHologramHeight / 2
 		topHologramInnerContainer.addChild(topText)
 		this.container.addChild(topHologram)
-		const questionContainer = new Container()
-		this.container.addChild(questionContainer)
-		const optionsContainer = new Container()
-		optionsContainer.x = constants.viewWidth / 2
-		optionsContainer.y = 600
-		questionContainer.addChild(optionsContainer)
 
 		TrolleyIO.instance.session.on(sessionStates.showingQuestion, async ({ content, level, questionNo }) => {
 			topHologram.y = constants.viewHeight / 2
@@ -89,6 +83,12 @@ export class QuestionScene extends Scene {
 				topHologram.y = 180 - (rate - 1) * ((constants.viewHeight / 2) - 180)
 			}, { easing: easeOutQuint, duration: 1000 })
 			await wait(350)
+			this.questionContainer = new Container()
+			this.container.addChild(this.questionContainer)
+			this.optionsContainer = new Container()
+			this.optionsContainer.x = constants.viewWidth / 2
+			this.optionsContainer.y = 600
+			this.questionContainer.addChild(this.optionsContainer)
 			const optionPositions = [-1, 1]
 			optionPositions.forEach(async (p, i) => {
 				await wait(200 * i)
@@ -100,7 +100,7 @@ export class QuestionScene extends Scene {
 					innerContainer: optionInnerContainer,
 				})
 				optionHologram.x = (constants.viewWidth / 4) * p
-				optionsContainer.addChild(optionHologram)
+				this.optionsContainer.addChild(optionHologram)
 				const optionCountdown = new CountdownText({
 					styleOverride: {
 						fontSize: 200,
@@ -109,7 +109,7 @@ export class QuestionScene extends Scene {
 					additionalScale: 0.5
 				})
 				optionCountdown.x = (constants.viewWidth / 4) * p
-				optionsContainer.addChild(optionCountdown)
+				this.optionsContainer.addChild(optionCountdown)
 				optionHologram.show()
 				const optionText = new FitText({
 					content: choices[i].content,
@@ -153,13 +153,13 @@ export class QuestionScene extends Scene {
 					}
 				})
 				TrolleyIO.instance.session.once(outputs.decidedChoice, async ({ index }) => {
+					TrolleyIO.instance.session.off(deselectedEvent)
+					TrolleyIO.instance.session.off(selectedEvent)
 					if (i !== index) {
 						await optionHologram.hide()
 						optionHologram.destroy()
 						return
 					}
-					TrolleyIO.instance.session.off(deselectedEvent)
-					TrolleyIO.instance.session.off(selectedEvent)
 					optionCountdown.abort()
 					this.questionCountdown.abort()
 					await wait(1000)
@@ -183,9 +183,9 @@ export class QuestionScene extends Scene {
 			})
 			isCorrectText.x = constants.viewWidth / 2
 			isCorrectText.y = constants.viewHeight / 2
-			questionContainer.addChild(isCorrectText)
-			await wait(2000)
-			questionContainer.removeChild(isCorrectText)
+			this.questionContainer.addChild(isCorrectText)
+			await wait(1000)
+			this.questionContainer.removeChild(isCorrectText)
 
 			TrolleyIO.instance.session.emit(inputs.next)
 		})
@@ -199,7 +199,7 @@ export class QuestionScene extends Scene {
 				innerContainer: explanationInnerContainer,
 			})
 			explanationHologram.x = -constants.viewWidth / 4
-			optionsContainer.addChild(explanationHologram)
+			this.optionsContainer.addChild(explanationHologram)
 			const explainContent = [
 				correctContent,
 				incorrectContent
@@ -224,13 +224,13 @@ export class QuestionScene extends Scene {
 				const texture = await Assets.load(`images/question/${imageUrl}`)
 				const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
 				image.x = constants.viewWidth / 4
-				optionsContainer.addChild(image)
+				this.optionsContainer.addChild(image)
 			} else {
 				const backgroundGraphics = new Graphics()
 				backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
 				backgroundGraphics.x = constants.viewWidth / 4
 				backgroundGraphics.fill({ color: `${colors.gray}a0` })
-				optionsContainer.addChild(backgroundGraphics)
+				this.optionsContainer.addChild(backgroundGraphics)
 				const noImageText = new MainText({
 					content: 'No Image',
 					styleOverride: {
@@ -239,12 +239,12 @@ export class QuestionScene extends Scene {
 					}
 				})
 				noImageText.x = constants.viewWidth / 4
-				optionsContainer.addChild(noImageText)
+				this.optionsContainer.addChild(noImageText)
 			}
 			TrolleyIO.instance.session.once(sessionStates.waitingStage, async () => {
 				topHologram.hide()
 				await explanationHologram.hide()
-				questionContainer.destroy({ children: true })
+				this.questionContainer.destroy({ children: true })
 				await wait(1000)
 				TrolleyIO.instance.session.emit(inputs.next)
 			})

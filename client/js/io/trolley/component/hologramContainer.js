@@ -78,10 +78,11 @@ export class HologramContainer extends Container {
 		}
 		TrolleyIO.instance.app.ticker.add(this.ticker)
 
-		this.filters = [
+		this.defaultFilters = [
 			glitch,
 			new NoiseFilter({ noise: 0.5 }),
 		]
+		this.filters = this.defaultFilters
 		this.filterArea = new Rectangle(-lineDistance - 10, -lineDistance - 10, maxWidth + lineDistance * 2 + 50, maxHeight + 5 + 50)
 		this.addChild(innerContainer)
 	}
@@ -112,10 +113,7 @@ export class HologramContainer extends Container {
 		if (this.isActive) {
 			return
 		}
-		const filters = [...this.filters]
-		filters.pop()
-		filters.pop()
-		this.filters = filters
+		this.filters = [...this.defaultFilters]
 		this.isActive = true
 	}
 	deactivate() {
