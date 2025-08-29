@@ -78,7 +78,6 @@ export class QuestionScene extends Scene {
 
 		TrolleyIO.instance.session.on(sessionStates.showingChoices, async ({ choices, timerMs }) => {
 			questionFirstInfo.hide()
-			this.container.removeChild(questionFirstInfo)
 			this.questionCountdown.start({ periodMs: timerMs, showCountdown: true })
 			animateSimple(rate => {
 				topHologram.y = 180 - (rate - 1) * ((constants.viewHeight / 2) - 180)
