@@ -79,7 +79,7 @@ export class QuestionScene extends Scene {
 		TrolleyIO.instance.session.on(sessionStates.showingChoices, async ({ choices, timerMs }) => {
 			questionFirstInfo.hide()
 			this.container.removeChild(questionFirstInfo)
-			this.questionCountdown.start({ periodMs: timerMs })
+			this.questionCountdown.start({ periodMs: timerMs, showCountdown: true })
 			animateSimple(rate => {
 				topHologram.y = 180 - (rate - 1) * ((constants.viewHeight / 2) - 180)
 			}, { easing: easeOutQuint, duration: 1000 })
@@ -192,7 +192,8 @@ export class QuestionScene extends Scene {
 			TrolleyIO.instance.session.emit(inputs.next)
 		})
 
-		TrolleyIO.instance.session.on(sessionStates.showingExplanation, async ({ correctContent, incorrectContent, imageUrl }) => {
+		TrolleyIO.instance.session.on(sessionStates.showingExplanation, async ({ correctContent, incorrectContent, imageUrl, timerMs }) => {
+			this.questionCountdown.start({ periodMs: timerMs, showCountdown: false })
 			const explanationInnerContainer = new Container()
 			const explanationHologram = new HologramContainer({
 				maxWidth: hologramWidth,

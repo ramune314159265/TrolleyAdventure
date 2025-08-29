@@ -61,7 +61,7 @@ export class QuestionCountdown extends Container {
 		]
 		this.visible = false
 	}
-	start({ periodMs }) {
+	start({ periodMs, showCountdown }) {
 		this.visible = true
 		this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2
 		const startMs = performance.now()
@@ -75,7 +75,7 @@ export class QuestionCountdown extends Container {
 				.lineTo(constants.viewWidth * (1 - ((endsMs - performance.now()) / (endsMs - startMs))), QuestionCountdown.gaugeHeight)
 			this.underGauge.fill({ color: colors.hologramMain })
 			const remain = endsMs - performance.now()
-			if (remain <= QuestionCountdown.textStart + QuestionCountdown.animationDuration) {
+			if (remain <= QuestionCountdown.textStart + QuestionCountdown.animationDuration && showCountdown) {
 				this.showText()
 			}
 			if (remain < 0) {
