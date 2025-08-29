@@ -1,5 +1,5 @@
 import { JoyConIO } from '.'
-import { gameEvents, ioCommands, ioEvents } from '../../enum'
+import { gameEvents, inputs } from '../../enum'
 import { quaternionToEuler } from '../../util/quaternion'
 
 export class JoyConR {
@@ -12,7 +12,6 @@ export class JoyConR {
 		this.joyCon = joyCon
 		this.pastInputStatus = null
 		this.isBlinkingHomeLED = false
-		this.direction = JoyConIO.directions.horizontal
 		this.recentAccelerometers = [0]
 		this.recentInputs = []
 	}
@@ -68,17 +67,16 @@ export class JoyConR {
 			}
 			const isKonamiCommand = JoyConR.konamiCommand.every((k, i) => this.recentInputs[i] === k)
 			if (isKonamiCommand) {
-				this.session.emit(ioCommands.konamiCommand)
+				this.session.emit(inputs.konami)
 			}
 		}
 		switch (true) {
 			case (JoyConR.decideButtons.includes(key) && newState):
-				this.session.emit(ioEvents.decided)
+				this.session.emit(inputs.confirm)
 				break
 
 			case (key === 'right' || key === 'left') && !newState:
-				this.session.emit(ioEvents.deselected)
-				this.direction = JoyConIO.directions.horizontal
+				this.session.emit(inputs.center)
 				if (this.io.state !== JoyConIO.states.questionAnswer) {
 					break
 				}
@@ -86,14 +84,12 @@ export class JoyConR {
 				break
 
 			case key === 'right':
-				this.session.emit(ioEvents.rightSelected)
-				this.direction = JoyConIO.directions.right
+				this.session.emit(inputs.right)
 				this.setBlinkHomeLED(this.joyCon, true)
 				break
 
 			case key === 'left':
-				this.session.emit(ioEvents.leftSelected)
-				this.direction = JoyConIO.directions.left
+				this.session.emit(inputs.left)
 				this.setBlinkHomeLED(this.joyCon, true)
 				break
 

@@ -1,11 +1,10 @@
 import { Stats } from 'pixi-stats'
 import { Application, Assets } from 'pixi.js'
-import { gameEvents } from '../../enum'
+import { gameEvents, sessionStates } from '../../enum'
 import { GameIO } from '../index'
 import { assetManifest } from './assets'
 import { constants } from './constants'
 import { DifficultSelectScene } from './scene/difficultSelect'
-import { QuestionScene } from './scene/question'
 import { SceneManager } from './sceneManager'
 import { BlackFaceTransition } from './transition/blackFade'
 
@@ -46,9 +45,11 @@ export class TrolleyIO extends GameIO {
 	connectSession(session) {
 		this.session = session
 		session.onAny(console.log)
-		session.once(gameEvents.gameStarted, ({ difficultData }) => {
-			this.difficultData = difficultData
-			this.gameStart()
+		session.once(sessionStates.selectingDifficult, async ({ difficulties }) => {
+			await this.init()
+			const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
+			const difficultSelectScene = new DifficultSelectScene({ difficulties })
+			this.sceneManager.changeScene(difficultSelectScene, transition)
 		})
 		session.on(gameEvents.nextQuestionStarted, data => {
 			this.questionInfo = data
@@ -58,11 +59,6 @@ export class TrolleyIO extends GameIO {
 		})
 		session.on(gameEvents.gameOvered, () => {
 			this.state = TrolleyIO.states.gameOver
-		})
-		session.once(gameEvents.sessionLoaded, async data => {
-			this.gameInfo = data
-			await this.init()
-			this.difficultSelect()
 		})
 	}
 	async init() {
@@ -92,17 +88,5 @@ export class TrolleyIO extends GameIO {
 		}
 
 		this.sceneManager = new SceneManager()
-	}
-	difficultSelect() {
-		this.state = TrolleyIO.states.difficultSelect
-		const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
-		const difficultSelectScene = new DifficultSelectScene()
-		this.sceneManager.changeScene(difficultSelectScene, transition)
-	}
-	gameStart() {
-		this.state = TrolleyIO.states.quiz
-		const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
-		const questionScene = new QuestionScene()
-		this.sceneManager.changeScene(questionScene, transition)
 	}
 }

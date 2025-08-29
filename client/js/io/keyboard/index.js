@@ -1,4 +1,4 @@
-import { gameEvents, ioCommands, ioEvents } from '../../enum'
+import { gameEvents, inputs } from '../../enum'
 import { GameIO } from '../index'
 
 export class KeyboardIO extends GameIO {
@@ -32,37 +32,7 @@ export class KeyboardIO extends GameIO {
 	}
 	keyPressHandle(key) {
 		console.log(key)
-		const keyMap = { a: ioEvents.leftSelected, s: ioEvents.rightSelected, d: ioEvents.deselected, f: ioEvents.decided, k: ioCommands.konamiCommand }
+		const keyMap = { a: inputs.left, s: inputs.center, d: inputs.right, w: inputs.confirm, k: inputs.konami }
 		Object.keys(keyMap).includes(key) ? this.session.emit(keyMap[key]) : ''
-		switch (this.state) {
-			case KeyboardIO.states.difficultSelect: {
-				const number = parseInt(key)
-				if (Number.isNaN(number)) {
-					break
-				}
-				const difficulties = Object.values(this.difficultList)
-				if (!(0 < number && number <= difficulties.length)) {
-					break
-				}
-				this.session.emit(ioCommands.gameStart, { difficultId: difficulties[number - 1].id })
-				break
-			}
-			case KeyboardIO.states.questionAnswer: {
-				const questionData = this.questionData
-				if (!questionData) {
-					console.log(questionData)
-					break
-				}
-				const number = parseInt(key)
-				if (Number.isNaN(number)) {
-					break
-				}
-				if (!(0 < number && number <= questionData.options.length)) {
-					break
-				}
-				this.questionData = null
-				this.session.emit(ioCommands.answerQuestion, { isCorrect: questionData.options[number - 1].isCorrect, index: number - 1 })
-			}
-		}
 	}
 }

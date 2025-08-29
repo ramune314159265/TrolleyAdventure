@@ -11,11 +11,6 @@ export class JoyConIO extends GameIO {
 		questionAnswer: Symbol(),
 		ignore: Symbol()
 	}
-	static directions = {
-		horizontal: Symbol(),
-		right: Symbol(),
-		left: Symbol()
-	}
 	constructor() {
 		super()
 		this.state = JoyConIO.states.ignore

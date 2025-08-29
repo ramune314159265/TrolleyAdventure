@@ -20,8 +20,8 @@ export class EventRegister {
 		this.#events[name].push(eventData)
 		return eventData
 	}
-	off(name, eventData) {
-		this.#events[name] = this.#events[name]?.filter(data => data !== eventData)
+	off(eventData) {
+		this.#events[eventData.name] = this.#events[eventData.name]?.filter(data => data !== eventData)
 	}
 	once(name, func) {
 		this.#events[name] ??= []

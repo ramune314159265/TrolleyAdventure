@@ -4,10 +4,8 @@ import { HologramContainer } from './hologramContainer'
 import { MainText } from './mainText'
 
 export class QuestionFirstInfoComponent extends Container {
-	constructor({ questionNo, level }) {
+	constructor() {
 		super()
-		this.questionNo = questionNo
-		this.level = level
 		this.init()
 	}
 	init() {
@@ -24,7 +22,7 @@ export class QuestionFirstInfoComponent extends Container {
 		this.hologram.y = constants.viewHeight / 2 * 0.6
 		this.addChild(this.hologram)
 		this.questionNoText = new MainText({
-			content: `第${this.questionNo}問`,
+			content: '',
 			styleOverride: {
 				fill: colors.hologramText,
 				fontSize: 144,
@@ -34,7 +32,7 @@ export class QuestionFirstInfoComponent extends Container {
 		this.questionNoText.y = 90
 		this.innerContainer.addChild(this.questionNoText)
 		this.levelText = new MainText({
-			content: `Level ${this.level}`,
+			content: '',
 			styleOverride: {
 				fill: colors.hologramText,
 				fontSize: 80,
@@ -43,6 +41,10 @@ export class QuestionFirstInfoComponent extends Container {
 		this.levelText.x = hologramWidth / 2
 		this.levelText.y = 210
 		this.innerContainer.addChild(this.levelText)
+	}
+	setInfo({ questionNo, level }) {
+		this.questionNoText.text = `第${questionNo}問`
+		this.levelText.text = `Level ${level}`
 	}
 	async show() {
 		await this.hologram.show()

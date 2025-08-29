@@ -1,6 +1,6 @@
 import { Assets, Container, Graphics } from 'pixi.js'
 import { Scene } from '.'
-import { ioCommands, ioEvents } from '../../../enum'
+import { inputs, outputs, sessionStates } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
@@ -35,12 +35,10 @@ export class QuestionScene extends Scene {
 		this.nextQuestion()
 	}
 	async nextQuestion() {
-		const questionInfo = TrolleyIO.instance.questionInfo
-		this.questionFirstInfo = new QuestionFirstInfoComponent({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level })
-		this.container.addChild(this.questionFirstInfo)
-		this.questionOverlay.changeInfo({ questionNo: questionInfo.questionNo + 1, level: questionInfo.level, lives: questionInfo.lives })
-
-		await this.questionFirstInfo.show()
+		const hologramWidth = 750
+		const hologramHeight = 650
+		const questionFirstInfo = new QuestionFirstInfoComponent()
+		this.container.addChild(questionFirstInfo)
 		const topHologramInnerContainer = new Container()
 		const topHologramWidth = constants.viewWidth * 0.9
 		const topHologramHeight = 125
@@ -53,7 +51,7 @@ export class QuestionScene extends Scene {
 		topHologram.x = constants.viewWidth / 2
 		topHologram.y = constants.viewHeight / 2
 		const topText = new FitText({
-			content: questionInfo.questionData.content,
+			content: '',
 			styleOverride: {},
 			width: topHologramWidth,
 			height: topHologramHeight,
@@ -64,196 +62,192 @@ export class QuestionScene extends Scene {
 		topText.y = topHologramHeight / 2
 		topHologramInnerContainer.addChild(topText)
 		this.container.addChild(topHologram)
-		await topHologram.show()
-		await wait(500 + 1000 * questionInfo.questionData.content.length / constants.charactersPerSecond)
-		this.questionFirstInfo.hide()
-		this.container.removeChild(this.questionFirstInfo)
-		animateSimple(rate => {
-			topHologram.y = 180 - (rate - 1) * ((constants.viewHeight / 2) - 180)
-		}, { easing: easeOutQuint, duration: 1000 })
-		await wait(350)
-
-		let lastSelected = null
-		this.questionCountdown.onEnded = () => {
-			const directionIndex = {
-				[ioEvents.leftSelected]: 0,
-				[ioEvents.rightSelected]: 0,
-			}
-			if (lastSelected) {
-				TrolleyIO.instance.session.emit(ioCommands.answerQuestion, { isCorrect: questionInfo.questionData.options[directionIndex[lastSelected]].isCorrect, index: directionIndex[lastSelected] })
-			} else {
-				TrolleyIO.instance.session.emit(ioCommands.answerQuestion, { isCorrect: false, index: 0 })
-			}
-		}
-		this.questionCountdown.start({ periodMs: TrolleyIO.instance.difficultData.time_limit * 1000 })
-		this.questionContainer = new Container()
-		this.container.addChild(this.questionContainer)
+		const questionContainer = new Container()
+		this.container.addChild(questionContainer)
 		const optionsContainer = new Container()
 		optionsContainer.x = constants.viewWidth / 2
 		optionsContainer.y = 600
-		const optionPositions = [-1, 1]
-		optionPositions.forEach(async (p, i) => {
-			await wait(200 * i)
-			const optionInnerContainer = new Container()
-			const hologramWidth = 750
-			const hologramHeight = 650
-			const optionHologram = new HologramContainer({
-				maxWidth: hologramWidth,
-				maxHeight: hologramHeight,
-				color: colors.hologramMain,
-				innerContainer: optionInnerContainer,
-			})
-			optionHologram.x = (constants.viewWidth / 4) * p
-			optionsContainer.addChild(optionHologram)
-			const optionCountdown = new CountdownText({
-				styleOverride: {
-					fontSize: 200,
-					fill: colors.hologramText
-				},
-				additionalScale: 0.5
-			})
-			optionCountdown.x = (constants.viewWidth / 4) * p
-			optionCountdown.onEnded = () => {
-				TrolleyIO.instance.session.emit(ioCommands.answerQuestion, { isCorrect: questionInfo.questionData.options[i].isCorrect, index: i })
-			}
-			optionsContainer.addChild(optionCountdown)
-			optionHologram.show()
-			const optionText = new FitText({
-				content: questionInfo.questionData.options[i].content,
-				width: hologramWidth * 0.9,
-				height: 225,
-				maxFontSize: 216,
-				minFontSize: 32
-			})
-			optionText.x = hologramWidth / 2
-			optionText.y = questionInfo.questionData.options[i].image ? hologramHeight * 0.8 : hologramHeight / 2
-			if (questionInfo.questionData.options[i].image) {
-				const texture = await Assets.load(`images/question/${questionInfo.questionData.options[i].image}`)
-				const image = new FitSprite({ texture, width: hologramWidth * 0.9, height: hologramHeight * 0.9 })
-				image.x = hologramWidth / 2
-				image.y = hologramHeight / 2
-				optionInnerContainer.addChild(image)
-			}
-			optionInnerContainer.addChild(optionText)
-			const selectedEvent = TrolleyIO.instance.session.onAny(eventName => {
-				const observerEvents = [ioEvents.deselected, ioEvents.leftSelected, ioEvents.rightSelected]
-				if (!Object.values(observerEvents).includes(eventName)) {
-					return
-				}
-				const targetEvent = i === 0 ? ioEvents.leftSelected : ioEvents.rightSelected
-				if (eventName === targetEvent) {
-					lastSelected = eventName
-					optionHologram.scale.x < 1.1 ? animateSimple(rate => {
-						optionHologram.scale = { x: 1 + (0.1 * rate), y: 1 + (0.1 * rate) }
-					}, { easing: easeOutQuint, duration: 500 }) : ''
-					optionCountdown.start({ periodMs: TrolleyIO.instance.difficultData.selected_time_limit * 1000 })
-				} else {
-					1 < optionHologram.scale.x ? animateSimple(rate => {
-						optionHologram.scale = { x: 1.1 - (0.1 * rate), y: 1.1 - (0.1 * rate) }
-					}, { easing: easeOutQuint, duration: 500 }) : ''
-					optionCountdown.abort()
-				}
+		questionContainer.addChild(optionsContainer)
 
-				if (eventName === targetEvent || eventName === ioEvents.deselected) {
-					optionHologram.activate()
-				} else {
-					optionHologram.deactivate()
-				}
-			})
-			TrolleyIO.instance.session.once(ioCommands.answerQuestion, async ({ index, isCorrect }) => {
-				TrolleyIO.instance.session.offAny(selectedEvent)
-				if (i !== index) {
-					await optionHologram.hide()
-					optionHologram.destroy()
-					return
-				}
-				await wait(1000)
-				await animateSimple(rate => {
-					optionHologram.x = (1 - rate) * (constants.viewWidth / 4) * p
-				}, { easing: easeOutQuint, duration: 1000 })
-				topHologram.hide()
-				await optionHologram.hide()
-				optionHologram.destroy()
-				await wait(1000)
-				const isCorrectText = new MainText({
-					content: TrolleyIO.instance.state === TrolleyIO.states.quiz ?
-						(isCorrect ? '正解' : '不正解') :
-						(TrolleyIO.instance.state === TrolleyIO.states.gameClear) ? 'Game Clear' : 'Game Over',
-					styleOverride: {
-						fontSize: 108,
-					}
-				})
-				isCorrectText.x = constants.viewWidth / 2
-				isCorrectText.y = constants.viewHeight / 2
-				this.questionContainer.addChild(isCorrectText)
-				await wait(2000)
-				this.questionContainer.removeChild(isCorrectText)
-				const explanationInnerContainer = new Container()
-				const explanationHologram = new HologramContainer({
+		TrolleyIO.instance.session.on(sessionStates.showingQuestion, async ({ content, level, questionNo }) => {
+			topHologram.y = constants.viewHeight / 2
+			questionFirstInfo.setInfo({ questionNo, level })
+			await questionFirstInfo.show()
+			topText.text = content
+			await topHologram.show()
+			await wait(500 + 1000 * content.length / constants.charactersPerSecond)
+			TrolleyIO.instance.session.emit(inputs.confirm)
+		})
+
+		TrolleyIO.instance.session.emit(inputs.next)
+
+		TrolleyIO.instance.session.on(sessionStates.showingChoices, async ({ choices, timerMs }) => {
+			questionFirstInfo.hide()
+			this.container.removeChild(questionFirstInfo)
+			this.questionCountdown.start({ periodMs: timerMs })
+			animateSimple(rate => {
+				topHologram.y = 180 - (rate - 1) * ((constants.viewHeight / 2) - 180)
+			}, { easing: easeOutQuint, duration: 1000 })
+			await wait(350)
+			const optionPositions = [-1, 1]
+			optionPositions.forEach(async (p, i) => {
+				await wait(200 * i)
+				const optionInnerContainer = new Container()
+				const optionHologram = new HologramContainer({
 					maxWidth: hologramWidth,
 					maxHeight: hologramHeight,
 					color: colors.hologramMain,
-					innerContainer: explanationInnerContainer,
+					innerContainer: optionInnerContainer,
 				})
-				explanationHologram.x = (constants.viewWidth / 4) * p
-				optionsContainer.addChild(explanationHologram)
-				const explanationTopText = new MainText({
-					content: '解説',
+				optionHologram.x = (constants.viewWidth / 4) * p
+				optionsContainer.addChild(optionHologram)
+				const optionCountdown = new CountdownText({
 					styleOverride: {
-						fontSize: 108,
+						fontSize: 200,
+						fill: colors.hologramText
+					},
+					additionalScale: 0.5
+				})
+				optionCountdown.x = (constants.viewWidth / 4) * p
+				optionsContainer.addChild(optionCountdown)
+				optionHologram.show()
+				const optionText = new FitText({
+					content: choices[i].content,
+					width: hologramWidth * 0.9,
+					height: 225,
+					maxFontSize: 216,
+					minFontSize: 32
+				})
+				optionText.x = hologramWidth / 2
+				optionText.y = choices[i].image ? hologramHeight * 0.8 : hologramHeight / 2
+				if (choices[i].image) {
+					const texture = await Assets.load(`images/question/${choices[i].image}`)
+					const image = new FitSprite({ texture, width: hologramWidth * 0.9, height: hologramHeight * 0.9 })
+					image.x = hologramWidth / 2
+					image.y = hologramHeight / 2
+					optionInnerContainer.addChild(image)
+				}
+				optionInnerContainer.addChild(optionText)
+				const deselectedEvent = TrolleyIO.instance.session.on(outputs.deselectedChoice, ({ index }) => {
+					optionHologram.activate()
+					optionCountdown.abort()
+					if (i === index) {
+						animateSimple(rate => {
+							optionHologram.scale.set(1.1 - (0.1 * rate))
+						}, { easing: easeOutQuint, duration: 500 })
 					}
 				})
-				explanationTopText.x = hologramWidth / 2
-				explanationTopText.y = 75
-				explanationInnerContainer.addChild(explanationTopText)
-				const explainContent = [
-					questionInfo.questionData.answer.explanation,
-					questionInfo.questionData.option.explanation
-				].filter(c => c).join('\n')
-				const explanationText = new MainText({
-					content: explainContent,
-					styleOverride: {
-						fontSize: 72,
-						wordWrap: true,
-						wordWrapWidth: hologramWidth,
-						breakWords: true,
+				const selectedEvent = TrolleyIO.instance.session.on(outputs.selectedChoice, ({ index, timerMs }) => {
+					if (i === index) {
+						optionHologram.activate()
+						animateSimple(rate => {
+							optionHologram.scale.set(1 + (0.1 * rate))
+						}, { easing: easeOutQuint, duration: 500 })
+						optionCountdown.start({ periodMs: timerMs })
+					} else {
+						optionHologram.deactivate()
+						optionCountdown.abort()
+						1 < optionHologram.scale.x ? animateSimple(rate => {
+							optionHologram.scale = { x: 1.1 - (0.1 * rate), y: 1.1 - (0.1 * rate) }
+						}, { easing: easeOutQuint, duration: 500 }) : ''
 					}
 				})
-				explanationText.anchor = { x: 0.5, y: 0 }
-				explanationText.x = hologramWidth / 2
-				explanationText.y = 125
-				explanationInnerContainer.addChild(explanationText)
-				await explanationHologram.show()
-				if (questionInfo.questionData.answer.explanationImage) {
-					const texture = await Assets.load(`images/question/${questionInfo.questionData.answer.explanationImage}`)
-					const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
-					image.x = (constants.viewWidth / 4) * -p
-					optionsContainer.addChild(image)
-				} else {
-					const backgroundGraphics = new Graphics()
-					backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
-					backgroundGraphics.x = (constants.viewWidth / 4) * -p
-					backgroundGraphics.fill({ color: `${colors.gray}a0` })
-					optionsContainer.addChild(backgroundGraphics)
-					const noImageText = new MainText({
-						content: 'No Image',
-						styleOverride: {
-							fontSize: 108,
-							fill: '#ffffff'
-						}
-					})
-					noImageText.x = (constants.viewWidth / 4) * -p
-					optionsContainer.addChild(noImageText)
-				}
-				if (TrolleyIO.instance.state === TrolleyIO.states.quiz) {
-					await wait(2000 + 1000 * explainContent.length / constants.charactersPerSecond)
-					await explanationHologram.hide()
-					explanationHologram.hide()
-					this.container.removeChild(this.questionContainer)
-					this.nextQuestion()
-				}
+				TrolleyIO.instance.session.once(outputs.decidedChoice, async ({ index }) => {
+					if (i !== index) {
+						await optionHologram.hide()
+						optionHologram.destroy()
+						return
+					}
+					TrolleyIO.instance.session.off(deselectedEvent)
+					TrolleyIO.instance.session.off(selectedEvent)
+					optionCountdown.abort()
+					this.questionCountdown.abort()
+					await wait(1000)
+					await animateSimple(rate => {
+						optionHologram.x = (1 - rate) * (constants.viewWidth / 4) * p
+					}, { easing: easeOutQuint, duration: 1000 })
+					topHologram.hide()
+					await optionHologram.hide()
+					optionHologram.destroy()
+				})
 			})
 		})
-		this.questionContainer.addChild(optionsContainer)
+
+		TrolleyIO.instance.session.on(sessionStates.showingResult, async ({ isCorrect }) => {
+			await wait(3000)
+			const isCorrectText = new MainText({
+				content: isCorrect ? '正解' : '不正解',
+				styleOverride: {
+					fontSize: 108,
+				}
+			})
+			isCorrectText.x = constants.viewWidth / 2
+			isCorrectText.y = constants.viewHeight / 2
+			questionContainer.addChild(isCorrectText)
+			await wait(2000)
+			questionContainer.removeChild(isCorrectText)
+
+			TrolleyIO.instance.session.emit(inputs.next)
+		})
+
+		TrolleyIO.instance.session.on(sessionStates.showingExplanation, async ({ correctContent, incorrectContent, imageUrl }) => {
+			const explanationInnerContainer = new Container()
+			const explanationHologram = new HologramContainer({
+				maxWidth: hologramWidth,
+				maxHeight: hologramHeight,
+				color: colors.hologramMain,
+				innerContainer: explanationInnerContainer,
+			})
+			explanationHologram.x = -constants.viewWidth / 4
+			optionsContainer.addChild(explanationHologram)
+			const explainContent = [
+				correctContent,
+				incorrectContent
+			].filter(c => c).join('\n')
+			const explanationText = new MainText({
+				content: explainContent,
+				styleOverride: {
+					fontSize: 72,
+					wordWrap: true,
+					wordWrapWidth: hologramWidth,
+					breakWords: true,
+				}
+			})
+			explanationText.anchor = { x: 0.5, y: 0 }
+			explanationText.x = hologramWidth / 2
+			explanationText.y = 0
+			explanationInnerContainer.addChild(explanationText)
+			topText.text = '解説'
+			topHologram.show()
+			await explanationHologram.show()
+			if (imageUrl) {
+				const texture = await Assets.load(`images/question/${imageUrl}`)
+				const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
+				image.x = constants.viewWidth / 4
+				optionsContainer.addChild(image)
+			} else {
+				const backgroundGraphics = new Graphics()
+				backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
+				backgroundGraphics.x = constants.viewWidth / 4
+				backgroundGraphics.fill({ color: `${colors.gray}a0` })
+				optionsContainer.addChild(backgroundGraphics)
+				const noImageText = new MainText({
+					content: 'No Image',
+					styleOverride: {
+						fontSize: 108,
+						fill: '#ffffff'
+					}
+				})
+				noImageText.x = constants.viewWidth / 4
+				optionsContainer.addChild(noImageText)
+			}
+			TrolleyIO.instance.session.once(sessionStates.waitingStage, async () => {
+				topHologram.hide()
+				await explanationHologram.hide()
+				questionContainer.destroy({ children: true })
+				await wait(1000)
+				TrolleyIO.instance.session.emit(inputs.next)
+			})
+		})
 	}
 }

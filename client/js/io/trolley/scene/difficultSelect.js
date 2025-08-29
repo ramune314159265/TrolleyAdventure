@@ -1,8 +1,7 @@
 import { Assets, Container, Sprite } from 'pixi.js'
 import { Scene } from '.'
-import { ioCommands, ioEvents } from '../../../enum'
+import { outputs } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
-import { mod } from '../../../util/mod'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
 import { BlinkText } from '../component/blinkText'
@@ -11,10 +10,13 @@ import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
 import { colors, constants } from '../constants'
 import { TrolleyIO } from '../index'
+import { BlackFaceTransition } from '../transition/blackFade'
+import { QuestionScene } from './question'
 
 export class DifficultSelectScene extends Scene {
-	constructor() {
+	constructor({ difficulties }) {
 		super()
+		this.difficulties = difficulties
 	}
 	async init() {
 		await Assets.loadBundle('difficult_select')
@@ -48,15 +50,14 @@ export class DifficultSelectScene extends Scene {
 		topHologramInnerContainer.addChild(this.topText)
 		this.container.addChild(this.topHologram)
 
-		let selectedIndex = 0
 		const hologramWidth = constants.viewWidth * 0.7
 		const hologramHeight = constants.viewHeight - 350
 		const gap = 200
 		const difficultiesContainer = new Container()
 		difficultiesContainer.x = constants.viewWidth / 2
 		difficultiesContainer.y = 625
-		const difficulties = Object.values(TrolleyIO.instance.gameInfo.difficultList)
-		this.difficultHolograms = difficulties.map((data, index) => {
+		const difficultList = Object.values(this.difficulties)
+		this.difficultHolograms = difficultList.map((data, index) => {
 			const innerContainer = new Container()
 			const hologram = new HologramContainer({
 				maxWidth: hologramWidth,
@@ -91,35 +92,32 @@ export class DifficultSelectScene extends Scene {
 			difficultDescription.x = hologramWidth / 2
 			difficultDescription.y = 175
 			innerContainer.addChild(difficultDescription)
-			TrolleyIO.instance.session.once(ioCommands.gameStart, ({ difficultId }) => {
-				if (data.id !== difficultId) {
-					hologram.hide()
-					return
-				}
-			})
 			return hologram
 		})
-		const move = offset => {
-			const previousIndex = selectedIndex
-			selectedIndex += offset
+		this.container.addChild(difficultiesContainer)
+
+		TrolleyIO.instance.session.on(outputs.changeSelectingDifficult, ({ index, previousIndex }) => {
 			this.difficultHolograms[previousIndex]?.scale?.set?.(1)
 			animateSimple(rate => {
-				this.difficultHolograms.forEach((hologram, index) => {
-					index === mod(selectedIndex, this.difficultHolograms.length) ? hologram.activate() : hologram.deactivate()
-					const from = (hologramWidth + gap) * (index - mod(previousIndex, this.difficultHolograms.length))
-					const to = (hologramWidth + gap) * (index - mod(selectedIndex, this.difficultHolograms.length))
+				this.difficultHolograms.forEach((hologram, i) => {
+					index === i ? hologram.activate() : hologram.deactivate()
+					const from = (hologramWidth + gap) * (i - previousIndex)
+					const to = (hologramWidth + gap) * (i - index)
 					hologram.x = from + (to - from) * rate
 				})
-				this.difficultHolograms[selectedIndex]?.scale?.set?.(1 + 0.1 * rate)
+				this.difficultHolograms[index]?.scale?.set?.(1 + 0.1 * rate)
 			}, { easing: easeOutQuint, duration: 1000 })
-		}
-		TrolleyIO.instance.session.on(ioEvents.leftSelected, () => move(-1))
-		TrolleyIO.instance.session.on(ioEvents.rightSelected, () => move(1))
-		TrolleyIO.instance.session.once(ioEvents.decided, () => {
-			TrolleyIO.instance.session.emit(ioCommands.gameStart, { difficultId: difficulties[mod(selectedIndex, this.difficultHolograms.length)].id })
 		})
-
-		this.container.addChild(difficultiesContainer)
+		TrolleyIO.instance.session.once(outputs.selectedDifficult, ({ index }) => {
+			this.difficultHolograms.forEach((h, i) => {
+				if (index !== i) {
+					h.hide()
+				}
+			})
+			const transition = new BlackFaceTransition(TrolleyIO.instance.sceneManager.transitionLayerContainer)
+			const questionScene = new QuestionScene()
+			TrolleyIO.instance.sceneManager.changeScene(questionScene, transition)
+		})
 	}
 	async exit() {
 		this.topText.text = `Let's Go!`
