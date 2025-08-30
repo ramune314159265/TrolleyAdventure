@@ -63,6 +63,7 @@ export class QuestionCountdown extends Container {
 	}
 	start({ periodMs, showCountdown }) {
 		this.visible = true
+		this.countdownWrapper.visible = false
 		this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2
 		const startMs = performance.now()
 		const endsMs = performance.now() + periodMs
@@ -96,6 +97,7 @@ export class QuestionCountdown extends Container {
 			return
 		}
 		this.isTextShowed = true
+		this.countdownWrapper.visible = true
 		await animateSimple(rate => {
 			this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2 - QuestionCountdown.textWrapperHeight * rate
 		}, { easing: easeOutQuint, duration: QuestionCountdown.animationDuration })
@@ -103,6 +105,7 @@ export class QuestionCountdown extends Container {
 	}
 	hideText() {
 		this.isTextShowed = false
+		this.countdownWrapper.visible = false
 		this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2
 	}
 }
