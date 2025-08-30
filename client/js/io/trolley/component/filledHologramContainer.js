@@ -10,6 +10,7 @@ export class FilledHologramContainer extends Container {
 		super()
 		this.maxWidth = maxWidth
 		this.maxHeight = maxHeight
+		this.color = color
 		this.containerWidth = Math.min(maxHeight * Math.sin(constants.uiRadian), maxWidth)
 		this.innerContainer = innerContainer
 		innerContainer.alpha = 0
@@ -26,33 +27,20 @@ export class FilledHologramContainer extends Container {
 		]
 		this.filterArea = new Rectangle(-50, -50, maxWidth + 50 * 2, maxHeight + 50 * 2)
 
-		const background = new Graphics()
+		this.background = new Graphics()
 
-		background.filters = [
+		this.background.filters = [
 			new GlowFilter({
 				color,
 				distance: 4,
 				outerStrength: 8
 			}),
 		]
-		background.filterArea = new Rectangle(-50, -50, maxWidth + 50 * 2, maxHeight + 50 * 2)
-		this.addChild(background)
+		this.background.filterArea = new Rectangle(-50, -50, maxWidth + 50 * 2, maxHeight + 50 * 2)
+		this.addChild(this.background)
 		this.addChild(innerContainer)
 
 		this.ticker = () => {
-			background.clear()
-			background
-				.moveTo(maxHeight * Math.sin(constants.uiRadian), 0)
-				.lineTo(this.containerWidth, 0)
-				.lineTo(this.containerWidth - maxHeight * Math.sin(constants.uiRadian), maxHeight)
-				.lineTo(0, maxHeight)
-
-			background.fill({
-				color
-			})
-			this.pivot.x = this.containerWidth / 2
-			this.pivot.y = maxHeight / 2
-
 			if (Math.random() < 0.2) {
 				glitch.refresh()
 			}
@@ -62,6 +50,19 @@ export class FilledHologramContainer extends Container {
 	async show() {
 		await animateSimple(rate => {
 			this.containerWidth = Math.max(rate * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
+
+			this.background.clear()
+			this.background
+				.moveTo(this.maxHeight * Math.sin(constants.uiRadian), 0)
+				.lineTo(this.containerWidth, 0)
+				.lineTo(this.containerWidth - this.maxHeight * Math.sin(constants.uiRadian), this.maxHeight)
+				.lineTo(0, this.maxHeight)
+
+			this.background.fill({
+				color: this.color
+			})
+			this.pivot.x = this.containerWidth / 2
+			this.pivot.y = this.maxHeight / 2
 		}, { easing: easeOutQuint, duration: 750 })
 		await animateSimple(rate => {
 			this.innerContainer.alpha = rate
@@ -73,6 +74,19 @@ export class FilledHologramContainer extends Container {
 		}, { easing: easeOutQuint, duration: 250 })
 		await animateSimple(rate => {
 			this.containerWidth = Math.max((1 - rate) * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
+
+			this.background.clear()
+			this.background
+				.moveTo(this.maxHeight * Math.sin(constants.uiRadian), 0)
+				.lineTo(this.containerWidth, 0)
+				.lineTo(this.containerWidth - this.maxHeight * Math.sin(constants.uiRadian), this.maxHeight)
+				.lineTo(0, this.maxHeight)
+
+			this.background.fill({
+				color: this.color
+			})
+			this.pivot.x = this.containerWidth / 2
+			this.pivot.y = this.maxHeight / 2
 		}, { easing: easeOutQuint, duration: 750 })
 	}
 	destroy(options = { children: true }) {
