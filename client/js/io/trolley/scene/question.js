@@ -15,7 +15,6 @@ import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
 import { QuestionOverlay } from '../component/questionOverlay'
 import { VideoBackground } from '../component/videoBackground'
 import { colors, constants } from '../constants'
-import { TrolleyIO } from '../index'
 
 export class QuestionScene extends Scene {
 	constructor() {
@@ -63,7 +62,7 @@ export class QuestionScene extends Scene {
 		topHologramInnerContainer.addChild(topText)
 		this.container.addChild(topHologram)
 
-		TrolleyIO.instance.session.on(sessionStates.showingQuestion, async ({ content, level, questionNo, lives }) => {
+		this.on(sessionStates.showingQuestion, async ({ content, level, questionNo, lives }) => {
 			this.questionOverlay.changeInfo({ level, questionNo, lives })
 			topHologram.y = constants.viewHeight / 2
 			questionFirstInfo.setInfo({ questionNo, level, lives })
@@ -71,12 +70,12 @@ export class QuestionScene extends Scene {
 			topText.setText(content)
 			await topHologram.show()
 			await wait(500 + 1000 * content.length / constants.charactersPerSecond)
-			TrolleyIO.instance.session.emit(inputs.confirm)
+			this.emit(inputs.confirm)
 		})
 
-		TrolleyIO.instance.session.emit(inputs.next)
+		this.emit(inputs.next)
 
-		TrolleyIO.instance.session.on(sessionStates.showingChoices, async ({ choices, timerMs }) => {
+		this.on(sessionStates.showingChoices, async ({ choices, timerMs }) => {
 			questionFirstInfo.hide()
 			this.questionCountdown.start({ periodMs: timerMs, showCountdown: true })
 			animateSimple(rate => {
@@ -128,7 +127,7 @@ export class QuestionScene extends Scene {
 					optionInnerContainer.addChild(image)
 				}
 				optionInnerContainer.addChild(optionText)
-				const deselectedEvent = TrolleyIO.instance.session.on(outputs.deselectedChoice, ({ index }) => {
+				const deselectedEvent = this.on(outputs.deselectedChoice, ({ index }) => {
 					optionHologram.activate()
 					optionCountdown.abort()
 					if (i === index) {
@@ -137,7 +136,7 @@ export class QuestionScene extends Scene {
 						}, { easing: easeOutQuint, duration: 500 })
 					}
 				})
-				const selectedEvent = TrolleyIO.instance.session.on(outputs.selectedChoice, ({ index, timerMs }) => {
+				const selectedEvent = this.on(outputs.selectedChoice, ({ index, timerMs }) => {
 					if (i === index) {
 						optionHologram.activate()
 						animateSimple(rate => {
@@ -152,9 +151,9 @@ export class QuestionScene extends Scene {
 						}, { easing: easeOutQuint, duration: 500 }) : ''
 					}
 				})
-				TrolleyIO.instance.session.once(outputs.decidedChoice, async ({ index }) => {
-					TrolleyIO.instance.session.off(deselectedEvent)
-					TrolleyIO.instance.session.off(selectedEvent)
+				this.once(outputs.decidedChoice, async ({ index }) => {
+					this.off(deselectedEvent)
+					this.off(selectedEvent)
 					if (i !== index) {
 						await optionHologram.hide()
 						optionHologram.destroy()
@@ -173,7 +172,7 @@ export class QuestionScene extends Scene {
 			})
 		})
 
-		TrolleyIO.instance.session.on(sessionStates.showingResult, async ({ isCorrect, lives }) => {
+		this.on(sessionStates.showingResult, async ({ isCorrect, lives }) => {
 			await wait(3000)
 			const isCorrectText = new MainText({
 				content: isCorrect ? '正解' : '不正解',
@@ -188,10 +187,10 @@ export class QuestionScene extends Scene {
 			await wait(1000)
 			this.questionContainer.removeChild(isCorrectText)
 
-			TrolleyIO.instance.session.emit(inputs.next)
+			this.emit(inputs.next)
 		})
 
-		TrolleyIO.instance.session.on(sessionStates.showingExplanation, async ({ correctContent, incorrectContent, imageUrl, timerMs }) => {
+		this.on(sessionStates.showingExplanation, async ({ correctContent, incorrectContent, imageUrl, timerMs }) => {
 			this.questionCountdown.start({ periodMs: timerMs, showCountdown: false })
 			const explanationInnerContainer = new Container()
 			const explanationHologram = new HologramContainer({
@@ -244,13 +243,13 @@ export class QuestionScene extends Scene {
 			}
 			const hologramPromise = explanationHologram.show()
 
-			TrolleyIO.instance.session.once(sessionStates.waitingStage, async () => {
+			this.once(sessionStates.waitingStage, async () => {
 				await hologramPromise
 				this.questionCountdown.abort()
 				topHologram.hide()
 				await explanationHologram.hide()
 				this.questionContainer.destroy({ children: true })
-				TrolleyIO.instance.session.emit(inputs.next)
+				this.emit(inputs.next)
 			})
 		})
 	}

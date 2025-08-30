@@ -43,3 +43,40 @@ export class EventRegister {
 		this.#events[name] = this.#events[name]?.filter(data => !data.once)
 	}
 }
+
+export class EventReceiverDestroyable {
+	constructor(target) {
+		this.target = target
+		this.registeredEvents = []
+	}
+	on(name, func) {
+		const eventData = this.target.on(name, func)
+		this.registeredEvents.push(eventData)
+		return eventData
+	}
+	onAny(func) {
+		const eventData = this.target.onAny(func)
+		this.registeredEvents.push(eventData)
+		return eventData
+	}
+	once(name, func) {
+		const eventData = this.target.once(name, func)
+		this.registeredEvents.push(eventData)
+		return eventData
+	}
+	off(eventData) {
+		this.target.off(eventData)
+	}
+	offAny(eventData) {
+		this.target.offAny(eventData)
+	}
+	emit(name, ...arg) {
+		this.target.emit(name, ...arg)
+	}
+	destroy() {
+		this.registeredEvents.forEach(e => {
+			this.target.off(e)
+			this.target.offAny(e)
+		})
+	}
+}

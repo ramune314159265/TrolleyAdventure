@@ -96,7 +96,7 @@ export class DifficultSelectScene extends Scene {
 		})
 		this.container.addChild(difficultiesContainer)
 
-		TrolleyIO.instance.session.on(outputs.changeSelectingDifficult, ({ index, previousIndex }) => {
+		this.on(outputs.changeSelectingDifficult, ({ index, previousIndex }) => {
 			this.difficultHolograms[previousIndex]?.scale?.set?.(1)
 			animateSimple(rate => {
 				this.difficultHolograms.forEach((hologram, i) => {
@@ -108,7 +108,7 @@ export class DifficultSelectScene extends Scene {
 				this.difficultHolograms[index]?.scale?.set?.(1 + 0.1 * rate)
 			}, { easing: easeOutQuint, duration: 1000 })
 		})
-		TrolleyIO.instance.session.once(outputs.selectedDifficult, ({ index }) => {
+		this.once(outputs.selectedDifficult, ({ index }) => {
 			this.difficultHolograms.forEach((h, i) => {
 				if (index !== i) {
 					h.hide()
