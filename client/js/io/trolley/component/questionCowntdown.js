@@ -63,10 +63,11 @@ export class QuestionCountdown extends Container {
 	}
 	start({ periodMs, showCountdown }) {
 		this.visible = true
-		this.countdownWrapper.visible = false
+		this.countdownContainer.visible = false
 		this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2
 		const startMs = performance.now()
 		const endsMs = performance.now() + periodMs
+		let countdownShowed = false
 		this.ticker = () => {
 			this.underGauge.clear()
 			this.underGauge
@@ -76,7 +77,8 @@ export class QuestionCountdown extends Container {
 				.lineTo(constants.viewWidth * (1 - ((endsMs - performance.now()) / (endsMs - startMs))), QuestionCountdown.gaugeHeight)
 			this.underGauge.fill({ color: colors.hologramMain })
 			const remain = endsMs - performance.now()
-			if (remain <= QuestionCountdown.textStart + QuestionCountdown.animationDuration && showCountdown) {
+			if ((remain <= QuestionCountdown.textStart + QuestionCountdown.animationDuration && !countdownShowed) && showCountdown) {
+				countdownShowed = true
 				this.showText()
 			}
 			if (remain < 0) {
@@ -97,7 +99,7 @@ export class QuestionCountdown extends Container {
 			return
 		}
 		this.isTextShowed = true
-		this.countdownWrapper.visible = true
+		this.countdownContainer.visible = true
 		await animateSimple(rate => {
 			this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2 - QuestionCountdown.textWrapperHeight * rate
 		}, { easing: easeOutQuint, duration: QuestionCountdown.animationDuration })
@@ -105,7 +107,7 @@ export class QuestionCountdown extends Container {
 	}
 	hideText() {
 		this.isTextShowed = false
-		this.countdownWrapper.visible = false
+		this.countdownContainer.visible = false
 		this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2
 	}
 }

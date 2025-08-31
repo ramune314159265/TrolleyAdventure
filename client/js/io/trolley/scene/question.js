@@ -137,6 +137,7 @@ export class QuestionScene extends Scene {
 					}
 				})
 				const selectedEvent = this.on(outputs.selectedChoice, ({ index, timerMs }) => {
+					this.questionCountdown.hideText()
 					if (i === index) {
 						optionHologram.activate()
 						animateSimple(rate => {
