@@ -2,6 +2,7 @@ import { gameEvents } from './enum'
 import { JoyConIO } from './io/joycon/index'
 import { KeyboardIO } from './io/keyboard/index'
 import { TrolleyIO } from './io/trolley/index'
+import { WebSocketIO } from './io/websocet'
 import { Session } from './session'
 import { EventRegister } from './util/eventRegister'
 
@@ -12,7 +13,8 @@ export class Game extends EventRegister {
 		this.ioList = [
 			new TrolleyIO(this),
 			new KeyboardIO(this),
-			new JoyConIO(this)
+			new JoyConIO(this),
+			new WebSocketIO(this)
 		]
 	}
 	newSession() {

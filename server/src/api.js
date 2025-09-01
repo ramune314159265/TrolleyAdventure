@@ -1,9 +1,10 @@
-import { zValidator } from "@hono/zod-validator"
+import { zValidator } from '@hono/zod-validator'
 import { readFileSync } from 'fs'
 import { Hono } from 'hono'
 import { JSONFilePreset } from 'lowdb/node'
 import path from 'path'
 import { z } from 'zod'
+import { upgradeWebSocket } from './app.js'
 
 const db = await JSONFilePreset(path.join(import.meta.dirname, '../db.json'), {
 	playData: [],
@@ -95,3 +96,42 @@ apiRoute
 		})
 		return c.json({ message: 'ok' })
 	})
+
+const channels = new Map()
+
+apiRoute
+	.get('/ws/:channel', upgradeWebSocket((c) => {
+		const { channel } = c.req.param()
+
+		return {
+			onOpen: (ws) => {
+				if (!channels.has(channel)) {
+					channels.set(channel, new Set())
+				}
+				channels.get(channel).add(ws)
+				console.log(`ws connected ${channel}`)
+			},
+			onMessage: (ws, message) => {
+				const data = message.toString()
+				const clients = channels.get(channel) || new Set()
+				for (const client of clients) {
+					if (client !== ws && client.readyState === 1) {
+						client.send(data)
+					}
+				}
+			},
+			onClose: (ws) => {
+				const clients = channels.get(channel)
+				if (clients) {
+					clients.delete(ws)
+					if (clients.size === 0) {
+						channels.delete(channel)
+					}
+				}
+				console.log(`ws disconnected ${channel}`)
+			},
+			onError: (ws, err) => {
+				console.error(`ws error ${channel}:`, err)
+			}
+		}
+	}))
