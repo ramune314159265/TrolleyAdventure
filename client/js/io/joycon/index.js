@@ -1,20 +1,12 @@
 import { connectJoyCon, connectedJoyCons } from 'joy-con-webhid'
-import { gameEvents } from '../../enum'
 import { wait } from '../../util/wait'
 import { GameIO } from '../index'
 import { JoyConL } from './joyconL'
 import { JoyConR } from './joyconR'
 
 export class JoyConIO extends GameIO {
-	static states = {
-		difficultSelect: Symbol(),
-		questionAnswer: Symbol(),
-		ignore: Symbol()
-	}
 	constructor() {
 		super()
-		this.state = JoyConIO.states.ignore
-		this.questionData = null
 
 		const start = () => {
 			for (const joyCon of connectedJoyCons.values()) {
@@ -35,20 +27,6 @@ export class JoyConIO extends GameIO {
 	}
 	connectSession(session) {
 		this.session = session
-		session.once(gameEvents.sessionLoaded, data => {
-			this.difficultList = data.difficultList
-			this.state = JoyConIO.states.difficultSelect
-		})
-		session.on(gameEvents.nextQuestionStarted, data => {
-			this.questionData = data.questionData
-			this.state = JoyConIO.states.questionAnswer
-		})
-		session.on(gameEvents.gameCleared, () => {
-			this.state = JoyConIO.states.ignore
-		})
-		session.on(gameEvents.gameOvered, () => {
-			this.state = JoyConIO.states.ignore
-		})
 	}
 	async joyConHandle(joyCon) {
 		joyCon.eventListenerAttached = true

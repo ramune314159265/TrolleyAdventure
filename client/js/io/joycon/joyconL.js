@@ -9,7 +9,6 @@ export class JoyConL {
 		this.session = io.session
 		this.joyCon = joyCon
 		this.pastInputStatus = null
-		this.recentAccelerometers = [0]
 	}
 	start() {
 		this.joyCon.addEventListener('hidinput', ({ detail }) => {
