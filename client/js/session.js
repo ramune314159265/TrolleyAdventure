@@ -42,7 +42,7 @@ export class Session extends EventRegister {
 		this.state = state
 		state.enter()
 	}
-	async endSession() {
+	async end() {
 		try {
 			fetch('./api/playdata', {
 				method: 'POST',
