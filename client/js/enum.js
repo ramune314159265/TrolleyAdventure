@@ -1,13 +1,3 @@
-export const gameEvents = Object.freeze({
-	sessionInitializing: Symbol('sessionInitializing'),
-	sessionLoaded: Symbol('sessionLoaded'),
-	gameStarted: Symbol('gameStarted'),
-	nextQuestionStarted: Symbol('nextQuestionStarted'),
-	gameOvered: Symbol('gameOvered'),
-	gameCleared: Symbol('gameCleared'),
-	sessionEnded: Symbol('sessionEnded')
-})
-
 export const ioCommands = Object.freeze({
 	gameStart: Symbol('gameStart'),
 	answerQuestion: Symbol('answerQuestion'),
@@ -32,7 +22,8 @@ export const sessionStates = Object.freeze({
 	showingExplanation: Symbol('showingExplanation'),
 	timeOver: Symbol('timeOver'),
 	gameOver: Symbol('gameOver'),
-	gameClear: Symbol('gameClear')
+	gameClear: Symbol('gameClear'),
+	ended: Symbol('ended')
 })
 
 export const inputs = Object.freeze({

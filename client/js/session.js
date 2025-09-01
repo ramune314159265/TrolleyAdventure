@@ -1,6 +1,6 @@
 import { Configs } from './configs'
 import { DifficultManager } from './difficultManager'
-import { gameEvents } from './enum'
+import { sessionStates } from './enum'
 import { PlayData } from './playData'
 import { QuestionManager } from './questionsManager'
 import { LoadedState } from './states/loaded'
@@ -54,6 +54,7 @@ export class Session extends EventRegister {
 		} catch {
 			console.error('playData could not be sent')
 		}
-		this.emit(gameEvents.sessionEnded)
+		this.state = null
+		this.emit(sessionStates.ended)
 	}
 }
