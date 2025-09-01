@@ -1,17 +1,3 @@
-export const ioCommands = Object.freeze({
-	gameStart: Symbol('gameStart'),
-	answerQuestion: Symbol('answerQuestion'),
-	gameEnd: ('gameEnd'),
-	konamiCommand: Symbol('konamiCommand')
-})
-
-export const ioEvents = Object.freeze({
-	leftSelected: Symbol('leftSelected'),
-	rightSelected: Symbol('rightSelected'),
-	deselected: Symbol('deselected'),
-	decided: Symbol('decided'),
-})
-
 export const sessionStates = Object.freeze({
 	loaded: Symbol('loaded'),
 	selectingDifficult: Symbol('selectingDifficult'),
