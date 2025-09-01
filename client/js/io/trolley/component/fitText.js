@@ -18,7 +18,7 @@ export class FitText extends MainText {
 			if (this.width <= this.textWidth && this.height <= this.textHeight) {
 				break
 			}
-			fontSize--
+			fontSize -= 4
 		}
 	}
 }
