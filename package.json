@@ -4,21 +4,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npm run lint && vite build",
     "lint": "eslint .",
     "fix": "eslint . --fix",
-    "dev": "vite",
+    "dev": "cd ./game/ && vite",
     "serve": "node server/src/index.js"
   },
   "author": "ramune314159265",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "joy-con-webhid": "^0.11.0",
-    "pixi-filters": "^6.1.4",
-    "pixi-stats": "^4.2.0",
-    "pixi.js": "^8.12.0"
-  },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "eslint": "^9.21.0",
