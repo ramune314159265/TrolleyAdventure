@@ -23,6 +23,14 @@ export class WebSocketIO extends GameIO {
 					}))
 				})
 			}
+			this.ws.onmessage = message => {
+				const data = JSON.parse(message.data)
+				const eventname = inputs[data.event]
+				if (eventname) {
+					return
+				}
+				session.emit(eventname, data.data)
+			}
 			this.ws.onerror = () => {
 				console.error('ws connect error')
 			}
