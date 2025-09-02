@@ -1,27 +1,3 @@
-export const gameEvents = Object.freeze({
-	sessionInitializing: Symbol('sessionInitializing'),
-	sessionLoaded: Symbol('sessionLoaded'),
-	gameStarted: Symbol('gameStarted'),
-	nextQuestionStarted: Symbol('nextQuestionStarted'),
-	gameOvered: Symbol('gameOvered'),
-	gameCleared: Symbol('gameCleared'),
-	sessionEnded: Symbol('sessionEnded')
-})
-
-export const ioCommands = Object.freeze({
-	gameStart: Symbol('gameStart'),
-	answerQuestion: Symbol('answerQuestion'),
-	gameEnd: ('gameEnd'),
-	konamiCommand: Symbol('konamiCommand')
-})
-
-export const ioEvents = Object.freeze({
-	leftSelected: Symbol('leftSelected'),
-	rightSelected: Symbol('rightSelected'),
-	deselected: Symbol('deselected'),
-	decided: Symbol('decided'),
-})
-
 export const sessionStates = Object.freeze({
 	loaded: Symbol('loaded'),
 	selectingDifficult: Symbol('selectingDifficult'),
@@ -32,7 +8,8 @@ export const sessionStates = Object.freeze({
 	showingExplanation: Symbol('showingExplanation'),
 	timeOver: Symbol('timeOver'),
 	gameOver: Symbol('gameOver'),
-	gameClear: Symbol('gameClear')
+	gameClear: Symbol('gameClear'),
+	ended: Symbol('ended')
 })
 
 export const inputs = Object.freeze({

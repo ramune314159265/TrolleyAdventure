@@ -1,6 +1,6 @@
 import { Stats } from 'pixi-stats'
 import { Application, Assets } from 'pixi.js'
-import { gameEvents, sessionStates } from '../../enum'
+import { sessionStates } from '../../enum'
 import { GameIO } from '../index'
 import { assetManifest } from './assets'
 import { constants } from './constants'
@@ -9,20 +9,10 @@ import { SceneManager } from './sceneManager'
 import { BlackFaceTransition } from './transition/blackFade'
 
 export class TrolleyIO extends GameIO {
-	static states = {
-		difficultSelect: Symbol(),
-		quiz: Symbol(),
-		gameClear: Symbol(),
-		gameOver: Symbol(),
-	}
 	static instance
 	constructor() {
 		super()
 		TrolleyIO.instance = this
-		this.gameInfo = null
-		this.difficultData = null
-		this.questionInfo = null
-		this.state = null
 
 		this.parentElement = document.querySelector('#main')
 		this.canvas = document.createElement('canvas')
@@ -50,15 +40,6 @@ export class TrolleyIO extends GameIO {
 			const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)
 			const difficultSelectScene = new DifficultSelectScene({ difficulties })
 			this.sceneManager.changeScene(difficultSelectScene, transition)
-		})
-		session.on(gameEvents.nextQuestionStarted, data => {
-			this.questionInfo = data
-		})
-		session.on(gameEvents.gameCleared, () => {
-			this.state = TrolleyIO.states.gameClear
-		})
-		session.on(gameEvents.gameOvered, () => {
-			this.state = TrolleyIO.states.gameOver
 		})
 	}
 	async init() {

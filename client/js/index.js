@@ -1,4 +1,4 @@
-import { gameEvents } from './enum'
+import { sessionStates } from './enum'
 import { JoyConIO } from './io/joycon/index'
 import { KeyboardIO } from './io/keyboard/index'
 import { TrolleyIO } from './io/trolley/index'
@@ -21,6 +21,6 @@ export class Game extends EventRegister {
 		this.session = new Session()
 		this.ioList.forEach(io => io.connectSession(this.session))
 		this.session.init()
-		this.session.once(gameEvents.sessionEnded, () => this.newSession())
+		this.session.once(sessionStates.ended, () => this.newSession())
 	}
 }

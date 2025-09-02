@@ -1,5 +1,5 @@
 import { JoyConIO } from '.'
-import { gameEvents, inputs } from '../../enum'
+import { inputs } from '../../enum'
 import { quaternionToEuler } from '../../util/quaternion'
 
 export class JoyConR {
@@ -12,14 +12,10 @@ export class JoyConR {
 		this.joyCon = joyCon
 		this.pastInputStatus = null
 		this.isBlinkingHomeLED = false
-		this.recentAccelerometers = [0]
 		this.recentInputs = []
 	}
 	start() {
 		this.setBlinkHomeLED(true)
-		this.session.on(gameEvents.nextQuestionStarted, () => {
-			this.setBlinkHomeLED(false)
-		})
 
 		this.joyCon.addEventListener('hidinput', ({ detail }) => {
 			const { roll } = quaternionToEuler(this.joyCon.madgwick.getQuaternion())
