@@ -14,12 +14,12 @@ export class WebSocketIO extends GameIO {
 			}
 			this.ws = new WebSocket(location.href.replace('http', 'ws') + `api/ws/${configs.get('name')}`)
 			this.ws.onopen = () => {
-				session.onAny((eventname, ...data) => {
+				session.onAny((eventname, data) => {
 					if (Object.keys(inputs).includes(eventname.description)) {
 						return
 					}
 					this.ws.send(JSON.stringify({
-						event: eventname, data: { ...data }
+						event: eventname.description, data
 					}))
 				})
 			}
