@@ -1,6 +1,6 @@
 node_modules/
 build/
-game/dist/
+dist/
 *_ignore.*
 game/public/images/question/
 db.json

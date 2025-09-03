@@ -7,7 +7,14 @@ import { app, injectWebSocket } from './app.js'
 
 app.use(logger())
 
-app.get('/*', serveStatic({ root: path.join(import.meta.dirname, '../../game/dist') }))
+app.get('/game/*', serveStatic({
+	root: path.join(import.meta.dirname, '../../'),
+	rewriteRequestPath: (path) => path.replace(/^\/game/, '/game/dist/')
+}))
+app.get('/gyro/*', serveStatic({
+	root: path.join(import.meta.dirname, '../../'),
+	rewriteRequestPath: (path) => path.replace(/^\/gyro/, '/gyro/dist/')
+}))
 
 app.route('/api', apiRoute)
 

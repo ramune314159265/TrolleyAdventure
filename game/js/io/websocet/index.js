@@ -30,7 +30,7 @@ export class WebSocketIO extends GameIO {
 				if (eventname) {
 					return
 				}
-				session.emit(eventname, data.data)
+				session.emit(eventname)
 			}
 			this.ws.onerror = () => {
 				console.error('ws connect error')

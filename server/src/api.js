@@ -104,16 +104,17 @@ apiRoute
 		const { channel } = c.req.param()
 
 		return {
-			onOpen: (ws) => {
+			onOpen: (event, ws) => {
 				if (!channels.has(channel)) {
 					channels.set(channel, new Set())
 				}
 				channels.get(channel).add(ws)
 				console.log(`ws connected ${channel}`)
 			},
-			onMessage: (ws, message) => {
-				const data = message.toString()
+			onMessage: (event, ws) => {
+				const data = event.data
 				const clients = channels.get(channel) || new Set()
+				console.log(`ws message ${channel}: ${data}`)
 				for (const client of clients) {
 					if (client !== ws && client.readyState === 1) {
 						client.send(data)
