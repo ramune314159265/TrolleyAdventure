@@ -1,4 +1,4 @@
-let gamma = 0
+let rotation = 0
 let ws = null
 let pastInputStatus = {
 	left: false,
@@ -36,8 +36,8 @@ const inputChange = (key, newState) => {
 
 const loop = () => {
 	const inputStatus = {
-		right: 9 < gamma,
-		left: gamma < -9,
+		right: 9 < rotation,
+		left: rotation < -9,
 	}
 	Object.entries(inputStatus).forEach(([k, v]) => {
 		if (pastInputStatus[k] !== v) {
@@ -51,7 +51,7 @@ setInterval(loop, 50)
 
 const start = () => {
 	window.addEventListener('deviceorientation', e => {
-		gamma = e.gamma
+		rotation = e.beta
 	})
 	const id = document.querySelector('#id').value
 	const url = new URL(location.href)
