@@ -27,7 +27,7 @@ export class WebSocketIO extends GameIO {
 			this.ws.onmessage = message => {
 				const data = JSON.parse(message.data)
 				const eventname = inputs[data.event]
-				if (eventname) {
+				if (!eventname) {
 					return
 				}
 				session.emit(eventname)
