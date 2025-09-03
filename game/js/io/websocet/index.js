@@ -12,7 +12,8 @@ export class WebSocketIO extends GameIO {
 			if (this.ws) {
 				this.ws.close()
 			}
-			this.ws = new WebSocket(location.href.replace('http', 'ws') + `api/ws/${configs.get('name')}`)
+			const url = new URL(location.href)
+			this.ws = new WebSocket(`${url.protocol === 'http:' ? 'ws' : 'wss'}://${url.host}/api/ws/${configs.get('name')}`)
 			this.ws.onopen = () => {
 				session.onAny((eventname, data) => {
 					if (Object.keys(inputs).includes(eventname.description)) {
