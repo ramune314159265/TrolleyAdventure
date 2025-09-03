@@ -3,13 +3,21 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
 	<title>SSH ジャイロ</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<input type="text" id="id" value="default">
-	<button class="start">スタート</button>
+	<div class="before">
+		<input type="text" id="id" value="default">
+		<button class="start">スタート</button>
+	</div>
+	<div class="buttons" style="display: none;">
+		<button class="button left">←</button>
+		<button class="button confirm"></button>
+		<button class="button right">→</button>
+	</div>
 	<script type="module" src="index.js"></script>
 </body>
 

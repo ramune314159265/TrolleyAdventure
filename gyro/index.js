@@ -1,3 +1,7 @@
+const leftElement = document.querySelector('.left')
+const confirmElement = document.querySelector('.confirm')
+const rightElement = document.querySelector('.right')
+
 let rotation = 0
 let ws = null
 let pastInputStatus = {
@@ -11,6 +15,12 @@ const inputChange = (key, newState) => {
 		return
 	}
 	switch (true) {
+		case key === 'confirm' && newState:
+			ws.send(JSON.stringify({
+				event: 'confirm'
+			}))
+			break
+
 		case (key === 'right' || key === 'left') && !newState:
 			ws.send(JSON.stringify({
 				event: 'center'
@@ -34,10 +44,36 @@ const inputChange = (key, newState) => {
 	}
 }
 
+document.querySelector('.buttons').addEventListener('pointerdown', e => {
+	e.preventDefault()
+	if (!(e.target instanceof HTMLButtonElement)) {
+		return
+	}
+	e.target.isPressed = true
+})
+document.querySelector('.buttons').addEventListener('pointerup', e => {
+	e.preventDefault()
+	if (!(e.target instanceof HTMLButtonElement)) {
+		return
+	}
+	e.target.isPressed = false
+})
+document.querySelector('.buttons').addEventListener('pointermove', () => {
+	return false
+})
+document.querySelector('.buttons').addEventListener('pointercancel', e => {
+	e.preventDefault()
+	if (!(e.target instanceof HTMLButtonElement)) {
+		return
+	}
+	e.target.isPressed = false
+})
+
 const loop = () => {
 	const inputStatus = {
-		right: 9 < rotation,
-		left: rotation < -9,
+		right: 9 < rotation || rightElement.isPressed,
+		left: rotation < -9 || leftElement.isPressed,
+		confirm: confirmElement.isPressed,
 	}
 	Object.entries(inputStatus).forEach(([k, v]) => {
 		if (pastInputStatus[k] !== v) {
@@ -56,6 +92,9 @@ const start = () => {
 	const id = document.querySelector('#id').value
 	const url = new URL(location.href)
 	ws = new WebSocket(`${url.protocol === 'http:' ? 'ws' : 'wss'}://${url.host}/api/ws/${id}`)
+
+	document.querySelector('.before').style.display = 'none'
+	document.querySelector('.buttons').style.display = null
 }
 
 document.querySelector('.start').addEventListener('click', () => {
