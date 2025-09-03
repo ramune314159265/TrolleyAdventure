@@ -11,14 +11,8 @@ export class FitText extends MainText {
 	}
 	setText(content) {
 		this.text = content
-		let fontSize = this.maxFontSize
-
-		while (this.minFontSize <= fontSize) {
-			this.style.fontSize = fontSize
-			if (this.width <= this.textWidth && this.height <= this.textHeight) {
-				break
-			}
-			fontSize -= 4
-		}
+		this.style.fontSize = this.maxFontSize
+		const ratio = Math.min(this.textWidth / this.width, this.textHeight / this.height, 1)
+		this.style.fontSize = Math.floor(this.maxFontSize * ratio)
 	}
 }
