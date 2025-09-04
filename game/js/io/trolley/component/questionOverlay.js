@@ -1,5 +1,5 @@
 import { GlowFilter } from 'pixi-filters'
-import { Container, Graphics, NoiseFilter, Rectangle } from 'pixi.js'
+import { Container, Graphics, Rectangle } from 'pixi.js'
 import { colors, constants } from '../constants'
 import { MainText } from './mainText'
 
@@ -68,8 +68,6 @@ export class QuestionOverlay extends Container {
 		this.hpText.x = 30
 		this.hpText.y = constants.viewHeight - 110
 		this.addChild(this.hpText)
-
-		this.filters = [new NoiseFilter({ noise: 0.5 })]
 	}
 	changeInfo(info) {
 		this.questionNo = info.questionNo ?? this.questionNo

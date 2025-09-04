@@ -1,5 +1,5 @@
 import { GlowFilter } from 'pixi-filters'
-import { Container, NoiseFilter, Sprite } from 'pixi.js'
+import { Container, Sprite } from 'pixi.js'
 import { wait } from '../../../util/wait'
 import { MainText } from './mainText'
 
@@ -34,9 +34,6 @@ export class QuestionFirstInfoComponent extends Container {
 		this.text.anchor.y = 0
 		this.text.y = 650
 		this.addChild(this.text)
-		this.filters = [
-			new NoiseFilter({ noise: 0.3 })
-		]
 	}
 	setInfo({ accuracy, level }) {
 		this.text.text = [

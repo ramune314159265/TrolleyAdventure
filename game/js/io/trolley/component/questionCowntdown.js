@@ -1,5 +1,5 @@
 import { GlowFilter } from 'pixi-filters'
-import { Container, Graphics, NoiseFilter } from 'pixi.js'
+import { Container, Graphics } from 'pixi.js'
 import { TrolleyIO } from '..'
 import { easeOutQuint } from '../../../util/easing'
 import { animateSimple } from '../animation'
@@ -18,7 +18,6 @@ export class QuestionCountdown extends Container {
 		this.underGauge = new Graphics()
 		this.underGauge.y = constants.viewHeight - QuestionCountdown.gaugeHeight
 		this.underGauge.filters = [
-			new NoiseFilter({ noise: 0.5 }),
 			new GlowFilter({
 				color: colors.hologramMain,
 				outerStrength: 2
@@ -56,9 +55,6 @@ export class QuestionCountdown extends Container {
 			additionalScale: 0.4
 		})
 		this.countdownContainer.addChild(this.countdownText)
-		this.countdownContainer.filters = [
-			new NoiseFilter({ noise: 0.5 })
-		]
 		this.visible = false
 	}
 	start({ periodMs, showCountdown }) {

@@ -5,6 +5,7 @@ import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
 import { BlinkText } from '../component/blinkText'
+import { EffectContainer } from '../component/effectContainer'
 import { FilledHologramContainer } from '../component/filledHologramContainer'
 import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
@@ -21,11 +22,12 @@ export class DifficultSelectScene extends Scene {
 	async init() {
 		await Assets.loadBundle('difficult_select')
 
-		const backgroundTexture = await Assets.load('background')
-		const background = new Sprite(backgroundTexture)
-		background.containerWidth = constants.viewWidth
-		background.containerHeight = constants.viewHeight
-		this.container.addChild(background)
+		this.background = Sprite.from('background')
+		this.background.containerWidth = constants.viewWidth
+		this.background.containerHeight = constants.viewHeight
+		this.container.addChild(this.background)
+		this.foreground = new EffectContainer()
+		this.container.addChild(this.foreground)
 
 		const topHologramInnerContainer = new Container()
 		const topHologramWidth = constants.viewWidth * 0.7
@@ -48,7 +50,7 @@ export class DifficultSelectScene extends Scene {
 		this.topText.x = topHologramWidth / 2
 		this.topText.y = topHologramHeight / 2
 		topHologramInnerContainer.addChild(this.topText)
-		this.container.addChild(this.topHologram)
+		this.foreground.addChild(this.topHologram)
 
 		const hologramWidth = constants.viewWidth * 0.7
 		const hologramHeight = constants.viewHeight - 350
@@ -94,7 +96,7 @@ export class DifficultSelectScene extends Scene {
 			innerContainer.addChild(difficultDescription)
 			return hologram
 		})
-		this.container.addChild(difficultiesContainer)
+		this.foreground.addChild(difficultiesContainer)
 
 		this.on(outputs.changeSelectingDifficult, ({ index, previousIndex }) => {
 			this.difficultHolograms[previousIndex]?.scale?.set?.(1)

@@ -1,5 +1,5 @@
-import { GlitchFilter, GlowFilter } from 'pixi-filters'
-import { Container, Graphics, NoiseFilter, Rectangle } from 'pixi.js'
+import { GlowFilter } from 'pixi-filters'
+import { Container, Graphics, Rectangle } from 'pixi.js'
 import { TrolleyIO } from '..'
 import { easeOutQuint } from '../../../util/easing'
 import { animateSimple } from '../animation'
@@ -15,16 +15,6 @@ export class FilledHologramContainer extends Container {
 		this.innerContainer = innerContainer
 		innerContainer.alpha = 0
 
-		const glitch = new GlitchFilter({
-			slices: 5,
-			offset: 5,
-			direction: 10,
-			fillMode: 1,
-		})
-		this.filters = [
-			glitch,
-			new NoiseFilter({ noise: 0.5 }),
-		]
 		this.filterArea = new Rectangle(-50, -50, maxWidth + 50 * 2, maxHeight + 50 * 2)
 
 		this.background = new Graphics()
@@ -40,11 +30,6 @@ export class FilledHologramContainer extends Container {
 		this.addChild(this.background)
 		this.addChild(innerContainer)
 
-		this.ticker = () => {
-			if (Math.random() < 0.2) {
-				glitch.refresh()
-			}
-		}
 		TrolleyIO.instance.app.ticker.add(this.ticker)
 	}
 	async show() {

@@ -5,6 +5,7 @@ import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
 import { CountdownText } from '../component/countdownText'
+import { EffectContainer } from '../component/effectContainer'
 import { FilledHologramContainer } from '../component/filledHologramContainer'
 import { FitSprite } from '../component/fitSprite'
 import { FitText } from '../component/fitText'
@@ -25,10 +26,12 @@ export class QuestionScene extends Scene {
 		this.background = new VideoBackground({ width: constants.width, height: constants.height })
 		this.background.changeVideo(['stars'])
 		this.container.addChild(this.background)
+		this.foreground = new EffectContainer()
+		this.container.addChild(this.foreground)
 		this.questionOverlay = new QuestionOverlay()
-		this.container.addChild(this.questionOverlay)
+		this.foreground.addChild(this.questionOverlay)
 		this.questionCountdown = new QuestionCountdown()
-		this.container.addChild(this.questionCountdown)
+		this.foreground.addChild(this.questionCountdown)
 	}
 	async enter() {
 		this.nextQuestion()
@@ -38,7 +41,7 @@ export class QuestionScene extends Scene {
 		const hologramHeight = 650
 		const questionFirstInfo = new QuestionFirstInfoComponent()
 		questionFirstInfo.x = constants.viewWidth / 2
-		this.container.addChild(questionFirstInfo)
+		this.foreground.addChild(questionFirstInfo)
 		const topHologramInnerContainer = new Container()
 		const topHologramWidth = constants.viewWidth * 0.9
 		const topHologramHeight = 125
@@ -61,7 +64,7 @@ export class QuestionScene extends Scene {
 		topText.x = topHologramWidth / 2
 		topText.y = topHologramHeight / 2
 		topHologramInnerContainer.addChild(topText)
-		this.container.addChild(topHologram)
+		this.foreground.addChild(topHologram)
 
 		this.on(sessionStates.showingQuestion, async ({ content, level, questionNo, lives, accuracy }) => {
 			this.questionOverlay.changeInfo({ level, questionNo, lives })
@@ -84,7 +87,7 @@ export class QuestionScene extends Scene {
 			}, { easing: easeOutQuint, duration: 1000 })
 			await wait(350)
 			this.questionContainer = new Container()
-			this.container.addChild(this.questionContainer)
+			this.foreground.addChild(this.questionContainer)
 			this.optionsContainer = new Container()
 			this.optionsContainer.x = constants.viewWidth / 2
 			this.optionsContainer.y = 600

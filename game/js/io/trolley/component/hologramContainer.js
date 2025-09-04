@@ -1,5 +1,5 @@
-import { GlitchFilter, GlowFilter, GrayscaleFilter, HslAdjustmentFilter } from 'pixi-filters'
-import { Container, Graphics, NoiseFilter, Rectangle } from 'pixi.js'
+import { GlowFilter, GrayscaleFilter, HslAdjustmentFilter } from 'pixi-filters'
+import { Container, Graphics, Rectangle } from 'pixi.js'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
@@ -25,12 +25,6 @@ export class HologramContainer extends Container {
 		const flame = new Graphics()
 		this.addChild(flame)
 
-		const glitch = new GlitchFilter({
-			slices: 5,
-			offset: 5,
-			direction: 10,
-			fillMode: 1,
-		})
 		let lineOffset = 0
 		this.ticker = () => {
 			lineOffset += 0.2
@@ -45,9 +39,6 @@ export class HologramContainer extends Container {
 				width: 4,
 				color
 			})
-			if (Math.random() < 0.2) {
-				glitch.refresh()
-			}
 
 			grid.alpha = 0.4
 			grid.filters = [new GlowFilter({
@@ -78,10 +69,7 @@ export class HologramContainer extends Container {
 		}
 		TrolleyIO.instance.app.ticker.add(this.ticker)
 
-		this.defaultFilters = [
-			glitch,
-			new NoiseFilter({ noise: 0.5 }),
-		]
+		this.defaultFilters = []
 		this.filters = this.defaultFilters
 		this.filterArea = new Rectangle(-lineDistance - 10, -lineDistance - 10, maxWidth + lineDistance * 2 + 50, maxHeight + 5 + 50)
 		this.addChild(innerContainer)
