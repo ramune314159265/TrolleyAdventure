@@ -1,3 +1,13 @@
+:root {
+	--size: 160px;
+	--red-light: #e74c3c;
+	--red-dark: #a00000;
+	--green-light: #2dc530;
+	--green-dark: #05762a;
+	--rim: #5c0000;
+	--bg: #111;
+}
+
 body {
 	width: 100dvw;
 	height: 100dvh;
@@ -19,7 +29,7 @@ body {
 .buttons {
 	max-width: 90%;
 	max-height: 90%;
-	aspect-ratio: 3/1;
+	aspect-ratio: 3 / 1;
 	padding: 0;
 	margin: 0;
 	display: flex;
@@ -30,6 +40,75 @@ body {
 }
 
 button.button {
+	appearance: none;
 	aspect-ratio: 1 / 1;
 	height: min(80dvh, calc(80dvw / 3));
+	padding: 0;
+	border: none;
+}
+
+button.arrow {
+	aspect-ratio: sqrt(3) / 2;
+	position: relative;
+	background: linear-gradient(to bottom, var(--green-light), var(--green-dark));
+	filter: drop-shadow(0 4px 0 var(--rim),
+			0 6px 12px rgba(0, 0, 0, .5));
+	transition: transform .1s ease, filter .1s ease;
+
+	::before {
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 20%;
+		border-radius: 50%;
+		background: linear-gradient(to bottom, var(--rim), #000);
+	}
+
+	&:active {
+		transform: translateY(2px);
+		filter: drop-shadow(0 2px 0 var(--rim),
+				0 4px 8px rgba(0, 0, 0, .6));
+	}
+}
+
+button.right {
+	clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+button.left {
+	clip-path: polygon(100% 0, 0 50%, 100% 100%);
+}
+
+button.confirm {
+	border-radius: 100%;
+	position: relative;
+	background: linear-gradient(to bottom, var(--red-light), var(--red-dark));
+	box-shadow:
+		0 4px 0 var(--rim),
+		0 6px 12px rgba(0, 0, 0, .5);
+	transition: transform .1s ease, box-shadow .1s ease;
+	font-size: 8rem;
+	font-weight: bold;
+	color: #e6e6e687;
+	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5), 1px 1px 5px rgba(255, 255, 255, 0.3);
+
+	::before {
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 20%;
+		border-radius: 50%;
+		background: linear-gradient(to bottom, var(--rim), #000);
+	}
+
+	&:active {
+		transform: translateY(2px);
+		box-shadow:
+			0 2px 0 var(--rim),
+			0 4px 8px rgba(0, 0, 0, .6);
+	}
 }
