@@ -2,6 +2,7 @@ import { GlowFilter } from 'pixi-filters'
 import { Container, Graphics, Rectangle } from 'pixi.js'
 import { TrolleyIO } from '..'
 import { easeOutQuint } from '../../../util/easing'
+import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
 import { constants } from '../constants'
 
@@ -33,7 +34,7 @@ export class FilledHologramContainer extends Container {
 		TrolleyIO.instance.app.ticker.add(this.ticker)
 	}
 	async show() {
-		await animateSimple(rate => {
+		animateSimple(rate => {
 			this.containerWidth = Math.max(rate * this.maxWidth, this.maxHeight * Math.sin(constants.uiRadian))
 
 			this.background.clear()
@@ -49,6 +50,7 @@ export class FilledHologramContainer extends Container {
 			this.pivot.x = this.containerWidth / 2
 			this.pivot.y = this.maxHeight / 2
 		}, { easing: easeOutQuint, duration: 750 })
+		await wait(500)
 		await animateSimple(rate => {
 			this.innerContainer.alpha = rate
 		}, { easing: easeOutQuint, duration: 500 })

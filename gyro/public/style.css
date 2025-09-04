@@ -19,7 +19,11 @@ body {
 	align-items: center;
 	justify-content: center;
 	touch-action: manipulation;
+	-webkit-user-select: none;
 	user-select: none;
+	overflow: hidden;
+	overscroll-behavior: none;
+	-webkit-tap-highlight-color: transparent;
 }
 
 .before {
