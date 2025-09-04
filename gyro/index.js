@@ -83,7 +83,7 @@ const loop = () => {
 	pastInputStatus = inputStatus
 }
 
-setInterval(loop, 50)
+setInterval(loop, 20)
 
 const start = () => {
 	window.addEventListener('deviceorientation', e => {
@@ -109,3 +109,5 @@ document.querySelector('.start').addEventListener('click', () => {
 	}
 	start()
 })
+
+document.body.addEventListener('contextmenu', e => e.preventDefault())
