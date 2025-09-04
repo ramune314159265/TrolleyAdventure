@@ -38,9 +38,10 @@ export class QuestionFirstInfoComponent extends Container {
 			new NoiseFilter({ noise: 0.3 })
 		]
 	}
-	setInfo({ questionNo, level }) {
+	setInfo({ accuracy, level }) {
 		this.text.text = [
-			`LEVEL ${level}`
+			`LEVEL ${level}`,
+			`ACCURACY ${Number.isFinite(accuracy) ? Math.round(accuracy * 100) : '?'} %`
 		].join('\n')
 	}
 	async show() {

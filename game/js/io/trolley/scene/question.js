@@ -63,10 +63,10 @@ export class QuestionScene extends Scene {
 		topHologramInnerContainer.addChild(topText)
 		this.container.addChild(topHologram)
 
-		this.on(sessionStates.showingQuestion, async ({ content, level, questionNo, lives }) => {
+		this.on(sessionStates.showingQuestion, async ({ content, level, questionNo, lives, accuracy }) => {
 			this.questionOverlay.changeInfo({ level, questionNo, lives })
 			topHologram.y = constants.viewHeight / 2
-			questionFirstInfo.setInfo({ questionNo, level, lives })
+			questionFirstInfo.setInfo({ accuracy, level, lives })
 			await questionFirstInfo.show()
 			topText.setText(content)
 			await topHologram.show()

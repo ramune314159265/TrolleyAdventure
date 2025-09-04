@@ -11,6 +11,7 @@ export class ShowingQuestionState extends State {
 		this.emit(sessionStates.showingQuestion, {
 			content: this.session.questionData.content,
 			level: this.session.level,
+			accuracy: this.session.questionData.option.accuracy,
 			questionNo: this.session.questionNo + 1,
 			lives: this.session.lives
 		})
