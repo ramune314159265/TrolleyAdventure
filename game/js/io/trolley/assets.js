@@ -21,10 +21,7 @@ export const assetManifest = {
 				{
 					alias: 'background',
 					src: './images/nc173341_洞窟の中_ignore.png',
-				}, {
-					alias: 'map',
-					src: './images/856371_ignore.png',
-				},
+				}
 			]
 		}, {
 			name: 'question',
@@ -38,6 +35,10 @@ export const assetManifest = {
 				}, {
 					alias: 'b',
 					src: './videos/b.mp4',
+				}, {
+					alias: 'warning',
+					src: './svg/warning.svg',
+					data: { resolution: 2 },
 				},
 			]
 		},

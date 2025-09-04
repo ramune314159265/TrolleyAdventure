@@ -37,6 +37,7 @@ export class QuestionScene extends Scene {
 		const hologramWidth = 750
 		const hologramHeight = 650
 		const questionFirstInfo = new QuestionFirstInfoComponent()
+		questionFirstInfo.x = constants.viewWidth / 2
 		this.container.addChild(questionFirstInfo)
 		const topHologramInnerContainer = new Container()
 		const topHologramWidth = constants.viewWidth * 0.9

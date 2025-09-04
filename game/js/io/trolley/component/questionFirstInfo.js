@@ -1,6 +1,6 @@
-import { Container } from 'pixi.js'
-import { colors, constants } from '../constants'
-import { HologramContainer } from './hologramContainer'
+import { GlowFilter } from 'pixi-filters'
+import { Container, NoiseFilter, Sprite } from 'pixi.js'
+import { wait } from '../../../util/wait'
 import { MainText } from './mainText'
 
 export class QuestionFirstInfoComponent extends Container {
@@ -9,47 +9,51 @@ export class QuestionFirstInfoComponent extends Container {
 		this.init()
 	}
 	init() {
-		this.innerContainer = new Container()
-		const hologramWidth = 600
-		const hologramHeight = 250
-		this.hologram = new HologramContainer({
-			maxWidth: hologramWidth,
-			maxHeight: hologramHeight,
-			innerContainer: this.innerContainer,
-			color: colors.hologramMain
-		})
-		this.hologram.x = constants.viewWidth / 2
-		this.hologram.y = constants.viewHeight / 2 * 0.6
-		this.addChild(this.hologram)
-		this.questionNoText = new MainText({
+		this.warningMark = Sprite.from('warning')
+		this.warningMark.width = 350
+		this.warningMark.height = 350
+		this.warningMark.anchor.set(0.5)
+		this.warningMark.y = 350
+		this.warningMark.filters = [
+			new GlowFilter({
+				color: '#d16668',
+				distance: 12
+			})
+		]
+		this.addChild(this.warningMark)
+		this.text = new MainText({
 			content: '',
 			styleOverride: {
-				fill: colors.hologramText,
-				fontSize: 144,
+				fill: '#d16668',
+				fontSize: 40,
+				align: 'center',
+				letterSpacing: 16,
+				lineHeight: 60
 			}
 		})
-		this.questionNoText.x = hologramWidth / 2
-		this.questionNoText.y = 90
-		this.innerContainer.addChild(this.questionNoText)
-		this.levelText = new MainText({
-			content: '',
-			styleOverride: {
-				fill: colors.hologramText,
-				fontSize: 80,
-			}
-		})
-		this.levelText.x = hologramWidth / 2
-		this.levelText.y = 210
-		this.innerContainer.addChild(this.levelText)
+		this.text.anchor.y = 0
+		this.text.y = 525
+		this.addChild(this.text)
+		this.filters = [
+			new NoiseFilter({ noise: 0.3 })
+		]
 	}
 	setInfo({ questionNo, level }) {
-		this.questionNoText.text = `第${questionNo}問`
-		this.levelText.text = `Level ${level}`
+		this.text.text = [
+			`! QUESTION ${questionNo} !`,
+			`LEVEL ${level}`
+		].join('\n')
 	}
 	async show() {
-		await this.hologram.show()
+		this.visible = true
+		for (let i = 0; i < 5; i++) {
+			this.alpha = (i % 2) === 0 ? 0.7 : 0
+			await wait(100)
+		}
+		await wait(500)
+		this.alpha = 1
 	}
 	async hide() {
-		await this.hologram.hide()
+		this.visible = false
 	}
 }
