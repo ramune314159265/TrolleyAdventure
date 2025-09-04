@@ -86,6 +86,7 @@ const loop = () => {
 setInterval(loop, 20)
 
 const start = () => {
+	navigator.wakeLock.request('screen')
 	window.addEventListener('deviceorientation', e => {
 		rotation = e.beta
 	})
