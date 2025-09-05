@@ -1,20 +1,40 @@
+import { GlowFilter } from 'pixi-filters'
 import { Container, Graphics } from 'pixi.js'
 import { easeOutQuint } from '../../../util/easing'
+import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
 import { colors, constants } from '../constants'
+import { MainText } from './mainText'
 
 export class CorrectMark extends Container {
 	static offsetRadian = -Math.PI / 2
-	static circleWidth = 30
-	static radius = 250
+	static circleWidth = 100
+	static radius = 300
 	constructor() {
 		super()
 		this.mark = new Graphics()
-
+		this.mark.filters = [
+			new GlowFilter({
+				color: colors.hologramMain,
+				outerStrength: 2
+			})
+		]
 		this.addChild(this.mark)
+		this.correctText = new MainText({
+			content: '正解！',
+			styleOverride: {
+				fontSize: 160,
+				letterSpacing: 16
+			}
+		})
+		this.correctText.x = constants.viewWidth / 2
+		this.correctText.y = constants.viewHeight / 2
+		this.correctText.visible = false
+		this.addChild(this.correctText)
 	}
 	async show() {
-		await animateSimple(rate => {
+		this.correctText.visible = false
+		animateSimple(rate => {
 			this.mark
 				.clear()
 				.beginPath()
@@ -27,13 +47,28 @@ export class CorrectMark extends Container {
 					CorrectMark.offsetRadian + Math.PI * 2 * rate, CorrectMark.offsetRadian, true
 				)
 				.closePath()
+				.fill({
+					color: `${colors.hologramMain}20`
+				})
 				.stroke({
 					width: 4,
 					color: colors.hologramMain
 				})
-				.fill({
+		}, { easing: easeOutQuint, duration: 1500 })
 
-				})
-		}, { easing: easeOutQuint, duration: 2000 })
+		for (let i = 0; i < 9; i++) {
+			this.alpha = (i % 2) === 0 ? 0.75 : 0
+			await wait(75)
+		}
+		this.alpha = 1
+		this.correctText.visible = true
+		await wait(750)
+	}
+	async hide() {
+		for (let i = 0; i < 9; i++) {
+			this.alpha = (i % 2) === 0 ? 0 : 0.75
+			await wait(50)
+		}
+		this.alpha = 0
 	}
 }

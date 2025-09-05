@@ -179,22 +179,13 @@ export class QuestionScene extends Scene {
 		})
 
 		this.on(sessionStates.showingResult, async ({ isCorrect, lives }) => {
-			await wait(3000)
+			await wait(5000)
 			const correctMark = new CorrectMark()
-			await correctMark.show()
 			this.questionContainer.addChild(correctMark)
-			const isCorrectText = new MainText({
-				content: isCorrect ? '正解' : '不正解',
-				styleOverride: {
-					fontSize: 108,
-				}
-			})
+			await correctMark.show()
 			this.questionOverlay.changeInfo({ lives })
-			isCorrectText.x = constants.viewWidth / 2
-			isCorrectText.y = constants.viewHeight / 2
-			this.questionContainer.addChild(isCorrectText)
-			await wait(1000)
-			this.questionContainer.removeChild(isCorrectText)
+			await wait(500)
+			await correctMark.hide()
 
 			this.emit(inputs.next)
 		})
