@@ -178,14 +178,19 @@ export class QuestionScene extends Scene {
 			})
 		})
 
-		this.on(sessionStates.showingResult, async ({ isCorrect, lives }) => {
+		this.on(sessionStates.showingCorrect, async () => {
 			await wait(5000)
 			const correctMark = new CorrectMark()
 			this.questionContainer.addChild(correctMark)
 			await correctMark.show()
-			this.questionOverlay.changeInfo({ lives })
 			await wait(500)
 			await correctMark.hide()
+
+			this.emit(inputs.next)
+		})
+		this.on(sessionStates.showingIncorrect, async ({ lives }) => {
+			await wait(5000)
+			this.questionOverlay.changeInfo({ lives })
 
 			this.emit(inputs.next)
 		})

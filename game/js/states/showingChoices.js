@@ -1,6 +1,7 @@
 import { State } from '.'
 import { inputs, outputs, sessionStates } from '../enum'
-import { ShowingResultState } from './showingResult'
+import { ShowingCorrectState } from './showingCorrect'
+import { ShowingIncorrectState } from './showingIncorrect'
 
 export class ShowingChoicesState extends State {
 	constructor({ session }) {
@@ -21,7 +22,19 @@ export class ShowingChoicesState extends State {
 			clearTimeout(this.optionTimeoutId)
 			clearTimeout(this.globalTimeoutId)
 			this.emit(outputs.decidedChoice, { index })
-			this.session.enterState(new ShowingResultState({ session: this.session, isCorrect: this.session.questionData.options[index].isCorrect }))
+			this.session.lives -= this.session.questionData.options[index].isCorrect ? 0 : 1
+			switch (true) {
+				case this.session.questionData.options[index].isCorrect:
+					this.session.enterState(new ShowingCorrectState({ session: this.session, isCorrect: this.session.questionData.options[index].isCorrect }))
+					break
+
+				case !this.session.questionData.options[index].isCorrect:
+					this.session.enterState(new ShowingIncorrectState({ session: this.session, isCorrect: this.session.questionData.options[index].isCorrect }))
+					break
+
+				default:
+					break
+			}
 		}
 		const select = index => {
 			this.emit(outputs.selectedChoice, { index, timerMs: optionTimerMs })
