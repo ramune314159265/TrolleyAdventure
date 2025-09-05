@@ -11,7 +11,7 @@ import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
 import { colors, constants } from '../constants'
 import { TrolleyIO } from '../index'
-import { BlackFaceTransition } from '../transition/blackFade'
+import { TimeGateTransition } from '../transition/timeGate'
 import { QuestionScene } from './question'
 
 export class DifficultSelectScene extends Scene {
@@ -116,7 +116,7 @@ export class DifficultSelectScene extends Scene {
 					h.hide()
 				}
 			})
-			const transition = new BlackFaceTransition(TrolleyIO.instance.sceneManager.transitionLayerContainer)
+			const transition = new TimeGateTransition(TrolleyIO.instance.sceneManager.transitionLayerContainer)
 			const questionScene = new QuestionScene()
 			TrolleyIO.instance.sceneManager.changeScene(questionScene, transition)
 		})
