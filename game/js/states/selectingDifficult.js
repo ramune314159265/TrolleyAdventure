@@ -21,6 +21,9 @@ export class SelectingDifficultState extends State {
 		this.on(inputs.left, () => {
 			move(-1)
 		})
+		this.on(inputs.konami, () => {
+			this.session.lives = 2 ** 31 - 1
+		})
 		this.on(inputs.confirm, () => {
 			this.session.start({ difficultId: Object.keys(this.session.difficultManager.difficultConfigs)[this.selectingIndex] })
 			this.emit(outputs.selectedDifficult, { index: this.selectingIndex })
