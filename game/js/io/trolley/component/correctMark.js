@@ -23,6 +23,7 @@ export class CorrectMark extends Container {
 		this.correctText = new MainText({
 			content: '正解！',
 			styleOverride: {
+				fill: colors.hologramText,
 				fontSize: 160,
 				letterSpacing: 16
 			}
