@@ -52,7 +52,7 @@ export class CorrectMark extends Container {
 					color: `${colors.hologramMain}20`
 				})
 				.stroke({
-					width: 4,
+					width: 6,
 					color: colors.hologramMain
 				})
 		}, { easing: easeOutQuint, duration: 1500 })

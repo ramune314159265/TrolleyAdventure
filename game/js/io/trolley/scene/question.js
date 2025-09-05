@@ -11,6 +11,7 @@ import { FilledHologramContainer } from '../component/filledHologramContainer'
 import { FitSprite } from '../component/fitSprite'
 import { FitText } from '../component/fitText'
 import { HologramContainer } from '../component/hologramContainer'
+import { IncorrectMark } from '../component/incorrectMark'
 import { MainText } from '../component/mainText'
 import { QuestionCountdown } from '../component/questionCowntdown'
 import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
@@ -179,7 +180,7 @@ export class QuestionScene extends Scene {
 		})
 
 		this.on(sessionStates.showingCorrect, async () => {
-			await wait(5000)
+			await wait(4000)
 			const correctMark = new CorrectMark()
 			this.questionContainer.addChild(correctMark)
 			await correctMark.show()
@@ -189,8 +190,13 @@ export class QuestionScene extends Scene {
 			this.emit(inputs.next)
 		})
 		this.on(sessionStates.showingIncorrect, async ({ lives }) => {
-			await wait(5000)
+			await wait(4000)
+			const incorrectMark = new IncorrectMark()
+			this.questionContainer.addChild(incorrectMark)
+			await incorrectMark.show()
 			this.questionOverlay.changeInfo({ lives })
+			await wait(1500)
+			await incorrectMark.hide()
 
 			this.emit(inputs.next)
 		})
