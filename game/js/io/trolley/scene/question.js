@@ -4,6 +4,7 @@ import { inputs, outputs, sessionStates } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
+import { CorrectMark } from '../component/correctMark'
 import { CountdownText } from '../component/countdownText'
 import { EffectContainer } from '../component/effectContainer'
 import { FilledHologramContainer } from '../component/filledHologramContainer'
@@ -179,6 +180,9 @@ export class QuestionScene extends Scene {
 
 		this.on(sessionStates.showingResult, async ({ isCorrect, lives }) => {
 			await wait(3000)
+			const correctMark = new CorrectMark()
+			await correctMark.show()
+			this.questionContainer.addChild(correctMark)
 			const isCorrectText = new MainText({
 				content: isCorrect ? '正解' : '不正解',
 				styleOverride: {
