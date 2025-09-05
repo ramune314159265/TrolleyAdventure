@@ -1,4 +1,5 @@
 import { Container, Graphics } from 'pixi.js'
+import { easeOutQuint } from '../../../util/easing'
 import { animateSimple } from '../animation'
 import { colors, constants } from '../constants'
 
@@ -31,8 +32,8 @@ export class CorrectMark extends Container {
 					color: colors.hologramMain
 				})
 				.fill({
-					color: `${colors.hologramMain}10`
+
 				})
-		}, { easing: (e) => e, duration: 2000 })
+		}, { easing: easeOutQuint, duration: 2000 })
 	}
 }
