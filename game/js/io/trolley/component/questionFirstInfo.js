@@ -43,13 +43,17 @@ export class QuestionFirstInfoComponent extends Container {
 	}
 	async show() {
 		this.visible = true
-		for (let i = 0; i < 5; i++) {
+		for (let i = 0; i < 7; i++) {
 			this.alpha = (i % 2) === 0 ? 0.8 : 0
-			await wait(100)
+			await wait(75)
 		}
 		await wait(1000)
 	}
 	async hide() {
+		for (let i = 0; i < 9; i++) {
+			this.alpha = (i % 2) === 0 ? 0 : 0.8
+			await wait(50)
+		}
 		this.visible = false
 	}
 }
