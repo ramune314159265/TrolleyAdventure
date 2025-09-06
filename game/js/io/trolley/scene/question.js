@@ -243,6 +243,16 @@ export class QuestionScene extends Scene {
 			explanationInnerContainer.addChild(explanationText)
 			topText.setText('解説')
 			topHologram.show()
+			const hologramPromise = explanationHologram.show()
+
+			this.once(sessionStates.waitingStage, async () => {
+				await hologramPromise
+				this.questionCountdown.abort()
+				topHologram.hide()
+				await explanationHologram.hide()
+				this.questionContainer.destroy({ children: true })
+				this.emit(inputs.next)
+			})
 			if (imageUrl) {
 				const texture = await Assets.load(`images/question/${imageUrl}`)
 				const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
@@ -264,16 +274,6 @@ export class QuestionScene extends Scene {
 				noImageText.x = constants.viewWidth / 4
 				this.optionsContainer.addChild(noImageText)
 			}
-			const hologramPromise = explanationHologram.show()
-
-			this.once(sessionStates.waitingStage, async () => {
-				await hologramPromise
-				this.questionCountdown.abort()
-				topHologram.hide()
-				await explanationHologram.hide()
-				this.questionContainer.destroy({ children: true })
-				this.emit(inputs.next)
-			})
 		})
 	}
 }
