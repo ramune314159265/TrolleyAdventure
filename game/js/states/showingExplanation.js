@@ -1,5 +1,5 @@
 import { State } from '.'
-import { inputs, sessionStates } from '../enum'
+import { inputs, outputs, sessionStates } from '../enum'
 import { WaitingStageState } from './waitingStage'
 
 export class ShowingExplanationState extends State {
@@ -15,8 +15,10 @@ export class ShowingExplanationState extends State {
 			imageUrl: this.session.questionData.answer.explanationImage,
 			timerMs
 		})
+		this.emit(outputs.changeAvailableControls, { controls: { a: 'スキップ' } })
 		const next = () => {
 			clearInterval(this.timeoutId)
+			this.emit(outputs.changeAvailableControls, { controls: {} })
 			this.session.enterState(new WaitingStageState({ session: this.session }))
 		}
 		this.on(inputs.confirm, () => {

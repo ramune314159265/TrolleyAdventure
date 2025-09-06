@@ -4,6 +4,7 @@ import { inputs, outputs, sessionStates } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
+import { AvailableControls } from '../component/availableControl'
 import { CorrectMark } from '../component/correctMark'
 import { CountdownText } from '../component/countdownText'
 import { EffectContainer } from '../component/effectContainer'
@@ -34,6 +35,8 @@ export class QuestionScene extends Scene {
 		this.foreground.addChild(this.questionOverlay)
 		this.questionCountdown = new QuestionCountdown()
 		this.foreground.addChild(this.questionCountdown)
+		this.availableControls = new AvailableControls()
+		this.foreground.addChild(this.availableControls)
 	}
 	async enter() {
 		this.nextQuestion()
@@ -67,6 +70,12 @@ export class QuestionScene extends Scene {
 		topText.y = topHologramHeight / 2
 		topHologramInnerContainer.addChild(topText)
 		this.foreground.addChild(topHologram)
+
+		this.on(outputs.changeAvailableControls, ({ controls }) => {
+			this.availableControls.setControls({ controls })
+			this.availableControls.x = constants.viewWidth - this.availableControls.width - 96
+			this.availableControls.y = constants.viewHeight - this.availableControls.height - 16
+		})
 
 		this.on(sessionStates.showingQuestion, async ({ content, level, questionNo, lives, accuracy }) => {
 			this.questionOverlay.changeInfo({ level, questionNo, lives })

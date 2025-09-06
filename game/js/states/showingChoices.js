@@ -22,6 +22,7 @@ export class ShowingChoicesState extends State {
 			clearTimeout(this.optionTimeoutId)
 			clearTimeout(this.globalTimeoutId)
 			this.emit(outputs.decidedChoice, { index })
+			this.emit(outputs.changeAvailableControls, { controls: {} })
 			this.session.lives -= this.session.questionData.options[index].isCorrect ? 0 : 1
 			switch (true) {
 				case this.session.questionData.options[index].isCorrect:
@@ -41,6 +42,7 @@ export class ShowingChoicesState extends State {
 			this.selected = index
 			this.lastSelected = index
 			clearTimeout(this.optionTimeoutId)
+			this.emit(outputs.changeAvailableControls, { controls: { a: '確定' } })
 			this.optionTimeoutId = setTimeout(() => {
 				decide(index)
 			}, optionTimerMs)
@@ -50,6 +52,7 @@ export class ShowingChoicesState extends State {
 		this.on(inputs.center, () => {
 			if (this.selected !== null) {
 				this.emit(outputs.deselectedChoice, { index: this.selected })
+				this.emit(outputs.changeAvailableControls, { controls: {} })
 			}
 			this.selected = null
 			clearTimeout(this.optionTimeoutId)
