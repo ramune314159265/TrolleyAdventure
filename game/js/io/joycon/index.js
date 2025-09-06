@@ -23,7 +23,9 @@ export class JoyConIO extends GameIO {
 			await connectJoyCon()
 			start()
 		})
-		start()
+		setTimeout(() => {
+			start()
+		}, 500)
 	}
 	connectSession(session) {
 		this.session = session
