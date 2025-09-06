@@ -1,9 +1,8 @@
-import { JoyConIO } from '.'
 import { inputs } from '../../enum'
 import { quaternionToEuler } from '../../util/quaternion'
 
 export class JoyConR {
-	static selectThreshold = Math.PI * (170 / 180)
+	static selectThreshold = Math.PI * (175 / 180)
 	static decideButtons = ['a', 'plus', 'home', 'rightStick']
 	static konamiCommand = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a']
 	constructor(io, joyCon) {
@@ -73,9 +72,6 @@ export class JoyConR {
 
 			case (key === 'right' || key === 'left') && !newState:
 				this.session.emit(inputs.center)
-				if (this.io.state !== JoyConIO.states.questionAnswer) {
-					break
-				}
 				this.setBlinkHomeLED(false)
 				break
 
