@@ -179,8 +179,10 @@ export class QuestionScene extends Scene {
 			})
 		})
 
-		this.on(sessionStates.showingCorrect, async () => {
-			await wait(4000)
+		this.on(sessionStates.showingCorrect, async ({ index }) => {
+			await wait(1000)
+			await this.background.changeVideo([`stars_${index === 0 ? 'left' : 'right'}`, 'stars'])
+			await wait(500)
 			const correctMark = new CorrectMark()
 			this.questionContainer.addChild(correctMark)
 			await correctMark.show()
@@ -189,8 +191,10 @@ export class QuestionScene extends Scene {
 
 			this.emit(inputs.next)
 		})
-		this.on(sessionStates.showingIncorrect, async ({ lives }) => {
-			await wait(4000)
+		this.on(sessionStates.showingIncorrect, async ({ lives, index }) => {
+			await wait(1000)
+			await this.background.changeVideo([`stars_${index === 0 ? 'left' : 'right'}`, 'stars'])
+			await wait(500)
 			const incorrectMark = new IncorrectMark()
 			this.questionContainer.addChild(incorrectMark)
 			await incorrectMark.show()

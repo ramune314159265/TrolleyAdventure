@@ -30,6 +30,12 @@ export const assetManifest = {
 					alias: 'stars',
 					src: './videos/stars.webm',
 				}, {
+					alias: 'stars_left',
+					src: './videos/stars_left.webm',
+				}, {
+					alias: 'stars_right',
+					src: './videos/stars_right.webm',
+				}, {
 					alias: 'a',
 					src: './videos/a.mp4',
 				}, {

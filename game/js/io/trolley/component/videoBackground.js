@@ -11,12 +11,12 @@ export class VideoBackground extends Container {
 		if (this.sprite.texture?.source?.resource) {
 			this.sprite.texture.source.resource.loop = false
 			await new Promise((resolve) => {
-				this.sprite.texture.source.resource.addEventListener('ended', async () => {
+				this.sprite.texture.source.resource.addEventListener('ended', () => {
+					console.log()
 					resolve()
 				}, { once: true })
 			})
 		}
-		const { promise, resolve } = Promise.withResolvers()
 		const [video, ...nextVideos] = videos
 		this.removeChild(this.sprite)
 		this.sprite = Sprite.from(video)
@@ -24,15 +24,11 @@ export class VideoBackground extends Container {
 		this.sprite.containerHeight = this.containerHeight
 		this.sprite.texture.source.resource.currentTime = 0
 		this.sprite.texture.source.resource.play()
+		this.addChild(this.sprite)
 		if (nextVideos.length === 0) {
 			this.sprite.texture.source.resource.loop = true
 		} else {
-			this.sprite.texture.source.resource.addEventListener('ended', async () => {
-				await this.changeVideo(nextVideos)
-				resolve()
-			}, { once: true })
+			await this.changeVideo(nextVideos)
 		}
-		this.addChild(this.sprite)
-		return promise
 	}
 }

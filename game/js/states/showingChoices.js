@@ -25,11 +25,11 @@ export class ShowingChoicesState extends State {
 			this.session.lives -= this.session.questionData.options[index].isCorrect ? 0 : 1
 			switch (true) {
 				case this.session.questionData.options[index].isCorrect:
-					this.session.enterState(new ShowingCorrectState({ session: this.session, isCorrect: this.session.questionData.options[index].isCorrect }))
+					this.session.enterState(new ShowingCorrectState({ session: this.session, index }))
 					break
 
 				case !this.session.questionData.options[index].isCorrect:
-					this.session.enterState(new ShowingIncorrectState({ session: this.session, isCorrect: this.session.questionData.options[index].isCorrect }))
+					this.session.enterState(new ShowingIncorrectState({ session: this.session, index }))
 					break
 
 				default:
