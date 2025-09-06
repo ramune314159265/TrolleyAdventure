@@ -19,8 +19,11 @@ export const assetManifest = {
 			name: 'difficult_select',
 			assets: [
 				{
-					alias: 'background',
-					src: './images/nc173341_洞窟の中_ignore.png',
+					alias: 'start_static',
+					src: './videos/start_static.mp4',
+				}, {
+					alias: 'start',
+					src: './videos/start.mp4',
 				}
 			]
 		}, {

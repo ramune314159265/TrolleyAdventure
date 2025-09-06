@@ -1,4 +1,4 @@
-import { Assets, Container, Sprite } from 'pixi.js'
+import { Assets, Container } from 'pixi.js'
 import { Scene } from '.'
 import { outputs } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
@@ -9,6 +9,7 @@ import { EffectContainer } from '../component/effectContainer'
 import { FilledHologramContainer } from '../component/filledHologramContainer'
 import { HologramContainer } from '../component/hologramContainer'
 import { MainText } from '../component/mainText'
+import { VideoBackground } from '../component/videoBackground'
 import { colors, constants } from '../constants'
 import { TrolleyIO } from '../index'
 import { TimeGateTransition } from '../transition/timeGate'
@@ -22,9 +23,9 @@ export class DifficultSelectScene extends Scene {
 	async init() {
 		await Assets.loadBundle('difficult_select')
 
-		this.background = Sprite.from('background')
-		this.background.containerWidth = constants.viewWidth
-		this.background.containerHeight = constants.viewHeight
+		this.background = new VideoBackground({ width: constants.width, height: constants.height })
+		this.background.alpha = 0.7
+		this.background.changeVideo(['start_static'])
 		this.container.addChild(this.background)
 		this.foreground = new EffectContainer()
 		this.container.addChild(this.foreground)
@@ -111,10 +112,13 @@ export class DifficultSelectScene extends Scene {
 			}, { easing: easeOutQuint, duration: 1000 })
 		})
 		this.once(outputs.selectedDifficult, ({ index }) => {
-			this.difficultHolograms.forEach((h, i) => {
+			this.difficultHolograms.forEach(async (h, i) => {
 				if (index !== i) {
 					h.hide()
+					return
 				}
+				await wait(2000)
+				h.hide()
 			})
 			const transition = new TimeGateTransition(TrolleyIO.instance.sceneManager.transitionLayerContainer)
 			const questionScene = new QuestionScene()
@@ -122,8 +126,10 @@ export class DifficultSelectScene extends Scene {
 		})
 	}
 	async exit() {
-		this.topText.text = `Let's Go!`
 		await wait(500)
+		this.topText.text = `Let's Go!`
+		await this.background.changeVideo(['start'])
+		await wait(5750)
 		this.topHologram.destroy()
 	}
 }
