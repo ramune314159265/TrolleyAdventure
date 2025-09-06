@@ -75,8 +75,7 @@ export class QuestionScene extends Scene {
 			await questionFirstInfo.show()
 			topText.setText(content)
 			await topHologram.show()
-			await wait(500 + 1000 * content.length / constants.charactersPerSecond)
-			this.emit(inputs.confirm)
+			this.emit(inputs.next)
 		})
 
 		this.emit(inputs.next)
