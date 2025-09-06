@@ -24,6 +24,7 @@ export const inputs = Object.freeze({
 
 export const outputs = Object.freeze({
 	start: Symbol('start'),
+	changeAvailableControls: Symbol('changeAvailableControls'),
 
 	changeSelectingDifficult: Symbol('changeSelectingDifficult'),
 	selectedDifficult: Symbol('selectedDifficult'),

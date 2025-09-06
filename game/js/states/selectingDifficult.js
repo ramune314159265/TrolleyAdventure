@@ -11,6 +11,7 @@ export class SelectingDifficultState extends State {
 	enter() {
 		this.emit(sessionStates.selectingDifficult, { difficulties: this.session.difficultManager.difficultConfigs })
 		const move = offset => {
+			this.emit(outputs.changeAvailableControls, { controls: { a: '出発' } })
 			const previousIndex = this.selectingIndex
 			this.selectingIndex = mod(offset + this.selectingIndex, Object.keys(this.session.difficultManager.difficultConfigs).length)
 			this.emit(outputs.changeSelectingDifficult, { index: this.selectingIndex, previousIndex })
@@ -27,6 +28,7 @@ export class SelectingDifficultState extends State {
 		this.on(inputs.confirm, () => {
 			this.session.start({ difficultId: Object.keys(this.session.difficultManager.difficultConfigs)[this.selectingIndex] })
 			this.emit(outputs.selectedDifficult, { index: this.selectingIndex })
+			this.emit(outputs.changeAvailableControls, { controls: {} })
 			this.session.enterState(new WaitingStageState({ session: this.session }))
 		})
 	}

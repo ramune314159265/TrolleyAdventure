@@ -4,6 +4,7 @@ import { outputs } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
+import { AvailableControls } from '../component/availableControl'
 import { BlinkText } from '../component/blinkText'
 import { EffectContainer } from '../component/effectContainer'
 import { FilledHologramContainer } from '../component/filledHologramContainer'
@@ -30,6 +31,8 @@ export class DifficultSelectScene extends Scene {
 		this.foreground = new EffectContainer()
 		this.container.addChild(this.foreground)
 
+		const availableControls = new AvailableControls()
+		this.foreground.addChild(availableControls)
 		const topHologramInnerContainer = new Container()
 		const topHologramWidth = constants.viewWidth * 0.7
 		const topHologramHeight = 125
@@ -123,6 +126,11 @@ export class DifficultSelectScene extends Scene {
 			const transition = new TimeGateTransition(TrolleyIO.instance.sceneManager.transitionLayerContainer)
 			const questionScene = new QuestionScene()
 			TrolleyIO.instance.sceneManager.changeScene(questionScene, transition)
+		})
+		this.on(outputs.changeAvailableControls, ({ controls }) => {
+			availableControls.setControls({ controls })
+			availableControls.x = constants.viewWidth - availableControls.width - 96
+			availableControls.y = constants.viewHeight - availableControls.height
 		})
 	}
 	async exit() {
