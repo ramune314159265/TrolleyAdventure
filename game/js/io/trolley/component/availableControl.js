@@ -30,7 +30,8 @@ export class AvailableControl extends Container {
 				fontSize: 48,
 			}
 		})
-		this.actionText.x = this.width + 48
+		this.actionText.anchor.x = 0
+		this.actionText.x = AvailableControl.iconSize + 32
 		this.actionText.y = this.height / 2
 		this.addChild(this.actionText)
 	}
