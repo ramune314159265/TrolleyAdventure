@@ -126,8 +126,8 @@ export class DifficultSelectScene extends Scene {
 		})
 	}
 	async exit() {
-		await wait(500)
 		this.topText.text = `Let's Go!`
+		await wait(1000)
 		await this.background.changeVideo(['start'])
 		await wait(5750)
 		this.topHologram.destroy()
