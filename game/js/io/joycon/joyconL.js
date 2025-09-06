@@ -2,8 +2,8 @@ import { inputs } from '../../enum'
 import { quaternionToEuler } from '../../util/quaternion'
 
 export class JoyConL {
-	static selectThreshold = Math.PI * (2 / 5)
-	static decideButtons = ['l', 'zl', 'leftStick']
+	static selectThreshold = Math.PI * (20 / 180)
+	static decideButtons = ['l', 'minus', 'leftStick']
 	constructor(io, joyCon) {
 		this.io = io
 		this.session = io.session
@@ -12,15 +12,15 @@ export class JoyConL {
 	}
 	start() {
 		this.joyCon.addEventListener('hidinput', ({ detail }) => {
-			const { pitch, yaw } = quaternionToEuler(this.joyCon.madgwick.getQuaternion())
+			const { roll } = quaternionToEuler(this.joyCon.madgwick.getQuaternion())
 			if (!this.pastInputStatus) {
 				this.pastInputStatus = detail.buttonStatus
 				return
 			}
 			const inputStatus = {
 				...detail.buttonStatus,
-				right: (-JoyConL.selectThreshold < pitch && yaw < 0),
-				left: (-JoyConL.selectThreshold < pitch && 0 < yaw),
+				right: (JoyConL.selectThreshold < roll && roll < Math.PI / 2),
+				left: (-Math.PI / 2 < roll && roll < -JoyConL.selectThreshold),
 			}
 			Object.entries(inputStatus).forEach(([k, v]) => {
 				if (typeof v !== 'boolean') {
