@@ -12,22 +12,29 @@ export class JoyConR {
 		this.pastInputStatus = null
 		this.isBlinkingHomeLED = false
 		this.recentInputs = []
+		this.stickOffsets = null
 	}
 	start() {
 		this.setBlinkHomeLED(true)
 
 		this.joyCon.addEventListener('hidinput', ({ detail }) => {
 			const { roll } = quaternionToEuler(this.joyCon.madgwick.getQuaternion())
+			if (!this.stickOffsets) {
+				this.stickOffsets = {
+					horizontal: -parseFloat(detail.analogStickRight.horizontal),
+					vertical: -parseFloat(detail.analogStickRight.vertical)
+				}
+			}
 			if (!this.pastInputStatus) {
 				this.pastInputStatus = detail.buttonStatus
 				return
 			}
 			const inputStatus = {
 				...detail.buttonStatus,
-				up: detail.analogStickRight.vertical < -0.6,
-				down: 1 < detail.analogStickRight.vertical,
-				right: 1.2 < detail.analogStickRight.horizontal || (-JoyConR.selectThreshold < roll && roll < -Math.PI / 2),
-				left: detail.analogStickRight.horizontal < -0.8 || (Math.PI / 2 < roll && roll < JoyConR.selectThreshold),
+				up: (parseFloat(detail.analogStickRight.vertical) + this.stickOffsets.vertical) < -0.8,
+				down: 0.8 < (parseFloat(detail.analogStickRight.vertical) + this.stickOffsets.vertical),
+				right: 1 < (parseFloat(detail.analogStickRight.horizontal) + this.stickOffsets.horizontal) || (-JoyConR.selectThreshold < roll && roll < -Math.PI / 2),
+				left: (parseFloat(detail.analogStickRight.horizontal) + this.stickOffsets.horizontal) < -1 || (Math.PI / 2 < roll && roll < JoyConR.selectThreshold),
 			}
 			Object.entries(inputStatus).forEach(([k, v]) => {
 				if (typeof v !== 'boolean') {
