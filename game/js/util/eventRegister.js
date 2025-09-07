@@ -42,6 +42,12 @@ export class EventRegister {
 		this.#events[name]?.forEach(data => data.func(...arg))
 		this.#events[name] = this.#events[name]?.filter(data => !data.once)
 	}
+	getAllEventListeners() {
+		return [
+			...Reflect.ownKeys(this.#events).reduce((array, key) => [...array, ...(this.#events[key] ?? [])], []),
+			...this.#anyEvents
+		]
+	}
 }
 
 export class EventReceiverDestroyable {

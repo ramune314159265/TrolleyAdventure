@@ -1,4 +1,4 @@
-import { Stats } from 'pixi-stats'
+import { Panel, Stats } from 'pixi-stats'
 import { Application, Assets } from 'pixi.js'
 import { sessionStates } from '../../enum'
 import { GameIO } from '../index'
@@ -70,7 +70,16 @@ export class TrolleyIO extends GameIO {
 		}
 		if (!import.meta.env.PROD) {
 			window.__PIXI_DEVTOOLS__ = { app: this.app }
-			new Stats(this.app.render, document.querySelector('#main'))
+			const stats = new Stats(this.app.render, document.querySelector('#main'))
+			const tickersPanel = new Panel('Tickers', '#eb07aa', '#380129')
+			const eventsPanel = new Panel('EL', '#e8130c', '#420806')
+			setInterval(() => {
+				tickersPanel.update(this.app.ticker.count, 32)
+				eventsPanel.update(this.session.getAllEventListeners().length, 32)
+			}, 100)
+			stats.addPanel(tickersPanel)
+			stats.addPanel(eventsPanel)
+			stats.showPanel(0)
 		}
 
 		this.sceneManager = new SceneManager()
