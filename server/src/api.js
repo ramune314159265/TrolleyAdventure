@@ -100,6 +100,16 @@ apiRoute
 const channels = new Map()
 
 apiRoute
+	.get('ws', (c) => {
+		const returnData = [...channels.entries()].map(([id, clients]) => {
+			return {
+				id, count: clients.size
+			}
+		})
+		return c.json(returnData)
+	})
+
+apiRoute
 	.get('/ws/:channel', upgradeWebSocket((c) => {
 		const { channel } = c.req.param()
 
