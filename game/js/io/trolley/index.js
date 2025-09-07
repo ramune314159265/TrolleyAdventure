@@ -63,6 +63,11 @@ export class TrolleyIO extends GameIO {
 			height: constants.viewHeight,
 			canvas: this.canvas,
 		})
+		if (import.meta.env.PROD) {
+			this.app.renderer.events.cursorStyles.default = 'none'
+			this.app.canvas.addEventListener('contextmenu', e => e.preventDefault())
+			navigator.wakeLock.request('screen')
+		}
 		if (!import.meta.env.PROD) {
 			window.__PIXI_DEVTOOLS__ = { app: this.app }
 			new Stats(this.app.render, document.querySelector('#main'))
