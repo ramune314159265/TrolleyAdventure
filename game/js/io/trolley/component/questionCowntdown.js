@@ -88,7 +88,7 @@ export class QuestionCountdown extends Container {
 	abort() {
 		this.visible = false
 		this.hideText()
-		TrolleyIO.instance.app.ticker.remove(this.ticker)
+		TrolleyIO.instance.app.ticker?.remove?.(this.ticker)
 	}
 	async showText() {
 		if (this.isTextShowed) {

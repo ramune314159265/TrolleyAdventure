@@ -117,7 +117,7 @@ export class HologramContainer extends Container {
 		this.isActive = false
 	}
 	destroy(options = { children: true }) {
-		TrolleyIO.instance.app.ticker.remove(this.ticker)
+		TrolleyIO.instance.app.ticker?.remove?.(this.ticker)
 		super.destroy(options)
 	}
 }

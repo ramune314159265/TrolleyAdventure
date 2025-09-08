@@ -28,6 +28,6 @@ export class CountdownText extends MainText {
 	}
 	abort() {
 		this.visible = false
-		TrolleyIO.instance.app.ticker.remove(this.ticker)
+		TrolleyIO.instance.app.ticker?.remove?.(this.ticker)
 	}
 }

@@ -11,7 +11,7 @@ export class BlinkText extends MainText {
 		TrolleyIO.instance.app.ticker.add(this.ticker)
 	}
 	destroy(options = { children: true }) {
-		TrolleyIO.instance.app.ticker.remove(this.ticker)
+		TrolleyIO.instance.app.ticker?.remove?.(this.ticker)
 		super.destroy(options)
 	}
 }
