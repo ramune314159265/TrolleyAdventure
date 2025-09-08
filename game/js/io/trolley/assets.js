@@ -1,3 +1,5 @@
+import '@pixi/sound'
+
 export const fonts = [
 	{
 		name: 'mainfont',
@@ -48,9 +50,6 @@ export const assetManifest = {
 					alias: 'warning',
 					src: './svg/warning.svg',
 					data: { resolution: 2 },
-				}, {
-					alias: 'selector',
-					src: './sounds/bgm/selector.mp3',
 				},
 			]
 		},

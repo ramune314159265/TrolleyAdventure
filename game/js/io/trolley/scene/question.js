@@ -1,5 +1,6 @@
 import { Assets, Container, Graphics } from 'pixi.js'
 import { Scene } from '.'
+import { TrolleyIO } from '..'
 import { inputs, outputs, sessionStates } from '../../../enum'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
@@ -39,6 +40,7 @@ export class QuestionScene extends Scene {
 		this.foreground.addChild(this.availableControls)
 	}
 	async enter() {
+		TrolleyIO.instance.bgmManager.playSetLoop('question')
 		this.nextQuestion()
 	}
 	async nextQuestion() {

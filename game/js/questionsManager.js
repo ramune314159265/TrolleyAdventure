@@ -1,3 +1,5 @@
+import { randomFromArray } from './util/random'
+
 export class QuestionManager {
 	static maxLevel = 5
 	#dataLoader
@@ -27,7 +29,7 @@ export class QuestionManager {
 		const questionsFiltered = targetLevelQuestions
 			.filter(question => !this.pickedIds.includes(question.id))
 			.filter(question => Object.entries(filter).every(([k, v]) => question[k] === v))
-		const question = questionsFiltered[Math.floor(questionsFiltered.length * Math.random())]
+		const question = randomFromArray(questionsFiltered)
 		this.pickedIds.push(question.id)
 		return question
 	}

@@ -3,6 +3,7 @@ import { Application, Assets } from 'pixi.js'
 import { sessionStates } from '../../enum'
 import { GameIO } from '../index'
 import { assetManifest } from './assets'
+import { BgmManager } from './bgmManager'
 import { constants } from './constants'
 import { DifficultSelectScene } from './scene/difficultSelect'
 import { SceneManager } from './sceneManager'
@@ -83,5 +84,6 @@ export class TrolleyIO extends GameIO {
 		}
 
 		this.sceneManager = new SceneManager()
+		this.bgmManager = new BgmManager()
 	}
 }
