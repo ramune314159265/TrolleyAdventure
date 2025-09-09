@@ -2,7 +2,7 @@ import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { logger } from 'hono/logger'
 import path from 'path'
-import { apiRoute } from './api.js'
+import { apiRoute } from './api/index.js'
 import { app, injectWebSocket } from './app.js'
 
 app.use(logger())
@@ -16,7 +16,7 @@ app.get('/gyro/*', serveStatic({
 	rewriteRequestPath: (path) => path.replace(/^\/gyro/, '/gyro/dist/')
 }))
 
-app.route('/api', apiRoute)
+app.route('/api/', apiRoute)
 
 const server = serve({
 	fetch: app.fetch,

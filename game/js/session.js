@@ -44,7 +44,7 @@ export class Session extends EventRegister {
 	}
 	async end() {
 		try {
-			fetch('/api/playdata', {
+			fetch('/api/playdata/', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
