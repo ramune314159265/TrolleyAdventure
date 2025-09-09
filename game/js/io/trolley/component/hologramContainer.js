@@ -21,8 +21,16 @@ export class HologramContainer extends Container {
 		const lineDistance = 30
 
 		const grid = new Graphics()
+		grid.filters = [new GlowFilter({
+			color,
+			outerStrength: 2
+		})]
 		this.addChild(grid)
 		const flame = new Graphics()
+		flame.filters = [new GlowFilter({
+			color: `${color}50`,
+			outerStrength: 4
+		})]
 		this.addChild(flame)
 
 		let lineOffset = 0
@@ -40,16 +48,7 @@ export class HologramContainer extends Container {
 				color
 			})
 
-			grid.alpha = 0.4
-			grid.filters = [new GlowFilter({
-				color,
-				outerStrength: 4
-			})]
 			flame.clear()
-			flame.filters = [new GlowFilter({
-				color: `${color}50`,
-				outerStrength: 6
-			})]
 			flame.roundRect(0, 0, this.containerWidth, maxHeight, 24)
 			flame.stroke({
 				width: 3,
