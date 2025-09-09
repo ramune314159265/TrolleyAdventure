@@ -71,6 +71,11 @@ export class TrolleyIO extends GameIO {
 		}
 		if (!import.meta.env.PROD) {
 			window.__PIXI_DEVTOOLS__ = { app: this.app }
+			Object.defineProperty(Panel.prototype, 'averageValue', {
+				get() {
+					return Math.ceil(this.values.at(-1) * 10) / 10
+				}
+			})
 			const stats = new Stats(this.app.render, document.querySelector('#main'))
 			const tickersPanel = new Panel('Tickers', '#eb07aa', '#380129')
 			const eventsPanel = new Panel('EL', '#e8130c', '#420806')
