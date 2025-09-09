@@ -1,4 +1,4 @@
-import { inputs } from '../../enum'
+import { inputs, outputs } from '../../enum'
 import { quaternionToEuler } from '../../util/quaternion'
 
 export class JoyConR {
@@ -15,8 +15,6 @@ export class JoyConR {
 		this.stickOffsets = null
 	}
 	start() {
-		this.setBlinkHomeLED(true)
-
 		this.joyCon.addEventListener('hidinput', ({ detail }) => {
 			const { roll } = quaternionToEuler(this.joyCon.madgwick.getQuaternion())
 			if (!this.stickOffsets) {
@@ -45,6 +43,13 @@ export class JoyConR {
 				}
 			})
 			this.pastInputStatus = inputStatus
+		})
+		this.session.on(outputs.changeAvailableControls, ({ controls }) => {
+			if (Object.hasOwn(controls, 'a')) {
+				this.setBlinkHomeLED(true)
+				return
+			}
+			this.setBlinkHomeLED(false)
 		})
 	}
 	setBlinkHomeLED(state) {
@@ -79,17 +84,14 @@ export class JoyConR {
 
 			case (key === 'right' || key === 'left') && !newState:
 				this.session.emit(inputs.center)
-				this.setBlinkHomeLED(false)
 				break
 
 			case key === 'right':
 				this.session.emit(inputs.right)
-				this.setBlinkHomeLED(this.joyCon, true)
 				break
 
 			case key === 'left':
 				this.session.emit(inputs.left)
-				this.setBlinkHomeLED(this.joyCon, true)
 				break
 
 			default:
