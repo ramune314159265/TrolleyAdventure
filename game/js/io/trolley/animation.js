@@ -8,7 +8,7 @@ export const animateSimple = (callback, { easing, duration }) => {
 			const rate = elapsed / duration
 			callback(easing(Math.min(1, rate)))
 			if (1 < rate) {
-				TrolleyIO.instance.app.ticker.remove(handle)
+				TrolleyIO.instance.app.ticker?.remove?.(handle)
 				resolve()
 			}
 		}
