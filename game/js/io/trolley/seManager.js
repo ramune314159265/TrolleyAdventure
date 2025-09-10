@@ -24,7 +24,7 @@ const seList = {
 		volume: 0.7
 	}, 'is_correct': {
 		path: './sounds/se/is_correct.mp3',
-		volume: 0.8
+		volume: 0.9
 	}, 'correct': {
 		path: './sounds/se/correct.mp3',
 		volume: 1
@@ -34,6 +34,9 @@ const seList = {
 	}, 'countdown': {
 		path: './sounds/se/countdown.mp3',
 		volume: 0.7
+	}, 'noise': {
+		path: './sounds/se/noise.mp3',
+		volume: 1
 	}
 }
 

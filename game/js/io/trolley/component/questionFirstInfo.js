@@ -1,5 +1,6 @@
 import { GlowFilter } from 'pixi-filters'
 import { Container, Sprite } from 'pixi.js'
+import { TrolleyIO } from '..'
 import { wait } from '../../../util/wait'
 import { colors } from '../constants'
 import { MainText } from './mainText'
@@ -65,6 +66,7 @@ export class QuestionFirstInfoComponent extends Container {
 		await wait(1000)
 	}
 	async hide() {
+		TrolleyIO.instance.seManager.play('noise')
 		for (let i = 0; i < 9; i++) {
 			this.alpha = (i % 2) === 0 ? 0 : 0.8
 			await wait(50)

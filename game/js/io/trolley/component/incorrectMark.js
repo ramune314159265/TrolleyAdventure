@@ -70,6 +70,7 @@ export class IncorrectMark extends Container {
 		this.correctText.visible = true
 	}
 	async hide() {
+		TrolleyIO.instance.seManager.play('noise')
 		for (let i = 0; i < 9; i++) {
 			this.alpha = (i % 2) === 0 ? 0 : 0.75
 			await wait(50)
