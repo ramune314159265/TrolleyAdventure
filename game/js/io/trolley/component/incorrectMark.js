@@ -1,5 +1,6 @@
 import { GlowFilter } from 'pixi-filters'
 import { Container, Graphics } from 'pixi.js'
+import { TrolleyIO } from '..'
 import { wait } from '../../../util/wait'
 import { colors, constants } from '../constants'
 import { MainText } from './mainText'
@@ -56,6 +57,7 @@ export class IncorrectMark extends Container {
 		this.addChild(this.correctText)
 	}
 	async show() {
+		TrolleyIO.instance.seManager.play('is_correct')
 		this.correctText.visible = false
 		this.mark.visible = true
 
@@ -63,6 +65,7 @@ export class IncorrectMark extends Container {
 			this.alpha = (i % 2) === 0 ? 1 : 0
 			await wait(75)
 		}
+		TrolleyIO.instance.seManager.play('incorrect')
 		this.alpha = 1
 		this.correctText.visible = true
 	}

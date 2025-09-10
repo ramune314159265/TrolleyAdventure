@@ -82,9 +82,11 @@ export class QuestionScene extends Scene {
 		this.on(sessionStates.showingQuestion, async ({ content, level, questionNo, lives, accuracy }) => {
 			this.questionOverlay.changeInfo({ level, questionNo, lives })
 			topHologram.y = constants.viewHeight / 2
+			TrolleyIO.instance.seManager.play(accuracy <= 0.5 ? 'question_caution_critical' : 'question_caution')
 			questionFirstInfo.setInfo({ accuracy, level, lives })
 			await questionFirstInfo.show()
 			topText.setText(content)
+			TrolleyIO.instance.seManager.play('question_show')
 			await topHologram.show()
 			this.emit(inputs.next)
 		})
@@ -118,7 +120,7 @@ export class QuestionScene extends Scene {
 				this.optionsContainer.addChild(optionHologram)
 				const optionCountdown = new CountdownText({
 					styleOverride: {
-						fontSize: 200,
+						fontSize: 240,
 						fill: colors.primary.text
 					},
 					additionalScale: 0.5
@@ -155,11 +157,15 @@ export class QuestionScene extends Scene {
 				const selectedEvent = this.on(outputs.selectedChoice, ({ index, timerMs }) => {
 					this.questionCountdown.hideText()
 					if (i === index) {
+						TrolleyIO.instance.seManager.play('selected')
 						optionHologram.activate()
 						animateSimple(rate => {
 							optionHologram.scale.set(1 + (0.1 * rate))
 						}, { easing: easeOutQuint, duration: 500 })
 						optionCountdown.start({ periodMs: timerMs })
+						optionCountdown.onCountChange = () => {
+							TrolleyIO.instance.seManager.play('countdown')
+						}
 					} else {
 						optionHologram.deactivate()
 						optionCountdown.abort()
@@ -172,12 +178,13 @@ export class QuestionScene extends Scene {
 					this.off(deselectedEvent)
 					this.off(selectedEvent)
 					if (i !== index) {
-						await optionHologram.hide()
+						await optionHologram.hide(true)
 						optionHologram.destroy()
 						return
 					}
 					optionCountdown.abort()
 					this.questionCountdown.abort()
+					TrolleyIO.instance.seManager.play('decided')
 					await wait(1000)
 					await animateSimple(rate => {
 						optionHologram.x = (1 - rate) * (constants.viewWidth / 4) * p
@@ -190,7 +197,7 @@ export class QuestionScene extends Scene {
 		})
 
 		this.on(sessionStates.showingCorrect, async ({ index }) => {
-			await wait(1000)
+			await wait(2000)
 			await this.background.changeVideo([`stars_${index === 0 ? 'left' : 'right'}`, 'stars'])
 			await wait(500)
 			const correctMark = new CorrectMark()

@@ -73,7 +73,10 @@ export class HologramContainer extends Container {
 		this.filterArea = new Rectangle(-lineDistance - 10, -lineDistance - 10, maxWidth + lineDistance * 2 + 50, maxHeight + 5 + 50)
 		this.addChild(innerContainer)
 	}
-	async show() {
+	async show(silent) {
+		if (!silent) {
+			TrolleyIO.instance.seManager.play('hologram')
+		}
 		animateSimple(rate => {
 			this.containerWidth = rate * this.maxWidth
 			this.alpha = rate
@@ -87,7 +90,10 @@ export class HologramContainer extends Container {
 			this.innerContainer.alpha = rate
 		}, { easing: easeOutQuint, duration: 750 })
 	}
-	async hide() {
+	async hide(silent) {
+		if (!silent) {
+			TrolleyIO.instance.seManager.play('hologram')
+		}
 		await animateSimple(rate => {
 			this.innerContainer.alpha = 1 - rate
 		}, { easing: easeOutQuint, duration: 250 })

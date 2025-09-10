@@ -74,7 +74,7 @@ export class DifficultSelectScene extends Scene {
 			hologram.x = (hologramWidth + gap) * index
 			hologram.y = 0
 			difficultiesContainer.addChild(hologram)
-			hologram.show()
+			hologram.show(true)
 			const difficultName = new MainText({
 				content: data.name,
 				styleOverride: {
@@ -104,6 +104,7 @@ export class DifficultSelectScene extends Scene {
 
 		this.on(outputs.changeSelectingDifficult, ({ index, previousIndex }) => {
 			this.difficultHolograms[previousIndex]?.scale?.set?.(1)
+			TrolleyIO.instance.seManager.play('selected')
 			animateSimple(rate => {
 				this.difficultHolograms.forEach((hologram, i) => {
 					index === i ? hologram.activate() : hologram.deactivate()
@@ -117,7 +118,7 @@ export class DifficultSelectScene extends Scene {
 		this.once(outputs.selectedDifficult, ({ index }) => {
 			this.difficultHolograms.forEach(async (h, i) => {
 				if (index !== i) {
-					h.hide()
+					h.hide(true)
 					return
 				}
 				await wait(2000)
@@ -135,9 +136,11 @@ export class DifficultSelectScene extends Scene {
 	}
 	async exit() {
 		this.topText.text = `Let's Go!`
+		const id = TrolleyIO.instance.seManager.play('ssh_start')
 		await wait(1000)
 		await this.background.changeVideo(['start'])
 		await wait(5750)
+		TrolleyIO.instance.seManager.stop(id)
 		this.topHologram.destroy()
 	}
 }

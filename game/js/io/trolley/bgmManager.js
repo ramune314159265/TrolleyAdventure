@@ -12,7 +12,7 @@ const bgmSets = {
 
 export class BgmManager {
 	static fadeoutMs = 3000
-	static volume = 0.25
+	static volume = 0.1
 	constructor() {
 		this.nowPlaying = null
 		this.eventListener = () => { }

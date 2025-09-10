@@ -7,6 +7,7 @@ import { BgmManager } from './bgmManager'
 import { constants } from './constants'
 import { DifficultSelectScene } from './scene/difficultSelect'
 import { SceneManager } from './sceneManager'
+import { SeManager } from './seManager'
 import { BlackFaceTransition } from './transition/blackFade'
 
 export class TrolleyIO extends GameIO {
@@ -90,5 +91,6 @@ export class TrolleyIO extends GameIO {
 
 		this.sceneManager = new SceneManager()
 		this.bgmManager = new BgmManager()
+		this.seManager = new SeManager()
 	}
 }

@@ -1,5 +1,6 @@
 import { GlowFilter } from 'pixi-filters'
 import { Container, Graphics } from 'pixi.js'
+import { TrolleyIO } from '..'
 import { easeOutQuint } from '../../../util/easing'
 import { wait } from '../../../util/wait'
 import { animateSimple } from '../animation'
@@ -34,6 +35,7 @@ export class CorrectMark extends Container {
 		this.addChild(this.correctText)
 	}
 	async show() {
+		TrolleyIO.instance.seManager.play('is_correct')
 		this.correctText.visible = false
 		animateSimple(rate => {
 			this.mark
@@ -61,6 +63,7 @@ export class CorrectMark extends Container {
 			this.alpha = (i % 2) === 0 ? 0.75 : 0
 			await wait(75)
 		}
+		TrolleyIO.instance.seManager.play('correct')
 		this.alpha = 1
 		this.correctText.visible = true
 		await wait(750)

@@ -14,7 +14,6 @@ export class QuestionCountdown extends Container {
 	constructor() {
 		super()
 		this.isTextShowed = false
-		this.onEnded = () => { }
 		this.underGauge = new Graphics()
 		this.underGauge.y = constants.viewHeight - QuestionCountdown.gaugeHeight
 		this.underGauge.filters = [
@@ -59,6 +58,7 @@ export class QuestionCountdown extends Container {
 	}
 	start({ periodMs, showCountdown }) {
 		this.visible = true
+		this.lastCount = Infinity
 		this.countdownContainer.visible = false
 		this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2
 		const startMs = performance.now()
@@ -79,7 +79,6 @@ export class QuestionCountdown extends Container {
 			}
 			if (remain < 0) {
 				this.abort()
-				this.onEnded()
 				return
 			}
 		}
@@ -100,6 +99,11 @@ export class QuestionCountdown extends Container {
 			this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2 - QuestionCountdown.textWrapperHeight * rate
 		}, { easing: easeOutQuint, duration: QuestionCountdown.animationDuration })
 		this.countdownText.start({ periodMs: QuestionCountdown.textStart })
+		this.countdownText.onCountChange = () => {
+			if (this.countdownContainer.visible) {
+				TrolleyIO.instance.seManager.play('countdown')
+			}
+		}
 	}
 	hideText() {
 		this.isTextShowed = false
