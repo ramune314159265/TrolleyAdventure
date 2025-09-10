@@ -11,24 +11,24 @@ queueRoute
 		const returnData = {
 			queue: queueNumber
 		}
-		c.json(returnData)
+		return c.json(returnData)
 	})
 	.post('/update/', async (c) => {
-		const body = await c.req.parseBody()
-		if (!body.number) {
+		const body = await c.req.json()
+		if (!Object.hasOwn(body, 'number')) {
 			c.status(400)
-			c.json({
+			return c.json({
 				message: 'error'
 			})
 		}
 		queueNumber = body.number
-		clients.forEach(ws => {
-			ws.send(JSON.stringify({
+		for (const client of clients) {
+			client.send(JSON.stringify({
 				message: 'queue_update',
-				value: queueNumber
+				queue: queueNumber
 			}))
-		})
-		c.json({
+		}
+		return c.json({
 			message: 'updated'
 		})
 	})

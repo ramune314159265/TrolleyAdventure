@@ -15,6 +15,10 @@ app.get('/gyro/*', serveStatic({
 	root: path.join(import.meta.dirname, '../../'),
 	rewriteRequestPath: (path) => path.replace(/^\/gyro/, '/gyro/dist/')
 }))
+app.get('/queue/*', serveStatic({
+	root: path.join(import.meta.dirname, '../../'),
+	rewriteRequestPath: (path) => path.replace(/^\/queue/, '/queue/dist/')
+}))
 
 app.route('/api/', apiRoute)
 
