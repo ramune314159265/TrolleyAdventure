@@ -21,6 +21,11 @@ export const colors = {
 		text: '#ffbff9',
 		translucent: '#d67ecd10'
 	},
+	yellow: {
+		main: '#e9e32eff',
+		text: '#fdff80',
+		translucent: '#fdff8010'
+	},
 	gray: {
 		main: '#bbbbbb',
 	}

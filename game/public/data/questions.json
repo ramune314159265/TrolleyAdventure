@@ -7,7 +7,8 @@
 			{
 				"content": "カテキン",
 				"explanation": "お茶全般に含まれている苦味成分です。日本カテキン学会というものがあります。",
-				"image": ""
+				"image": "",
+				"accuracy": 0.3
 			}
 		],
 		"answer": {
@@ -26,7 +27,8 @@
 			{
 				"content": "溶存酸素濃度",
 				"image": "9fd0ccb6-2402-4d37-9a3f-94d96ab925c9.webp",
-				"explanation": ""
+				"explanation": "",
+				"accuracy": 0.5
 			}
 		],
 		"answer": {
@@ -45,7 +47,8 @@
 			{
 				"content": "NO",
 				"image": "f7761740-0b5e-46d2-a758-d5e56db82071.webp",
-				"explanation": ""
+				"explanation": "",
+				"accuracy": 0.51
 			}
 		],
 		"answer": {
@@ -64,7 +67,8 @@
 			{
 				"content": "cato",
 				"image": "57ee0672-af5f-44fa-8065-55b1f257b96f.webp",
-				"explanation": "英語ではcactusと言います！catoはポルトガル語です！"
+				"explanation": "英語ではcactusと言います！catoはポルトガル語です！",
+				"accuracy": 0.80
 			}
 		],
 		"answer": {
@@ -83,7 +87,8 @@
 			{
 				"content": "鳥取県",
 				"image": "d568f452-01dc-4759-84f6-b47225475ee8.webp",
-				"explanation": ""
+				"explanation": "",
+				"accuracy": 0.81
 			},
 			{
 				"content": "島根県",

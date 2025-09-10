@@ -10,23 +10,42 @@ export class QuestionFirstInfoComponent extends Container {
 		this.init()
 	}
 	init() {
+	}
+	setInfo({ accuracy, level }) {
+		this.removeChildren()
+		const colorSet = (() => {
+			switch (true) {
+				case 0.8 < accuracy:
+					return 'primary'
+				case 0.5 < accuracy && accuracy <= 0.8:
+					return 'yellow'
+				case accuracy <= 0.5:
+					return 'red'
+				default:
+					return 'primary'
+			}
+		})()
+
 		this.warningMark = Sprite.from('warning')
-		this.warningMark.tint = colors.red.main
+		this.warningMark.tint = colors[colorSet].main
 		this.warningMark.width = 600
 		this.warningMark.height = 600
 		this.warningMark.anchor.set(0.5)
 		this.warningMark.y = 350
 		this.warningMark.filters = [
 			new GlowFilter({
-				color: colors.red.main,
+				color: colors[colorSet].main,
 				distance: 12
 			})
 		]
 		this.addChild(this.warningMark)
 		this.text = new MainText({
-			content: '',
+			content: [
+				`LEVEL ${level}`,
+				`ACCURACY ${Number.isFinite(accuracy) ? Math.round(accuracy * 100) : '?'} %`
+			].join('\n'),
 			styleOverride: {
-				fill: colors.red.text,
+				fill: colors[colorSet].text,
 				fontSize: 72,
 				align: 'center',
 				letterSpacing: 16,
@@ -36,12 +55,6 @@ export class QuestionFirstInfoComponent extends Container {
 		this.text.anchor.y = 0
 		this.text.y = 650
 		this.addChild(this.text)
-	}
-	setInfo({ accuracy, level }) {
-		this.text.text = [
-			`LEVEL ${level}`,
-			`ACCURACY ${Number.isFinite(accuracy) ? Math.round(accuracy * 100) : '?'} %`
-		].join('\n')
 	}
 	async show() {
 		this.visible = true

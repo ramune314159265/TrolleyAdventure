@@ -264,7 +264,7 @@ export class QuestionScene extends Scene {
 				const backgroundGraphics = new Graphics()
 				backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
 				backgroundGraphics.x = constants.viewWidth / 4
-				backgroundGraphics.fill({ color: `${colors.gray}a0` })
+				backgroundGraphics.fill({ color: `${colors.gray.main}a0` })
 				this.optionsContainer.addChild(backgroundGraphics)
 				const noImageText = new MainText({
 					content: 'No Image',
