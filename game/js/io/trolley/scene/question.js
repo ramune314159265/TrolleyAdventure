@@ -120,7 +120,7 @@ export class QuestionScene extends Scene {
 				this.optionsContainer.addChild(optionHologram)
 				const optionCountdown = new CountdownText({
 					styleOverride: {
-						fontSize: 240,
+						fontSize: 256,
 						fill: colors.primary.text
 					},
 					additionalScale: 0.5

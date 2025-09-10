@@ -64,6 +64,7 @@ export class QuestionCountdown extends Container {
 		const startMs = performance.now()
 		const endsMs = performance.now() + periodMs
 		let countdownShowed = false
+		this.shouldTextShow = true
 		this.ticker = () => {
 			this.underGauge.clear()
 			this.underGauge
@@ -73,7 +74,7 @@ export class QuestionCountdown extends Container {
 				.lineTo(constants.viewWidth * (1 - ((endsMs - performance.now()) / (endsMs - startMs))), QuestionCountdown.gaugeHeight)
 			this.underGauge.fill({ color: colors.primary.main })
 			const remain = endsMs - performance.now()
-			if ((remain <= QuestionCountdown.textStart + QuestionCountdown.animationDuration && !countdownShowed) && showCountdown) {
+			if ((remain <= QuestionCountdown.textStart + QuestionCountdown.animationDuration && !countdownShowed) && showCountdown && this.shouldTextShow) {
 				countdownShowed = true
 				this.showText()
 			}
@@ -107,6 +108,7 @@ export class QuestionCountdown extends Container {
 	}
 	hideText() {
 		this.isTextShowed = false
+		this.shouldTextShow = false
 		this.countdownContainer.visible = false
 		this.countdownContainer.y = constants.viewHeight + QuestionCountdown.textWrapperHeight / 2
 	}
