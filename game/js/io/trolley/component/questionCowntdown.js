@@ -19,7 +19,7 @@ export class QuestionCountdown extends Container {
 		this.underGauge.y = constants.viewHeight - QuestionCountdown.gaugeHeight
 		this.underGauge.filters = [
 			new GlowFilter({
-				color: colors.hologramMain,
+				color: colors.primary.main,
 				outerStrength: 2
 			})
 		]
@@ -35,14 +35,14 @@ export class QuestionCountdown extends Container {
 			.lineTo(100 + QuestionCountdown.textWrapperHeight * Math.sin(constants.uiRadian), QuestionCountdown.textWrapperHeight / 2)
 			.lineTo(-100 - QuestionCountdown.textWrapperHeight * Math.sin(constants.uiRadian), QuestionCountdown.textWrapperHeight / 2)
 			.lineTo(-100, -QuestionCountdown.textWrapperHeight / 2)
-		this.countdownWrapper.fill({ color: `${colors.hologramMain}10` })
+		this.countdownWrapper.fill({ color: colors.primary.translucent })
 		this.countdownWrapper.stroke({
-			color: colors.hologramMain,
+			color: colors.primary.main,
 			width: 4
 		})
 		this.countdownWrapper.filters = [
 			new GlowFilter({
-				color: colors.hologramMain,
+				color: colors.primary.main,
 				outerStrength: 4
 			})
 		]
@@ -50,7 +50,7 @@ export class QuestionCountdown extends Container {
 		this.countdownText = new CountdownText({
 			styleOverride: {
 				fontSize: 172,
-				fill: colors.hologramText
+				fill: colors.primary.text
 			},
 			additionalScale: 0.4
 		})
@@ -71,7 +71,7 @@ export class QuestionCountdown extends Container {
 				.lineTo(constants.viewWidth, 0)
 				.lineTo(constants.viewWidth, QuestionCountdown.gaugeHeight)
 				.lineTo(constants.viewWidth * (1 - ((endsMs - performance.now()) / (endsMs - startMs))), QuestionCountdown.gaugeHeight)
-			this.underGauge.fill({ color: colors.hologramMain })
+			this.underGauge.fill({ color: colors.primary.main })
 			const remain = endsMs - performance.now()
 			if ((remain <= QuestionCountdown.textStart + QuestionCountdown.animationDuration && !countdownShowed) && showCountdown) {
 				countdownShowed = true

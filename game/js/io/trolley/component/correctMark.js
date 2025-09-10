@@ -15,7 +15,7 @@ export class CorrectMark extends Container {
 		this.mark = new Graphics()
 		this.mark.filters = [
 			new GlowFilter({
-				color: colors.hologramMain,
+				color: colors.primary.main,
 				outerStrength: 2
 			})
 		]
@@ -23,7 +23,7 @@ export class CorrectMark extends Container {
 		this.correctText = new MainText({
 			content: '正解！',
 			styleOverride: {
-				fill: colors.hologramText,
+				fill: colors.primary.text,
 				fontSize: 160,
 				letterSpacing: 16
 			}
@@ -49,11 +49,11 @@ export class CorrectMark extends Container {
 				)
 				.closePath()
 				.fill({
-					color: `${colors.hologramMain}20`
+					color: colors.primary.translucent
 				})
 				.stroke({
 					width: 6,
-					color: colors.hologramMain
+					color: colors.primary.main
 				})
 		}, { easing: easeOutQuint, duration: 1500 })
 

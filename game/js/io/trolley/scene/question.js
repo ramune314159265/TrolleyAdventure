@@ -55,7 +55,7 @@ export class QuestionScene extends Scene {
 		const topHologram = new FilledHologramContainer({
 			maxWidth: topHologramWidth,
 			maxHeight: topHologramHeight,
-			color: colors.hologramMain,
+			color: colors.primary.main,
 			innerContainer: topHologramInnerContainer
 		})
 		topHologram.x = constants.viewWidth / 2
@@ -111,7 +111,7 @@ export class QuestionScene extends Scene {
 				const optionHologram = new HologramContainer({
 					maxWidth: hologramWidth,
 					maxHeight: hologramHeight,
-					color: colors.hologramMain,
+					color: colors.primary.main,
 					innerContainer: optionInnerContainer,
 				})
 				optionHologram.x = (constants.viewWidth / 4) * p
@@ -119,7 +119,7 @@ export class QuestionScene extends Scene {
 				const optionCountdown = new CountdownText({
 					styleOverride: {
 						fontSize: 200,
-						fill: colors.hologramText
+						fill: colors.primary.text
 					},
 					additionalScale: 0.5
 				})
@@ -221,7 +221,7 @@ export class QuestionScene extends Scene {
 			const explanationHologram = new HologramContainer({
 				maxWidth: hologramWidth,
 				maxHeight: hologramHeight,
-				color: colors.hologramMain,
+				color: colors.primary.main,
 				innerContainer: explanationInnerContainer,
 			})
 			explanationHologram.x = -constants.viewWidth / 4

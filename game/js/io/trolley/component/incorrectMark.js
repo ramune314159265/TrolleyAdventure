@@ -1,7 +1,7 @@
 import { GlowFilter } from 'pixi-filters'
 import { Container, Graphics } from 'pixi.js'
 import { wait } from '../../../util/wait'
-import { constants } from '../constants'
+import { colors, constants } from '../constants'
 import { MainText } from './mainText'
 
 export class IncorrectMark extends Container {
@@ -13,7 +13,7 @@ export class IncorrectMark extends Container {
 		this.mark.visible = false
 		this.mark.filters = [
 			new GlowFilter({
-				color: '#d16668',
+				color: colors.red.main,
 				outerStrength: 2
 			})
 		]
@@ -35,11 +35,11 @@ export class IncorrectMark extends Container {
 			.lineTo(-IncorrectMark.size / 2, -IncorrectMark.width / 2)
 			.lineTo(-IncorrectMark.size / 2, IncorrectMark.width / 2)
 			.fill({
-				color: `#d1666820`
+				color: colors.red.translucent
 			})
 			.stroke({
 				width: 6,
-				color: '#d16668'
+				color: colors.red.main
 			})
 		this.addChild(this.mark)
 		this.correctText = new MainText({

@@ -18,11 +18,11 @@ export class QuestionOverlay extends Container {
 			.lineTo(infoWidth, 0)
 		questionInfoOverlay.stroke({
 			width: 3,
-			color: colors.hologramMain
+			color: colors.primary.main
 		})
 		questionInfoOverlay.filters = [
 			new GlowFilter({
-				color: colors.hologramMain,
+				color: colors.primary.main,
 				outerStrength: 4
 			})
 		]
@@ -33,7 +33,7 @@ export class QuestionOverlay extends Container {
 			.lineTo(infoWidth, 0)
 			.lineTo(0, 0)
 		questionInfoOverlay.fill({
-			color: `${colors.hologramMain}10`
+			color: colors.primary.translucent
 		})
 		this.addChild(questionInfoOverlay)
 
@@ -41,7 +41,7 @@ export class QuestionOverlay extends Container {
 			content: '',
 			styleOverride: {
 				fontSize: 80,
-				fill: colors.hologramText
+				fill: colors.primary.text
 			}
 		})
 		this.questionInfoOverlayText.anchor.x = 0
@@ -52,7 +52,7 @@ export class QuestionOverlay extends Container {
 		this.hpBar = new Graphics()
 		this.hpBar.filters = [
 			new GlowFilter({
-				color: colors.hologramMain,
+				color: colors.primary.main,
 				outerStrength: 2
 			})
 		]
@@ -61,7 +61,7 @@ export class QuestionOverlay extends Container {
 			content: '- HP',
 			styleOverride: {
 				fontSize: 60,
-				fill: colors.hologramText
+				fill: colors.primary.text
 			}
 		})
 		this.hpText.anchor.x = 0
@@ -84,16 +84,16 @@ export class QuestionOverlay extends Container {
 				.lineTo(20 + (130 + 15) * i, constants.viewHeight - 35)
 			this.hpBar.stroke({
 				width: 5,
-				color: colors.hologramMain,
+				color: colors.primary.main,
 			})
-			this.hpBar.fill({ color: `${colors.hologramMain}10` })
+			this.hpBar.fill({ color: colors.primary.translucent })
 		}
 		this.hpBar
 			.moveTo(20, constants.viewHeight - 20)
 			.lineTo(20 + (130 + 15) * 3 - 15, constants.viewHeight - 20)
 		this.hpBar.stroke({
 			width: 8,
-			color: colors.hologramMain
+			color: colors.primary.main
 		})
 		this.hpText.text = `${this.lives} HP`
 	}

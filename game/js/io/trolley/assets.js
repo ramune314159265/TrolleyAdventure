@@ -1,5 +1,3 @@
-import '@pixi/sound'
-
 export const fonts = [
 	{
 		name: 'mainfont',

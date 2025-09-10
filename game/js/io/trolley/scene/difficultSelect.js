@@ -39,7 +39,7 @@ export class DifficultSelectScene extends Scene {
 		this.topHologram = new FilledHologramContainer({
 			maxWidth: topHologramWidth,
 			maxHeight: topHologramHeight,
-			color: colors.hologramMain,
+			color: colors.primary.main,
 			innerContainer: topHologramInnerContainer
 		})
 		this.topHologram.x = constants.viewWidth / 2
@@ -68,7 +68,7 @@ export class DifficultSelectScene extends Scene {
 			const hologram = new HologramContainer({
 				maxWidth: hologramWidth,
 				maxHeight: hologramHeight,
-				color: data.hologram_color ?? colors.hologramMain,
+				color: colors[data.color ?? 'primary'].main,
 				innerContainer,
 			})
 			hologram.x = (hologramWidth + gap) * index
@@ -78,7 +78,7 @@ export class DifficultSelectScene extends Scene {
 			const difficultName = new MainText({
 				content: data.name,
 				styleOverride: {
-					fill: data.text_color ?? colors.hologramText,
+					fill: colors[data.color ?? 'primary'].text,
 					fontSize: 160,
 				}
 			})
@@ -89,7 +89,7 @@ export class DifficultSelectScene extends Scene {
 			const difficultDescription = new MainText({
 				content: data.description,
 				styleOverride: {
-					fill: data.text_color ?? colors.hologramText,
+					fill: colors[data.color ?? 'primary'].text,
 					fontSize: 72,
 					lineHeight: 80
 				}

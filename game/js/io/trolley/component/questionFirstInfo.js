@@ -1,6 +1,7 @@
 import { GlowFilter } from 'pixi-filters'
 import { Container, Sprite } from 'pixi.js'
 import { wait } from '../../../util/wait'
+import { colors } from '../constants'
 import { MainText } from './mainText'
 
 export class QuestionFirstInfoComponent extends Container {
@@ -10,13 +11,14 @@ export class QuestionFirstInfoComponent extends Container {
 	}
 	init() {
 		this.warningMark = Sprite.from('warning')
+		this.warningMark.tint = colors.red.main
 		this.warningMark.width = 600
 		this.warningMark.height = 600
 		this.warningMark.anchor.set(0.5)
 		this.warningMark.y = 350
 		this.warningMark.filters = [
 			new GlowFilter({
-				color: '#d16668',
+				color: colors.red.main,
 				distance: 12
 			})
 		]
@@ -24,7 +26,7 @@ export class QuestionFirstInfoComponent extends Container {
 		this.text = new MainText({
 			content: '',
 			styleOverride: {
-				fill: '#d16668',
+				fill: colors.red.text,
 				fontSize: 72,
 				align: 'center',
 				letterSpacing: 16,

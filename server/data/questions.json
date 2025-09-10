@@ -13,7 +13,7 @@
 		"answer": {
 			"content": "エリタデニン",
 			"image": "",
-			"explanation": "ほぼどんな食材にも含まれていません。椎茸に含まれているかもです。",
+			"explanation": "エリタデニンほぼどんな食材にも含まれていません。椎茸に含まれているかもです。",
 			"explanationImage": ""
 		},
 		"index": 0
@@ -103,6 +103,40 @@
 			"explanationImage": "b9b5e960-4787-4ec0-a2a0-a41cf2a74b06.webp"
 		},
 		"index": 2
+	},
+	{
+		"id": "0d42e936-80af-435e-a387-74fde4411d88",
+		"group": "eel",
+		"content": "ニホンウナギの主な産卵場所はどこ？",
+		"options": [
+			{
+				"content": "日本海",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "オホーツク海",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "ハワイ諸島付近",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "沖縄本島付近",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "マリアナ諸島付近",
+			"image": "",
+			"explanation": "日本から約3,000km離れたマリアナ諸島西方沖の西マリアナ海嶺周辺の海域で産卵します。(画像出典: Googleマップ)",
+			"explanationImage": "6ebb583d-73cc-47a2-8f75-440600c5105d.webp"
+		},
+		"index": 0
 	},
 	{
 		"id": "2807bdf0-58d7-466a-9757-1d404abdd4ed",
@@ -251,12 +285,12 @@
 		"content": "ウナギの名前の由来の一つは？",
 		"options": [
 			{
-				"content": "「ウ（海）」＋「ナギ（凪）」からきている",
+				"content": "「ウ（海）」＋「ナギ（凪）」",
 				"explanation": "それっぽく考えました",
 				"image": ""
 			},
 			{
-				"content": "「宇奈城（うなしろ）」という地名に由来",
+				"content": "「宇奈城（うなしろ）」という地名",
 				"explanation": "うなしろなんて地名はありません",
 				"image": ""
 			},
@@ -275,33 +309,237 @@
 		"index": 2
 	},
 	{
-		"id": "a74aefd7-e859-4415-af47-ab8d89590b99",
-		"group": "eel",
-		"content": "ウナギの血液中の毒の名前は？",
+		"id": "6f65e3fe-0806-4fab-b909-7892153361f6",
+		"group": "card_game",
+		"content": "世界初の人工元素は？",
 		"options": [
 			{
-				"content": "シガトキシン",
-				"explanation": "熱帯、亜熱帯のプランクトンが持つ神経毒　症状の一つに水に触るとドライアイスのように感じるというのがある",
+				"content": "トリウム Th",
+				"explanation": "",
 				"image": ""
 			},
 			{
-				"content": "ポツリヌストキシンA",
-				"explanation": "世界最強の神経毒の一つ　1gで100万人の人間を死亡させることができる",
-				"image": ""
-			},
-			{
-				"content": "エラブトキシン",
-				"explanation": "沖縄に生息するウミヘビが持つ神経毒　強さはハブの80倍である",
+				"content": "テネシン Ts",
+				"explanation": "",
 				"image": ""
 			}
 		],
 		"answer": {
-			"content": "イクシオヘモトキシン",
+			"content": "テクネチウムTc",
 			"image": "",
-			"explanation": "ウナギ目の魚類が血液中に持つ神経毒の通称　ウナギの刺身がないのもこれが原因（熱で毒性が消える）",
-			"explanationImage": "66f99512-910b-400c-b1fe-e0d40cb6dec4.webp"
+			"explanation": "世界初の人工元素は原子番号43番のTc(テクネチウム)です",
+			"explanationImage": "ba492174-223e-4890-b9fa-9762f32c3541.webp"
+		},
+		"index": 2
+	},
+	{
+		"id": "bb413e2d-0a4e-4ac9-98aa-1c606ef96f58",
+		"group": "card_game",
+		"content": "(高)常温常圧で液体である元素は次のうちどっち？",
+		"options": [
+			{
+				"content": "ヨウ素　(I)",
+				"explanation": "水銀といえばトリチェリの実験で有名ですね",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "臭素　(Br)",
+			"image": "",
+			"explanation": "常温常圧で液体である元素は臭素(Br)と水銀(Hg)のみです",
+			"explanationImage": "40248280-ec22-4a08-9842-e832723af512.webp"
+		},
+		"index": 1
+	},
+	{
+		"id": "fc7927b9-328a-4c27-9e3b-2fc98bed8519",
+		"group": "card_game",
+		"content": "(小)空気中に最も多く存在する気体は？",
+		"options": [
+			{
+				"content": "酸素",
+				"explanation": "酸素21％",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "窒素",
+			"image": "",
+			"explanation": "窒素の存在割合は、窒素78％",
+			"explanationImage": "36c6ae11-b71d-4eb6-b5d9-7d2c618f5750.webp"
 		},
 		"index": 0
+	},
+	{
+		"id": "2c88b2a3-ced4-4c67-8d7a-945139d98aee",
+		"group": "other",
+		"content": "日食と月食、起こりやすいのはどっち？",
+		"options": [
+			{
+				"content": "月食",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "日食",
+			"image": "",
+			"explanation": "実は日食のほうが起きる頻度が高い。でも日本で見られない場合は、月食は比較的広い範囲で見られるのに対し、日食は限られた範囲でしか起きないためである",
+			"explanationImage": "f04bcc15-e787-4bc0-91ef-c4d721840c5e.webp"
+		},
+		"index": 3
+	},
+	{
+		"id": "68c49cb4-3259-449d-aaf1-51fb004db3fc",
+		"group": "other",
+		"content": "容量が大きいのはどっち？",
+		"options": [
+			{
+				"content": "MB（メガバイト）",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "TB（テラバイト）",
+			"image": "",
+			"explanation": "B→KB→MB→GB→TB　の順で大きくなる",
+			"explanationImage": ""
+		},
+		"index": 8
+	},
+	{
+		"id": "7c029b5e-5dbe-4b4d-852c-e3a751f423b0",
+		"group": "physics",
+		"content": "次のうち、電圧が大きいのはどっち?",
+		"options": [
+			{
+				"content": "静電気",
+				"image": "72a94626-c925-4779-b9c5-91dcb3b7e3dc.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "ピカチュウの10万ボルト",
+			"image": "048b1100-81ae-4ac5-afec-5a459fcabda0.webp",
+			"explanation": "静電気は数千から数万ボルトなので、ピカチュウの10万ボルトのほうが電圧が高い",
+			"explanationImage": ""
+		},
+		"index": 6
+	},
+	{
+		"id": "7c39106c-5f10-4383-9748-a2cdc54889d4",
+		"group": "other",
+		"content": "雷を伴う雨をもたらす雲はどっち?",
+		"options": [
+			{
+				"content": "乱層雲",
+				"image": "c55bdb44-d072-46b9-b0fb-1632d48b4f32.webp",
+				"explanation": "乱層雲はしとしとと長時間の雨をもたらすが、雷を伴わないので間違い"
+			}
+		],
+		"answer": {
+			"content": "積乱雲",
+			"image": "a50d9f51-45b2-4d12-8f52-55e66a78c030.webp",
+			"explanation": "積乱雲は短時間に強い雷雨を伴う雲である、発達すると竜巻を伴う危険がある。",
+			"explanationImage": "41b29b98-d826-4c8a-9ad7-c1b9226b2ae9.webp"
+		},
+		"index": 5
+	},
+	{
+		"id": "8724bd99-33cc-47c2-a52e-2859eaae9567",
+		"group": "other",
+		"content": "地球はどっち向きに自転する？",
+		"options": [
+			{
+				"content": "東から西",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "西から東",
+			"image": "",
+			"explanation": "地球が西から東に回ることで、太陽や月が東から西に動いて見える",
+			"explanationImage": ""
+		},
+		"index": 2
+	},
+	{
+		"id": "882640e0-5787-4cd9-b5cb-28e2eea2576d",
+		"group": "chemical",
+		"content": "リトマス紙は酸性の時に何色を示すか",
+		"options": [
+			{
+				"content": "赤→青",
+				"explanation": "青に変わるのはアルカリ性（塩基性）の時である",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "青→赤",
+			"image": "",
+			"explanation": "赤色になるときは酸性の時である",
+			"explanationImage": ""
+		},
+		"index": 7
+	},
+	{
+		"id": "e2f02a00-82a3-4331-8c17-6065985bca98",
+		"group": "chemical",
+		"content": "酸素分子はどっち?",
+		"options": [
+			{
+				"content": "O₃",
+				"explanation": "O₃はオゾンである",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "O₂",
+			"image": "",
+			"explanation": "O₂は酸素分子を表す",
+			"explanationImage": ""
+		},
+		"index": 4
+	},
+	{
+		"id": "f6898b18-4a89-43aa-b028-410be7b3112c",
+		"group": "other",
+		"content": "ベガ、デネブ、アルタイルを含む星座はどっち?",
+		"options": [
+			{
+				"content": "冬の大三角",
+				"image": "32ddcc01-3153-4717-ba3b-30400b15a2c0.webp",
+				"explanation": "冬の大三角は、プロキオン、ベテルギウス、シリウスで構成されるので間違い"
+			}
+		],
+		"answer": {
+			"content": "夏の大三角",
+			"image": "9e75f634-f2b3-4f8a-b697-6d7898d9eefb.webp",
+			"explanation": "こと座のベガ、わし座のアルタイル、はくちょう座のデネブで構成される",
+			"explanationImage": "edb6a16e-d49f-4cad-8a0d-abc76073ed1b.webp"
+		},
+		"index": 1
+	},
+	{
+		"id": "fcd332c1-882c-4070-8f19-4057c4d061a7",
+		"group": "other",
+		"content": "大きいのはどっち？",
+		"options": [
+			{
+				"content": "火星",
+				"image": "7f5e9702-2bcc-4bcc-a7a7-6038910cf7dd.webp",
+				"explanation": "火星の直径は6,794 kmと金星より小さいので間違い"
+			}
+		],
+		"answer": {
+			"content": "金星",
+			"image": "75db5dc5-c97a-4f48-b0bd-97ca4e28f13f.webp",
+			"explanation": "金星の直径は12,104 kmで、これは地球の直径とほぼ等しい",
+			"explanationImage": "f46b702d-8cb2-4957-bab2-a3f9b2bd5750.webp"
+		},
+		"index": 1
 	},
 	{
 		"id": "35c2d7c5-e9b0-4c77-b760-9c42347c2149",
@@ -330,7 +568,7 @@
 			}
 		],
 		"answer": {
-			"content": "9.7971",
+			"content": "9.7971m/s²",
 			"image": "",
 			"explanation": "半田高校の重力加速度は9.797137m/s² 出典：国土地理院 重力値推定計算サイト",
 			"explanationImage": ""
@@ -365,88 +603,6 @@
 			"explanationImage": "97b56d26-91ea-45bf-afe8-e74c314f16ba.webp"
 		},
 		"index": 3
-	},
-	{
-		"id": "20c6d5bd-dab7-4de9-a6d7-f7e8fb411f0e",
-		"group": "eel",
-		"content": "ニホンウナギの回遊型（海から川、もしくはその逆）は何か",
-		"options": [
-			{
-				"content": "遡河回遊",
-				"explanation": "サケのように海で育って川で産卵する魚に使われる分類",
-				"image": ""
-			},
-			{
-				"content": "死滅回遊",
-				"explanation": "熱帯魚が海流に流されて本来住むべきところではないところに来てしまう回遊のこと、本来の生息地に戻ることができず、そのまま死滅する",
-				"image": ""
-			},
-			{
-				"content": "季節回遊",
-				"explanation": "ブリ、サバ、イワシなどが行う回遊方法。季節によってルートが決まる",
-				"image": ""
-			}
-		],
-		"answer": {
-			"content": "両側回遊",
-			"image": "",
-			"explanation": "ニホンウナギは「海で生まれて川で育ち、また海へ戻る」生活を送るため、両側回遊（カタドロマス型）に分類される",
-			"explanationImage": ""
-		},
-		"index": 1
-	},
-	{
-		"id": "29ba6527-a357-4ce0-8125-fb4efe2c6c2b",
-		"group": "other",
-		"content": "x⁴+y⁴+z⁴-x²y²-y²z²-z²x²は因数分解できるか？",
-		"options": [
-			{
-				"content": "(x²-y²-z²)²で因数分解可能",
-				"explanation": "展開するとx⁴+y⁴+z⁴-2x²y²-2y²z²+2z²x²",
-				"image": ""
-			},
-			{
-				"content": "(x²-y²+z²)(x²+y²-z²)(-x²+y²+z²)で因数分解可能",
-				"explanation": "展開すると-x⁶+x⁴y²+x⁴z²+x²y⁴-2x²y²z²+x²z⁴-y⁶+y⁴z²+y²z⁴-z⁶",
-				"image": ""
-			}
-		],
-		"answer": {
-			"content": "ない！",
-			"image": "",
-			"explanation": "この企画を考案した設楽博士（自然科学部部長）が間違えて2年TSクラスに出してしまった悪問　博士曰く神問らしい",
-			"explanationImage": ""
-		},
-		"index": 4
-	},
-	{
-		"id": "b7402645-0ccc-490c-8407-3a1eee6df07e",
-		"group": "eel",
-		"content": "ニホンウナギの個体群は東アジア全域でほぼ同じ遺伝的構造をもつ。こうした個体群を何と呼ぶか？",
-		"options": [
-			{
-				"content": "クローン個体群",
-				"explanation": "遺伝的に同一な個体の集団（クローン）のこと。ゾウリムシがあげられる",
-				"image": ""
-			},
-			{
-				"content": "地理的分化個体群",
-				"explanation": "同じ種の生き物が別の地域に運ばれ、本来と違う形質を持つ種（亜種）の集団のこと。トラがその一例",
-				"image": ""
-			},
-			{
-				"content": "多地域個体群",
-				"explanation": "そんな個体群はないよ☆",
-				"image": ""
-			}
-		],
-		"answer": {
-			"content": "パンミクティック（汎生殖）個体群",
-			"image": "",
-			"explanation": "ニホンウナギは、産卵場所が一か所に集中しており、回遊後に様々な河川に分散するため、地域ごとの遺伝的差がないことが特徴",
-			"explanationImage": ""
-		},
-		"index": 2
 	},
 	{
 		"id": "f8b16e9c-9967-4868-bd6f-3abfa0c33e56",

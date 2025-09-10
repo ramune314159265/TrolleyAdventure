@@ -10,7 +10,7 @@ export class AvailableControl extends Container {
 		this.icon
 			.circle(AvailableControl.iconSize / 2, AvailableControl.iconSize / 2, AvailableControl.iconSize)
 			.fill({
-				color: colors.hologramMain
+				color: colors.primary.main
 			})
 		this.icon.x = AvailableControl.iconSize / 2
 		this.icon.y = AvailableControl.iconSize / 2
