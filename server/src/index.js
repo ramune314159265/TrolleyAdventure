@@ -19,6 +19,9 @@ app.get('/queue/*', serveStatic({
 	root: path.join(import.meta.dirname, '../../'),
 	rewriteRequestPath: (path) => path.replace(/^\/queue/, '/queue/dist/')
 }))
+app.get('/sink/', serveStatic({
+	path: path.join(import.meta.dirname, '../../sink/index.html')
+}))
 
 app.route('/api/', apiRoute)
 

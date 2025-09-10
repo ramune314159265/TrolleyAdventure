@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>sink_id</title>
+</head>
+
+<body>
+	<div class="output">
+		<button type="button" class="get">取得</button>
+	</div>
+	<script>
+		const playTone = sinkId => {
+			const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+			audioCtx.setSinkId(sinkId)
+			const oscillator = audioCtx.createOscillator()
+			const gainNode = audioCtx.createGain()
+
+			oscillator.type = "sine"
+			oscillator.frequency.value = 400
+			gainNode.gain.setValueAtTime(1, audioCtx.currentTime)
+
+			oscillator.connect(gainNode)
+			gainNode.connect(audioCtx.destination)
+
+			oscillator.start()
+			setTimeout(() => {
+				oscillator.stop()
+			}, 1000)
+		}
+
+		document.querySelector('.get').addEventListener('click', async () => {
+			await navigator.mediaDevices.getUserMedia({ audio: true })
+			const devices = (await navigator.mediaDevices.enumerateDevices())
+				.filter(d => d.kind === 'audiooutput')
+
+			const output = document.querySelector('.output')
+			output.innerHTML = ''
+
+			devices.forEach((d, i) => {
+				const wrapper = document.createElement('div')
+				wrapper.textContent = `${i}. ${d.label}, ${d.deviceId} `
+				const button = document.createElement('button')
+				button.textContent = '再生'
+				button.addEventListener('click', () => playTone(d.deviceId))
+				wrapper.append(button)
+				output.append(wrapper)
+			})
+		})
+	</script>
+</body>
+
+</html>
