@@ -10,12 +10,16 @@ const seList = {
 	}, 'ssh_start': {
 		path: './sounds/se/ssh_start.mp3',
 		volume: 0.4
+	}, 'ssh_end': {
+		path: './sounds/se/ssh_start.mp3',
+		volume: 0.7,
+		start: 6.5
 	}, 'question_caution': {
 		path: './sounds/se/question_caution.mp3',
 		volume: 0.7
 	}, 'question_caution_critical': {
 		path: './sounds/se/question_caution_critical.mp3',
-		volume: 0.3
+		volume: 0.2
 	}, 'decided': {
 		path: './sounds/se/question_show.mp3',
 		volume: 0.5
@@ -39,7 +43,7 @@ const seList = {
 		volume: 1
 	}, 'ssh_turn': {
 		path: './sounds/se/ssh_turn.mp3',
-		volume: 0.5
+		volume: 0.3
 	}
 }
 
@@ -59,6 +63,7 @@ export class SeManager {
 			...this.audios
 		}
 		this.audios[uuid].audio.volume = data.volume
+		this.audios[uuid].audio.currentTime = data.currentTime ?? 0
 		this.audios[uuid].audio.play()
 		return uuid
 	}

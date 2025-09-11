@@ -1,5 +1,6 @@
 import { State } from '.'
 import { inputs, sessionStates } from '../enum'
+import { GameClearState } from './gameClear'
 import { ShowingChoicesState } from './showingChoices'
 
 export class ShowingQuestionState extends State {
@@ -8,7 +9,10 @@ export class ShowingQuestionState extends State {
 		this.timeoutId = -1
 	}
 	enter() {
-		this.session.nextQuestion()
+		if (!this.session.nextQuestion()) {
+			this.session.enterState(new GameClearState({ session: this.session }))
+			return
+		}
 		this.emit(sessionStates.showingQuestion, {
 			content: this.session.questionData.content,
 			level: this.session.level,

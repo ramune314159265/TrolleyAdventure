@@ -30,6 +30,9 @@ export class QuestionManager {
 			.filter(question => !this.pickedIds.includes(question.id))
 			.filter(question => Object.entries(filter).every(([k, v]) => question[k] === v))
 		const question = randomFromArray(questionsFiltered)
+		if (!question) {
+			return null
+		}
 		this.pickedIds.push(question.id)
 		return question
 	}

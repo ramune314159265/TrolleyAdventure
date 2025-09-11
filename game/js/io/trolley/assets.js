@@ -50,6 +50,17 @@ export const assetManifest = {
 					data: { resolution: 2 },
 				},
 			]
+		}, {
+			name: 'clear',
+			assets: [
+				{
+					alias: 'ssh_goal',
+					src: './videos/ssh_goal.webm',
+				}, {
+					alias: 'ssh_goal_static',
+					src: './videos/ssh_goal_static.mp4',
+				}
+			]
 		},
 	]
 }

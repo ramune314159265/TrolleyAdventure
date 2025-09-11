@@ -20,6 +20,8 @@ import { QuestionFirstInfoComponent } from '../component/questionFirstInfo'
 import { QuestionOverlay } from '../component/questionOverlay'
 import { VideoBackground } from '../component/videoBackground'
 import { colors, constants } from '../constants'
+import { TimeGateTransition } from '../transition/timeGate'
+import { GameClearScene } from './gameClear'
 
 export class QuestionScene extends Scene {
 	constructor() {
@@ -285,6 +287,14 @@ export class QuestionScene extends Scene {
 				noImageText.x = constants.viewWidth / 4
 				this.optionsContainer.addChild(noImageText)
 			}
+		})
+
+		this.on(sessionStates.gameClear, async ({ correctContent, incorrectContent, imageUrl }) => {
+			TrolleyIO.instance.bgmManager.stop()
+			await wait(1000)
+			const transition = new TimeGateTransition(TrolleyIO.instance.sceneManager.transitionLayerContainer)
+			const questionScene = new GameClearScene({ correctContent, incorrectContent, imageUrl })
+			TrolleyIO.instance.sceneManager.changeScene(questionScene, transition)
 		})
 	}
 }

@@ -35,7 +35,12 @@ export class Session extends EventRegister {
 	nextQuestion() {
 		this.questionNo++
 		this.level = this.difficultManager.getDifficultConfig('question_levels')[this.questionNo]
-		this.questionData = this.questionsManager.pickQuestion(this.level)
+		const data = this.questionsManager.pickQuestion(this.level)
+		if (!data) {
+			return false
+		}
+		this.questionData = data
+		return true
 	}
 	enterState(state) {
 		this.state?.exit?.()
