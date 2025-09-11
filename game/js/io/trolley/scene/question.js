@@ -198,6 +198,7 @@ export class QuestionScene extends Scene {
 
 		this.on(sessionStates.showingCorrect, async ({ index }) => {
 			await wait(2000)
+			setTimeout(() => TrolleyIO.instance.seManager.play('ssh_turn'), 2500)
 			await this.background.changeVideo([`stars_${index === 0 ? 'left' : 'right'}`, 'stars'])
 			await wait(500)
 			const correctMark = new CorrectMark()
@@ -209,7 +210,8 @@ export class QuestionScene extends Scene {
 			this.emit(inputs.next)
 		})
 		this.on(sessionStates.showingIncorrect, async ({ lives, index }) => {
-			await wait(1000)
+			await wait(2000)
+			setTimeout(() => TrolleyIO.instance.seManager.play('ssh_turn'), 2500)
 			await this.background.changeVideo([`stars_${index === 0 ? 'left' : 'right'}`, 'stars'])
 			await wait(500)
 			const incorrectMark = new IncorrectMark()
