@@ -3,7 +3,7 @@ import { animateSimple } from './animation'
 const seList = {
 	'hologram': {
 		path: './sounds/se/hologram.mp3',
-		volume: 0.8
+		volume: 0.5
 	}, 'question_show': {
 		path: './sounds/se/question_show.mp3',
 		volume: 0.7
@@ -24,7 +24,7 @@ const seList = {
 		volume: 0.7
 	}, 'is_correct': {
 		path: './sounds/se/is_correct.mp3',
-		volume: 0.9
+		volume: 1
 	}, 'correct': {
 		path: './sounds/se/correct.mp3',
 		volume: 1
