@@ -1,5 +1,6 @@
 import { State } from '.'
 import { inputs, outputs, sessionStates } from '../enum'
+import { GameOverState } from './gameOver'
 import { ShowingCorrectState } from './showingCorrect'
 import { ShowingIncorrectState } from './showingIncorrect'
 
@@ -25,6 +26,10 @@ export class ShowingChoicesState extends State {
 			this.emit(outputs.changeAvailableControls, { controls: {} })
 			this.session.lives -= this.session.questionData.options[index].isCorrect ? 0 : 1
 			switch (true) {
+				case this.session.lives <= 0:
+					this.session.enterState(new GameOverState({ session: this.session, index }))
+					break
+
 				case this.session.questionData.options[index].isCorrect:
 					this.session.enterState(new ShowingCorrectState({ session: this.session, index }))
 					break

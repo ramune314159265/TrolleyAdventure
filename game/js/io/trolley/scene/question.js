@@ -289,12 +289,145 @@ export class QuestionScene extends Scene {
 			}
 		})
 
+		this.on(sessionStates.showingExplanation, async ({ correctContent, incorrectContent, imageUrl, timerMs }) => {
+			this.questionCountdown.start({ periodMs: timerMs, showCountdown: false })
+			const explanationInnerContainer = new Container()
+			const explanationHologram = new HologramContainer({
+				maxWidth: hologramWidth,
+				maxHeight: hologramHeight,
+				color: colors.primary.main,
+				innerContainer: explanationInnerContainer,
+			})
+			explanationHologram.x = -constants.viewWidth / 4
+			this.optionsContainer.addChild(explanationHologram)
+			const explainContent = [
+				correctContent,
+				incorrectContent
+			].filter(c => c).join('\n')
+			const explanationText = new MainText({
+				content: explainContent,
+				styleOverride: {
+					fontSize: 72,
+					wordWrap: true,
+					wordWrapWidth: hologramWidth,
+					breakWords: true,
+				}
+			})
+			explanationText.anchor = { x: 0.5, y: 0 }
+			explanationText.x = hologramWidth / 2
+			explanationText.y = 0
+			explanationInnerContainer.addChild(explanationText)
+			topText.setText('解説')
+			topHologram.show()
+			const hologramPromise = explanationHologram.show()
+
+			this.once(sessionStates.waitingStage, async () => {
+				await hologramPromise
+				this.questionCountdown.abort()
+				topHologram.hide()
+				await explanationHologram.hide()
+				this.questionContainer.destroy({ children: true })
+				this.emit(inputs.next)
+			})
+			if (imageUrl) {
+				const texture = await Assets.load(`images/question/${imageUrl}`)
+				const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
+				image.x = constants.viewWidth / 4
+				this.optionsContainer.addChild(image)
+			} else {
+				const backgroundGraphics = new Graphics()
+				backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
+				backgroundGraphics.x = constants.viewWidth / 4
+				backgroundGraphics.fill({ color: `${colors.gray.main}a0` })
+				this.optionsContainer.addChild(backgroundGraphics)
+				const noImageText = new MainText({
+					content: 'No Image',
+					styleOverride: {
+						fontSize: 108,
+						fill: '#ffffff'
+					}
+				})
+				noImageText.x = constants.viewWidth / 4
+				this.optionsContainer.addChild(noImageText)
+			}
+		})
+
 		this.on(sessionStates.gameClear, async ({ correctContent, incorrectContent, imageUrl }) => {
 			TrolleyIO.instance.bgmManager.stop()
 			await wait(1000)
 			const transition = new TimeGateTransition(TrolleyIO.instance.sceneManager.transitionLayerContainer)
 			const questionScene = new GameClearScene({ correctContent, incorrectContent, imageUrl })
 			TrolleyIO.instance.sceneManager.changeScene(questionScene, transition)
+		})
+
+		this.on(sessionStates.gameOver, async ({ correctContent, incorrectContent, imageUrl, index }) => {
+			await wait(2000)
+			setTimeout(() => TrolleyIO.instance.seManager.play('ssh_turn'), 2500)
+			await this.background.changeVideo([`stars_${index === 0 ? 'left' : 'right'}`, 'stars'])
+			await wait(500)
+			const incorrectMark = new IncorrectMark()
+			this.questionContainer.addChild(incorrectMark)
+			await incorrectMark.show()
+			this.questionOverlay.changeInfo({ lives: 0 })
+			await wait(1500)
+			await incorrectMark.hide()
+			topHologram.y = constants.viewHeight / 2
+			topText.setText('ミッション失敗...')
+			await topHologram.show()
+			await wait(2000)
+			await topHologram.hide()
+			topHologram.y = 185
+
+			const explanationInnerContainer = new Container()
+			const explanationHologram = new HologramContainer({
+				maxWidth: hologramWidth,
+				maxHeight: hologramHeight,
+				color: colors.primary.main,
+				innerContainer: explanationInnerContainer,
+			})
+			explanationHologram.x = -constants.viewWidth / 4
+			this.optionsContainer.addChild(explanationHologram)
+			const explainContent = [
+				correctContent,
+				incorrectContent
+			].filter(c => c).join('\n')
+			const explanationText = new MainText({
+				content: explainContent,
+				styleOverride: {
+					fontSize: 72,
+					wordWrap: true,
+					wordWrapWidth: hologramWidth,
+					breakWords: true,
+				}
+			})
+			explanationText.anchor = { x: 0.5, y: 0 }
+			explanationText.x = hologramWidth / 2
+			explanationText.y = 0
+			explanationInnerContainer.addChild(explanationText)
+			topText.setText('解説')
+			topHologram.show()
+			explanationHologram.show()
+			if (imageUrl) {
+				const texture = await Assets.load(`images/question/${imageUrl}`)
+				const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
+				image.x = constants.viewWidth / 4
+				this.optionsContainer.addChild(image)
+			} else {
+				const backgroundGraphics = new Graphics()
+				backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
+				backgroundGraphics.x = constants.viewWidth / 4
+				backgroundGraphics.fill({ color: `${colors.gray.main}a0` })
+				this.optionsContainer.addChild(backgroundGraphics)
+				const noImageText = new MainText({
+					content: 'No Image',
+					styleOverride: {
+						fontSize: 108,
+						fill: '#ffffff'
+					}
+				})
+				noImageText.x = constants.viewWidth / 4
+				this.optionsContainer.addChild(noImageText)
+			}
 		})
 	}
 }
