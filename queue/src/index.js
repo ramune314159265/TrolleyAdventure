@@ -8,6 +8,13 @@ const yourNumber = parseInt(Object.fromEntries(url.searchParams.entries()).n)
 yourNumberElement.innerText = `(${yourNumber}番)`
 
 const waitingUpdate = (callingNumber) => {
+	if (Number.isNaN(yourNumber)) {
+		document.querySelector('.yourNumber').style.display = 'none'
+		document.querySelector('.waitingNumberWrapper h2').innerText = '現在の番号'
+		document.querySelector('.waitingNumberWrapper .unit').innerText = '番'
+		document.querySelector('.estimatedTimeWrapper h2').style.display = 'none'
+		return
+	}
 	const waitingNumber = Math.max(yourNumber - callingNumber, 0)
 	waitingNumberElement.innerText = waitingNumber
 	waitingNumberElement.style.color = waitingNumber === 0 ? 'green' : 'red'
@@ -16,10 +23,10 @@ const waitingUpdate = (callingNumber) => {
 			estimatedTimeElement.innerText = '0分'
 			break
 		case 0 < waitingNumber && waitingNumber <= 5:
-			estimatedTimeElement.innerText = '~10分'
+			estimatedTimeElement.innerText = '~5分'
 			break
 		case 5 < waitingNumber && waitingNumber <= 10:
-			estimatedTimeElement.innerText = '~20分'
+			estimatedTimeElement.innerText = '~15分'
 			break
 		case 10 < waitingNumber && waitingNumber <= 20:
 			estimatedTimeElement.innerText = '~30分'

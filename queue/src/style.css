@@ -69,3 +69,8 @@ h1 {
 .estimatedTime {
 	font-size: 2rem;
 }
+
+.warning {
+	font-size: 0.8rem;
+	color: gray;
+}
