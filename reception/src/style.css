@@ -1,0 +1,15 @@
+.queueInput {
+    font-size: 2rem;
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: 9rem 3rem;
+
+	input.queueNumber {
+		font-size: inherit;
+		width: 9rem;
+	}
+
+	button.queueNext {
+		font-size: inherit;
+	}
+}

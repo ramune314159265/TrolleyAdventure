@@ -7,7 +7,7 @@ export default defineConfig([
   { ignores: ["dist/**/*.{js,mjs,cjs}"] },
   { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"] },
   {
-    files: ["game/**/*.{js,mjs,cjs}", "gyro/**/*.{js,mjs,cjs}", "queue/**/*.{js,mjs,cjs}"],
+    files: ["game/**/*.{js,mjs,cjs}", "gyro/**/*.{js,mjs,cjs}", "queue/**/*.{js,mjs,cjs}", "reception/**/*.{js,mjs,cjs}"],
     languageOptions: { globals: globals.browser },
     rules: {
       "semi": [

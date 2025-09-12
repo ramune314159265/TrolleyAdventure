@@ -14,6 +14,10 @@ h1 {
 	word-break: keep-all;
 }
 
+hr {
+    width: 90%;
+}
+
 .background {
 	width: 100dvw;
 	height: 100dvh;

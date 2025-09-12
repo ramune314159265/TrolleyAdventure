@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>受付</title>
+	<link rel="stylesheet" href="src/style.css">
+</head>
+
+<body>
+	<div class="templates">
+		<template id="channelTemplate">
+			<div class="channelWrapper">
+				<span class="id"></span>
+				<span class="status"></span>
+			</div>
+		</template>
+	</div>
+	<div class="queue">
+		<h2>受付番号</h2>
+		<div class="queueInput">
+			<input type="number" class="queueNumber">
+			<button type="button" class="queueNext">次</button>
+		</div>
+	</div>
+	<div class="status">
+		<h2>空き状況</h2>
+	</div>
+	<script type="module" src="src/index.js"></script>
+</body>
+
+</html>
