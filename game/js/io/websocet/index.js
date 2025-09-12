@@ -33,14 +33,6 @@ export class WebSocketIO extends GameIO {
 					}
 					session.emit(eventname)
 				}
-				this.ws.onclose = () => {
-					console.error('ws connect error')
-					setTimeout(() => connectWs(), 3000)
-				}
-				this.ws.onerror = () => {
-					console.error('ws connect error')
-					setTimeout(() => connectWs(), 3000)
-				}
 			}
 			connectWs()
 		})

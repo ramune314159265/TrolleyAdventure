@@ -24,17 +24,26 @@ export class ShowingChoicesState extends State {
 			clearTimeout(this.globalTimeoutId)
 			this.emit(outputs.decidedChoice, { index })
 			this.emit(outputs.changeAvailableControls, { controls: {} })
-			this.session.lives -= this.session.questionData.options[index].isCorrect ? 0 : 1
+			const isCorrect = this.session.questionData.options[index].isCorrect
+			this.session.lives -= isCorrect ? 0 : 1
+			this.session.playData.addQuestion({
+				level: this.session.level,
+				lives: this.session.lives,
+				correct: isCorrect,
+				questionNo: this.session.questionNo,
+				questionId: this.session.questionData.id,
+				optionIndex: this.session.questionData.optionIndex,
+			})
 			switch (true) {
-				case this.session.lives <= 0:
+				case this.session.lives <= 0 && !isCorrect:
 					this.session.enterState(new GameOverState({ session: this.session, index }))
 					break
 
-				case this.session.questionData.options[index].isCorrect:
+				case isCorrect:
 					this.session.enterState(new ShowingCorrectState({ session: this.session, index }))
 					break
 
-				case !this.session.questionData.options[index].isCorrect:
+				case !isCorrect:
 					this.session.enterState(new ShowingIncorrectState({ session: this.session, index }))
 					break
 

@@ -1,7 +1,7 @@
+import { State } from '.'
 import { inputs, outputs, sessionStates } from '../enum'
-import { Scene } from '../io/trolley/scene'
 
-export class GameOverState extends Scene {
+export class GameOverState extends State {
 	constructor({ session, index }) {
 		super({ session })
 		this.index = index
@@ -13,6 +13,7 @@ export class GameOverState extends Scene {
 			imageUrl: this.session.questionData.answer.explanationImage,
 			index: this.index
 		})
+		this.session.playData.setCleared(false)
 		this.on(inputs.next, () => {
 			this.emit(outputs.changeAvailableControls, { controls: { a: '終わる' } })
 			this.on(inputs.confirm, () => {

@@ -11,6 +11,7 @@ export class GameClearState extends State {
 			incorrectContent: this.session.questionData.option.explanation,
 			imageUrl: this.session.questionData.answer.explanationImage
 		})
+		this.session.playData.setCleared(true)
 		this.on(inputs.next, () => {
 			this.emit(outputs.changeAvailableControls, { controls: { a: '終わる' } })
 			this.on(inputs.confirm, () => {

@@ -15,9 +15,9 @@ app.get('/gyro/*', serveStatic({
 	root: path.join(import.meta.dirname, '../../'),
 	rewriteRequestPath: (path) => path.replace(/^\/gyro/, '/gyro/dist/')
 }))
-app.get('/queue/*', serveStatic({
+app.get('/ssh/queue/*', serveStatic({
 	root: path.join(import.meta.dirname, '../../'),
-	rewriteRequestPath: (path) => path.replace(/^\/queue/, '/queue/dist/')
+	rewriteRequestPath: (path) => path.replace(/^\/ssh\/queue/, '/queue/dist/')
 }))
 app.get('/sink/', serveStatic({
 	path: path.join(import.meta.dirname, '../../sink/index.html')

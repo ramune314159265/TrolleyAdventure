@@ -11,14 +11,21 @@ export class PlayData {
 	setDifficult(id) {
 		this.difficult = id
 	}
-	addQuestion(data) {
+	addQuestion({
+		level,
+		lives,
+		correct,
+		questionNo,
+		questionId,
+		optionIndex
+	}) {
 		this.questions.push({
-			level: data.level,
-			lives: data.lives,
-			correct: data.isCorrect,
-			questionNo: data.questionNo,
-			questionId: data.questionData.id,
-			optionIndex: data.questionData.optionIndex
+			level,
+			lives,
+			correct,
+			questionNo,
+			questionId,
+			optionIndex
 		})
 	}
 	setKonami(value) {

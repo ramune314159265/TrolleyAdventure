@@ -37,6 +37,9 @@ export class TrolleyIO extends GameIO {
 	connectSession(session) {
 		this.session = session
 		session.onAny(console.log)
+		session.once(sessionStates.loaded, ({ configs }) => {
+			this.configs = configs
+		})
 		session.once(sessionStates.selectingDifficult, async ({ difficulties }) => {
 			await this.init()
 			const transition = new BlackFaceTransition(this.sceneManager.transitionLayerContainer)

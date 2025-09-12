@@ -289,69 +289,6 @@ export class QuestionScene extends Scene {
 			}
 		})
 
-		this.on(sessionStates.showingExplanation, async ({ correctContent, incorrectContent, imageUrl, timerMs }) => {
-			this.questionCountdown.start({ periodMs: timerMs, showCountdown: false })
-			const explanationInnerContainer = new Container()
-			const explanationHologram = new HologramContainer({
-				maxWidth: hologramWidth,
-				maxHeight: hologramHeight,
-				color: colors.primary.main,
-				innerContainer: explanationInnerContainer,
-			})
-			explanationHologram.x = -constants.viewWidth / 4
-			this.optionsContainer.addChild(explanationHologram)
-			const explainContent = [
-				correctContent,
-				incorrectContent
-			].filter(c => c).join('\n')
-			const explanationText = new MainText({
-				content: explainContent,
-				styleOverride: {
-					fontSize: 72,
-					wordWrap: true,
-					wordWrapWidth: hologramWidth,
-					breakWords: true,
-				}
-			})
-			explanationText.anchor = { x: 0.5, y: 0 }
-			explanationText.x = hologramWidth / 2
-			explanationText.y = 0
-			explanationInnerContainer.addChild(explanationText)
-			topText.setText('解説')
-			topHologram.show()
-			const hologramPromise = explanationHologram.show()
-
-			this.once(sessionStates.waitingStage, async () => {
-				await hologramPromise
-				this.questionCountdown.abort()
-				topHologram.hide()
-				await explanationHologram.hide()
-				this.questionContainer.destroy({ children: true })
-				this.emit(inputs.next)
-			})
-			if (imageUrl) {
-				const texture = await Assets.load(`images/question/${imageUrl}`)
-				const image = new FitSprite({ texture, width: hologramWidth, height: hologramHeight })
-				image.x = constants.viewWidth / 4
-				this.optionsContainer.addChild(image)
-			} else {
-				const backgroundGraphics = new Graphics()
-				backgroundGraphics.rect(-hologramWidth / 2, -hologramHeight / 2, hologramWidth, hologramHeight)
-				backgroundGraphics.x = constants.viewWidth / 4
-				backgroundGraphics.fill({ color: `${colors.gray.main}a0` })
-				this.optionsContainer.addChild(backgroundGraphics)
-				const noImageText = new MainText({
-					content: 'No Image',
-					styleOverride: {
-						fontSize: 108,
-						fill: '#ffffff'
-					}
-				})
-				noImageText.x = constants.viewWidth / 4
-				this.optionsContainer.addChild(noImageText)
-			}
-		})
-
 		this.on(sessionStates.gameClear, async ({ correctContent, incorrectContent, imageUrl }) => {
 			TrolleyIO.instance.bgmManager.stop()
 			await wait(1000)
@@ -428,6 +365,7 @@ export class QuestionScene extends Scene {
 				noImageText.x = constants.viewWidth / 4
 				this.optionsContainer.addChild(noImageText)
 			}
+			this.emit(inputs.next)
 		})
 	}
 }

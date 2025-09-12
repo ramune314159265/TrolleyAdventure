@@ -20,7 +20,7 @@
 
 			oscillator.type = "sine"
 			oscillator.frequency.value = 400
-			gainNode.gain.setValueAtTime(1, audioCtx.currentTime)
+			gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime)
 
 			oscillator.connect(gainNode)
 			gainNode.connect(audioCtx.destination)

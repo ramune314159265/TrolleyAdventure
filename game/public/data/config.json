@@ -1,4 +1,5 @@
 {
 	"name": "default",
-	"cps": 15
+	"cps": 15,
+	"audio": "default"
 }

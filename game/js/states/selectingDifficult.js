@@ -23,6 +23,7 @@ export class SelectingDifficultState extends State {
 			move(-1)
 		})
 		this.on(inputs.konami, () => {
+			this.session.playData.setKonami(true)
 			this.session.lives = 2 ** 31 - 1
 		})
 		this.on(inputs.confirm, () => {

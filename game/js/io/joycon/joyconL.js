@@ -2,7 +2,7 @@ import { inputs } from '../../enum'
 import { quaternionToEuler } from '../../util/quaternion'
 
 export class JoyConL {
-	static selectThreshold = Math.PI * (17 / 180)
+	static selectThreshold = Math.PI * (10 / 180)
 	static decideButtons = ['l', 'minus', 'leftStick']
 	constructor(io, joyCon) {
 		this.io = io

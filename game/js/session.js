@@ -60,6 +60,7 @@ export class Session extends EventRegister {
 			console.error('playData could not be sent')
 		}
 		this.state = null
+		location.reload()
 		this.emit(sessionStates.ended)
 	}
 }

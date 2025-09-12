@@ -13,7 +13,7 @@
 		"answer": {
 			"content": "エリタデニン",
 			"image": "",
-			"explanation": "エリタデニンほぼどんな食材にも含まれていません。椎茸に含まれているかもです。",
+			"explanation": "ほぼどんな食材にも含まれていません。椎茸に含まれているかもです。",
 			"explanationImage": ""
 		},
 		"index": 0
@@ -103,40 +103,6 @@
 			"explanationImage": "b9b5e960-4787-4ec0-a2a0-a41cf2a74b06.webp"
 		},
 		"index": 2
-	},
-	{
-		"id": "0d42e936-80af-435e-a387-74fde4411d88",
-		"group": "eel",
-		"content": "ニホンウナギの主な産卵場所はどこ？",
-		"options": [
-			{
-				"content": "日本海",
-				"explanation": "",
-				"image": ""
-			},
-			{
-				"content": "オホーツク海",
-				"explanation": "",
-				"image": ""
-			},
-			{
-				"content": "ハワイ諸島付近",
-				"explanation": "",
-				"image": ""
-			},
-			{
-				"content": "沖縄本島付近",
-				"explanation": "",
-				"image": ""
-			}
-		],
-		"answer": {
-			"content": "マリアナ諸島付近",
-			"image": "",
-			"explanation": "日本から約3,000km離れたマリアナ諸島西方沖の西マリアナ海嶺周辺の海域で産卵します。(画像出典: Googleマップ)",
-			"explanationImage": "6ebb583d-73cc-47a2-8f75-440600c5105d.webp"
-		},
-		"index": 0
 	},
 	{
 		"id": "2807bdf0-58d7-466a-9757-1d404abdd4ed",
@@ -257,17 +223,17 @@
 		"options": [
 			{
 				"content": "愛知県",
-				"explanation": "2位である",
+				"explanation": "愛知県は2位である",
 				"image": ""
 			},
 			{
 				"content": "静岡県",
-				"explanation": "4位である",
+				"explanation": "静岡県は4位である",
 				"image": ""
 			},
 			{
 				"content": "宮崎県",
-				"explanation": "3位である",
+				"explanation": "宮崎県は3位である",
 				"image": ""
 			}
 		],
@@ -285,8 +251,8 @@
 		"content": "ウナギの名前の由来の一つは？",
 		"options": [
 			{
-				"content": "「ウ（海）」＋「ナギ（凪）」",
-				"explanation": "それっぽく考えました",
+				"content": "「ウ（海）」+「ナギ（凪）」",
+				"explanation": "",
 				"image": ""
 			},
 			{
@@ -301,7 +267,7 @@
 			}
 		],
 		"answer": {
-			"content": "「む（身）」＋「なぎ（長い）」からきている",
+			"content": "「む（身）」+「なぎ（長い）」",
 			"image": "",
 			"explanation": "万葉集ではうなぎがそう書かれている　この説が一番有力とされている",
 			"explanationImage": ""
@@ -309,25 +275,54 @@
 		"index": 2
 	},
 	{
+		"id": "a74aefd7-e859-4415-af47-ab8d89590b99",
+		"group": "eel",
+		"content": "ウナギの血液中の毒の名前は？",
+		"options": [
+			{
+				"content": "シガトキシン",
+				"explanation": "熱帯、亜熱帯のプランクトンが持つ神経毒　症状の一つに水に触るとドライアイスのように感じるというのがある",
+				"image": ""
+			},
+			{
+				"content": "ポツリヌストキシンA",
+				"explanation": "世界最強の神経毒の一つ　1gで100万人の人間を死亡させることができる",
+				"image": ""
+			},
+			{
+				"content": "エラブトキシン",
+				"explanation": "沖縄に生息するウミヘビが持つ神経毒　強さはハブの80倍である",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "イクシオヘモトキシン",
+			"image": "",
+			"explanation": "ウナギ目の魚類が血液中に持つ神経毒の通称　ウナギの刺身がないのもこれが原因（熱で毒性が消える）",
+			"explanationImage": "66f99512-910b-400c-b1fe-e0d40cb6dec4.webp"
+		},
+		"index": 0
+	},
+	{
 		"id": "6f65e3fe-0806-4fab-b909-7892153361f6",
 		"group": "card_game",
 		"content": "世界初の人工元素は？",
 		"options": [
 			{
-				"content": "トリウム Th",
-				"explanation": "",
+				"content": "Th",
+				"explanation": "ちなみに元素記号Thはトリウムです",
 				"image": ""
 			},
 			{
-				"content": "テネシン Ts",
-				"explanation": "",
+				"content": "Ts",
+				"explanation": "ちなみに元素記号Tsはテネシンです",
 				"image": ""
 			}
 		],
 		"answer": {
-			"content": "テクネチウムTc",
+			"content": "Tc",
 			"image": "",
-			"explanation": "世界初の人工元素は原子番号43番のTc(テクネチウム)です",
+			"explanation": "世界初の人工元素はTc(テクネチウム)です",
 			"explanationImage": "ba492174-223e-4890-b9fa-9762f32c3541.webp"
 		},
 		"index": 2
@@ -335,16 +330,16 @@
 	{
 		"id": "bb413e2d-0a4e-4ac9-98aa-1c606ef96f58",
 		"group": "card_game",
-		"content": "(高)常温常圧で液体である元素は次のうちどっち？",
+		"content": "常温常圧で液体である元素は次のうちどっち？",
 		"options": [
 			{
-				"content": "ヨウ素　(I)",
+				"content": "ヨウ素 (I)",
 				"explanation": "水銀といえばトリチェリの実験で有名ですね",
 				"image": ""
 			}
 		],
 		"answer": {
-			"content": "臭素　(Br)",
+			"content": "臭素 (Br)",
 			"image": "",
 			"explanation": "常温常圧で液体である元素は臭素(Br)と水銀(Hg)のみです",
 			"explanationImage": "40248280-ec22-4a08-9842-e832723af512.webp"
@@ -354,18 +349,18 @@
 	{
 		"id": "fc7927b9-328a-4c27-9e3b-2fc98bed8519",
 		"group": "card_game",
-		"content": "(小)空気中に最も多く存在する気体は？",
+		"content": "空気中に最も多く存在する気体は？",
 		"options": [
 			{
 				"content": "酸素",
-				"explanation": "酸素21％",
+				"explanation": "　　　　　　酸素21％",
 				"image": ""
 			}
 		],
 		"answer": {
 			"content": "窒素",
 			"image": "",
-			"explanation": "窒素の存在割合は、窒素78％",
+			"explanation": "存在割合は、窒素78％",
 			"explanationImage": "36c6ae11-b71d-4eb6-b5d9-7d2c618f5750.webp"
 		},
 		"index": 0
@@ -411,7 +406,7 @@
 	{
 		"id": "7c029b5e-5dbe-4b4d-852c-e3a751f423b0",
 		"group": "physics",
-		"content": "次のうち、電圧が大きいのはどっち?",
+		"content": "次のうち、電圧が大きいのはどっち？",
 		"options": [
 			{
 				"content": "静電気",
@@ -430,7 +425,7 @@
 	{
 		"id": "7c39106c-5f10-4383-9748-a2cdc54889d4",
 		"group": "other",
-		"content": "雷を伴う雨をもたらす雲はどっち?",
+		"content": "雷を伴う雨をもたらす雲はどっち？",
 		"options": [
 			{
 				"content": "乱層雲",
@@ -506,7 +501,7 @@
 	{
 		"id": "f6898b18-4a89-43aa-b028-410be7b3112c",
 		"group": "other",
-		"content": "ベガ、デネブ、アルタイルを含む星座はどっち?",
+		"content": "ベガ、デネブ、アルタイルを含む星座はどちらか",
 		"options": [
 			{
 				"content": "冬の大三角",
@@ -542,36 +537,164 @@
 		"index": 1
 	},
 	{
-		"id": "35c2d7c5-e9b0-4c77-b760-9c42347c2149",
-		"group": "physics",
-		"content": "半田高校化学室の重力加速度はどっち？",
+		"id": "5f37ecda-bfb7-4750-b4ea-4f1629c8f223",
+		"group": "chemical",
+		"content": "ヨウ素はどっち？",
 		"options": [
 			{
-				"content": "9.8066m/s²",
+				"content": "Y",
+				"explanation": "Yは元素番号39 イットリウムで、発光ダイオードで使われている",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "I",
+			"image": "",
+			"explanation": "ヨウ素（I）は原子番号53番であり、デンプンと反応し青紫色になる",
+			"explanationImage": "109edffd-d570-4143-8927-9280ed34b935.webp"
+		},
+		"index": 0
+	},
+	{
+		"id": "a2bb3f6c-8fee-4297-b2d8-633899b0956a",
+		"group": "other",
+		"content": "はやぶさ2が着陸した小惑星は？",
+		"options": [
+			{
+				"content": "イトカワ",
+				"explanation": "イトカワははやぶさ１が着陸した小惑星である",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "リュウグウ",
+			"image": "",
+			"explanation": "はやぶさ2はjaxaが開発した小惑星探査機である。小惑星：リュウグウへの着陸、サンプル採集を果たした",
+			"explanationImage": "eab2d0cd-fa06-4e9d-9ab3-19e8396296af.webp"
+		},
+		"index": 3
+	},
+	{
+		"id": "b0622eba-698d-467e-9a10-17a5ed4c065a",
+		"group": "chemical",
+		"content": "電気をよりよく通すのは?",
+		"options": [
+			{
+				"content": "金（Au）",
 				"explanation": "",
 				"image": ""
 			},
 			{
-				"content": "9.7806m/s²",
-				"explanation": "",
-				"image": ""
-			},
-			{
-				"content": "9.8306m/s²",
-				"explanation": "",
-				"image": ""
-			},
-			{
-				"content": "9.7777m/s²",
+				"content": "銅（Cu）",
 				"explanation": "",
 				"image": ""
 			}
 		],
 		"answer": {
-			"content": "9.7971m/s²",
+			"content": "銀（Ag）",
 			"image": "",
-			"explanation": "半田高校の重力加速度は9.797137m/s² 出典：国土地理院 重力値推定計算サイト",
+			"explanation": "銀は金属の中で一番よく電気を通す。二番目が銅、三番目が金である",
 			"explanationImage": ""
+		},
+		"index": 1
+	},
+	{
+		"id": "cba2969d-c415-44c1-a2ef-ebb393059931",
+		"group": "biological",
+		"content": "新型コロナウイルスの正式名称は？",
+		"options": [
+			{
+				"content": "COVID-18",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "COVID-17",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "COVID-16",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "COVID-19",
+			"image": "",
+			"explanation": "COVIDは coronavirus disease 19は発見年の2019から来ている",
+			"explanationImage": "8d5f294a-2760-4c3f-a748-772e6430b7c3.webp"
+		},
+		"index": 2
+	},
+	{
+		"id": "35c2d7c5-e9b0-4c77-b760-9c42347c2149",
+		"group": "physics",
+		"content": "半田高校化学室の重力加速度はどっち？",
+		"options": [
+			{
+				"content": "1.62m/s²",
+				"explanation": "月の重力加速度は1.62m/s²で地球の約1/6である",
+				"image": ""
+			},{
+				"content": "9.83m/s²",
+				"explanation": "地球上でもっとも重力が強くなる北極点の重力加速度は9.83m/s²である",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "9.79m/s²",
+			"image": "",
+			"explanation": "半田高校の重力加速度は9.797137m/s² 出典：国土地理院 重力値推定計算サイト　",
+			"explanationImage": ""
+		},
+		"index": 0
+	},
+	{
+		"id": "ef94b18a-1551-41bb-98cf-83718d9cfaac",
+		"group": "cactus",
+		"content": "サボテンの若い芽の部分のことを何と呼ぶか",
+		"options": [
+			{
+				"content": "コパル",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "ロパル",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "トパル",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "ノパル",
+			"image": "",
+			"explanation": "ウチワサボテンのノパルは食べることができます。平らな見た目が特徴です。",
+			"explanationImage": "5a6b3e63-a689-4738-9a64-b177f39571c7.webp"
+		},
+		"index": 0
+	},
+	{
+		"id": "338e4183-bd08-4c7a-9b4a-279d7993e147",
+		"group": "natto",
+		"content": "次のうち、納豆菌が作る酵素であるのはどちら？",
+		"options": [
+			{
+				"content": "グルタミナーゼ",
+				"image": "c4261efc-7e0e-4066-84a5-e35e66573d78.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "ナットウキナーゼ",
+			"image": "d38d3f64-36d4-4df3-bedd-c8fb42c9674e.webp",
+			"explanation": "ウロキナーゼにちなんだタンパク質分解酵素です。すごく怪しいなって思ったでしょ。ちゃんとした名前なんですよ？コレ。",
+			"explanationImage": "0e979133-0260-428c-8435-803cc7d2dfc9.webp"
 		},
 		"index": 0
 	},
@@ -603,6 +726,64 @@
 			"explanationImage": "97b56d26-91ea-45bf-afe8-e74c314f16ba.webp"
 		},
 		"index": 3
+	},
+	{
+		"id": "20c6d5bd-dab7-4de9-a6d7-f7e8fb411f0e",
+		"group": "eel",
+		"content": "ニホンウナギの回遊型（海から川、もしくはその逆）は何か",
+		"options": [
+			{
+				"content": "遡河回遊",
+				"explanation": "サケのように海で育って川で産卵する魚に使われる分類",
+				"image": ""
+			},
+			{
+				"content": "死滅回遊",
+				"explanation": "熱帯魚が海流に流されて本来住むべきところではないところに来てしまう回遊のこと、本来の生息地に戻ることができず、そのまま死滅する",
+				"image": ""
+			},
+			{
+				"content": "季節回遊",
+				"explanation": "ブリ、サバ、イワシなどが行う回遊方法。季節によってルートが決まる",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "両側回遊",
+			"image": "",
+			"explanation": "ニホンウナギは「海で生まれて川で育ち、また海へ戻る」生活を送るため、両側回遊（カタドロマス型）に分類される",
+			"explanationImage": ""
+		},
+		"index": 1
+	},
+	{
+		"id": "b7402645-0ccc-490c-8407-3a1eee6df07e",
+		"group": "eel",
+		"content": "東アジア全域で同じ遺伝的構造を持つニホンウナギの個体群を何という？",
+		"options": [
+			{
+				"content": "クローン個体群",
+				"explanation": "遺伝的に同一な個体の集団（クローン）のこと。ゾウリムシがあげられる",
+				"image": ""
+			},
+			{
+				"content": "地理的分化個体群",
+				"explanation": "同じ種の生き物が別の地域に運ばれ、本来と違う形質を持つ種（亜種）の集団のこと。トラがその一例",
+				"image": ""
+			},
+			{
+				"content": "多地域個体群",
+				"explanation": "そんな個体群はないよ☆",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "パンミクティック(汎生殖)個体群",
+			"image": "",
+			"explanation": "ニホンウナギは、産卵場所が一か所に集中しており、回遊後に様々な河川に分散するため、地域ごとの遺伝的差がないことが特徴",
+			"explanationImage": ""
+		},
+		"index": 2
 	},
 	{
 		"id": "f8b16e9c-9967-4868-bd6f-3abfa0c33e56",

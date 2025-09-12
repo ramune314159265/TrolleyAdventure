@@ -1,3 +1,4 @@
+import { TrolleyIO } from '.'
 import { animateSimple } from './animation'
 
 const seList = {
@@ -62,8 +63,9 @@ export class SeManager {
 			},
 			...this.audios
 		}
+		this.audios[uuid].audio.setSinkId(TrolleyIO.instance.configs.get('audio'))
 		this.audios[uuid].audio.volume = data.volume
-		this.audios[uuid].audio.currentTime = data.currentTime ?? 0
+		this.audios[uuid].audio.currentTime = data.start ?? 0
 		this.audios[uuid].audio.play()
 		return uuid
 	}

@@ -1,3 +1,4 @@
+import { TrolleyIO } from '.'
 import { randomFromArray, shuffleArray } from '../../util/random'
 import { animateSimple } from './animation'
 
@@ -24,6 +25,8 @@ export class BgmManager {
 	async play(url) {
 		this.nowPlaying = new Audio(url)
 		this.nowPlaying.volume = BgmManager.volume
+		TrolleyIO.instance.configs
+		this.nowPlaying.setSinkId(TrolleyIO.instance.configs.get('audio'))
 		await this.nowPlaying.play()
 		await new Promise(resolve => {
 			this.eventListener = async () => {
