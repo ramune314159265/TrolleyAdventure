@@ -19,7 +19,8 @@ export const inputs = Object.freeze({
 	right: Symbol('right'),
 	confirm: Symbol('confirm'),
 	konami: Symbol('konami'),
-	next: Symbol('next')
+	next: Symbol('next'),
+	reload: Symbol('reload')
 })
 
 export const outputs = Object.freeze({

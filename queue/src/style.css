@@ -15,7 +15,7 @@ h1 {
 }
 
 hr {
-    width: 90%;
+	width: 90%;
 }
 
 .background {
@@ -77,4 +77,9 @@ hr {
 .warning {
 	font-size: 0.8rem;
 	color: gray;
+}
+
+.adMessage {
+	font-size: 0.9rem;
+	text-align: center;
 }

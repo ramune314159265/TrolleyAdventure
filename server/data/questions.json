@@ -636,7 +636,8 @@
 				"content": "1.62m/s²",
 				"explanation": "月の重力加速度は1.62m/s²で地球の約1/6である",
 				"image": ""
-			},{
+			},
+			{
 				"content": "9.83m/s²",
 				"explanation": "地球上でもっとも重力が強くなる北極点の重力加速度は9.83m/s²である",
 				"image": ""
@@ -813,5 +814,253 @@
 			"explanationImage": "7fc3a3fd-7085-470d-a2e2-3f5f85852060.webp"
 		},
 		"index": 0
+	},
+	{
+		"id": "11c648d8-625a-47c6-aea6-069ea142ccee",
+		"group": "natto",
+		"content": "納豆菌はどこまで生きることができる？",
+		"options": [
+			{
+				"content": "雲のあたりまで",
+				"explanation": "納豆菌が眠った状態の時(芽胞)の時は100℃の時でも－100℃でも真空状態でも生きることができます",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "宇宙まで",
+			"image": "",
+			"explanation": "納豆菌が眠った状態の時(芽胞)の時は100℃の時でも－100℃でも真空状態でも生きることができます",
+			"explanationImage": ""
+		},
+		"index": 0
+	},
+	{
+		"id": "007f859c-aeff-4489-83de-20cb1a83d0c6",
+		"group": "jellyfish",
+		"content": "毒クラゲの一種、アカクラゲの別名として正しいものはどれか？",
+		"options": [
+			{
+				"content": "ヒクラゲ",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "セキクラゲ",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "ハクションクラゲ",
+			"image": "",
+			"explanation": "アカクラゲが乾燥すると、毒をもった刺糸が舞い上がり、これが人の鼻に入るとくしゃみを引き起こすため、「ハクションクラゲ」という別名を持つ",
+			"explanationImage": "3f0a95b2-9e27-4f6d-ae37-1f80846954c7.webp"
+		},
+		"index": 7
+	},
+	{
+		"id": "00dc57fa-05d9-4b8f-9169-c141de70ca3a",
+		"group": "chemical",
+		"content": "BTB液の正式名称は？",
+		"options": [
+			{
+				"content": "ブロモトリメチルベンゼン溶液",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "ブロモチモールブルー溶液",
+			"image": "",
+			"explanation": "pH指示薬の一つであり、分子式はC₂₇H₂₈Br₂O₅Sである。",
+			"explanationImage": "a351a573-895e-4353-b561-412e58277462.webp"
+		},
+		"index": 3
+	},
+	{
+		"id": "1560d96d-aee0-4dd4-b74b-a70d3614eaf8",
+		"group": "biological",
+		"content": "ギンヤンマの最大時速は？",
+		"options": [
+			{
+				"content": "約70km/h",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "約100km/h",
+			"image": "",
+			"explanation": "ギンヤンマは最大時速100km/hという昆虫界最速のスピードを誇っており、その状態から急旋回、急停止、バック飛行ができる化け物昆虫である",
+			"explanationImage": "67fe980c-ccb5-4a26-903b-04f0f574c0e4.webp"
+		},
+		"index": 0
+	},
+	{
+		"id": "2f2dabf7-a70e-457c-8331-53667e8810c4",
+		"group": "biological",
+		"content": "実際に存在する生物はどっち？",
+		"options": [
+			{
+				"content": "ヘビ毒を利用し、麻○として利用するサル",
+				"image": "c63dfaf9-27d6-4729-afd3-b6ff28b7d22c.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "指パッチンで摂氏4400℃のプラズマを発生させるエビ",
+			"image": "e2cb1314-2fb7-451f-8a4f-6b2ed7bab837.webp",
+			"explanation": "テッポウエビの一種がハサミでする攻撃方法であり、狩りや縄張り争いに使われる。くらった甲殻類は基本即死か瀕死である",
+			"explanationImage": "fc99f729-d6dc-4a41-bb9d-b98bf3dc5ae5.webp"
+		},
+		"index": 9
+	},
+	{
+		"id": "42a9818a-c843-41b2-bda0-5d650fa5ee6f",
+		"group": "biological",
+		"content": "キャベツに本当にある能力は？",
+		"options": [
+			{
+				"content": "水分不足時に根を使い自走",
+				"image": "dccf873c-396a-4830-a9be-a66268650fc1.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "芋虫の天敵のハチを呼び寄せるにおいを出す。",
+			"image": "a8b56af1-ea16-49e1-872c-79809a78e30a.webp",
+			"explanation": "キャベツは、モンシロチョウの幼虫に葉を食べられたときに、天敵であるコマユバチを呼び寄せるにおいを放出する能力を持っている。",
+			"explanationImage": "fa0030bc-90bc-4f42-b459-7cf0bf6f0c8c.webp"
+		},
+		"index": 1
+	},
+	{
+		"id": "5556be6e-bffd-4bd1-97a0-b0f786068aba",
+		"group": "physics",
+		"content": "金属板の上でより長く跳ね続けるのはどっち？",
+		"options": [
+			{
+				"content": "スーパーボール",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "鉄球",
+			"image": "",
+			"explanation": "普通の地面だと、鉄球が硬すぎて地面を変形させるのにエネルギーを使ってしまうので、変形しにくい金属板の上だと、鉄球のほうが長く跳ね続ける",
+			"explanationImage": ""
+		},
+		"index": 4
+	},
+	{
+		"id": "5565bfb4-9900-49c2-b0d7-4945947f5e2f",
+		"group": "physics",
+		"content": "エネルギー量（強さ）が大きいのはどっち",
+		"options": [
+			{
+				"content": "世界最強の爆弾　ツァーリボンバ",
+				"image": "f3aaf76a-9d14-4a37-bb77-0d3aded5d280.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "東日本大震災",
+			"image": "bb30b90c-a62d-4c16-9e47-e702572343dc.webp",
+			"explanation": "ツァーリボンバはマグニチュード換算で8 東日本大震災は9以上あるため、エネルギー量には10倍以上の差がある。つまり人工地震は起こせないのだ！",
+			"explanationImage": ""
+		},
+		"index": 2
+	},
+	{
+		"id": "58116a26-3825-4935-9d36-484b303401eb",
+		"group": "biological",
+		"content": "モンハナシャコが狩りをするときのパンチの威力は何に匹敵する？",
+		"options": [
+			{
+				"content": "バドミントンのスマッシュ",
+				"image": "86b873f4-d944-408d-8c0c-cf27e7f8bfe4.webp",
+				"explanation": ""
+			},
+			{
+				"content": "コンパウンドボウ",
+				"image": "01be3bd8-42c5-47d1-bbad-b02031ef74b6.webp",
+				"explanation": ""
+			}
+		],
+		"answer": {
+			"content": "22口径の拳銃",
+			"image": "30ab5551-84fb-400a-94ad-61d1a0f4af65.webp",
+			"explanation": "モンハナシャコは前脚を使って、デコピンの原理でパンチを放っている。これはプロボクサーの3倍の速度を誇り、ダイバーが指を骨折した事例もある",
+			"explanationImage": "dbae4505-68a0-4691-956f-defabbefbf6b.webp"
+		},
+		"index": 8
+	},
+	{
+		"id": "740f9794-3cf4-493d-97c5-018eade12084",
+		"group": "chemical",
+		"content": "DHMO これがさす物質はどっち？",
+		"options": [
+			{
+				"content": "ドデシル硫酸ナトリウム（NaC₁₂H₂₅SO₄）",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "一酸化二水素 H₂O",
+			"image": "",
+			"explanation": "ジ ハイドロゲン モノ オキサイドの略 液体は強い習慣性があり、常時摂取者は飲用を止めると短期に死亡。液体の中で呼吸ができず死亡。気体は重度の火傷を引き起こす。",
+			"explanationImage": "7dc567d0-d9d8-4a07-957b-d09514686f13.webp"
+		},
+		"index": 10
+	},
+	{
+		"id": "d6757469-dca0-4b85-8a8a-4fb5f73fc03a",
+		"group": "biological",
+		"content": "目の前にボールが向かってきたため目をつむった　これはどちらによる反応？",
+		"options": [
+			{
+				"content": "脊髄",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "脳",
+			"image": "",
+			"explanation": "実は反射自体は脊髄じゃないところでも行うことができ、脳のほうが近い場合は脳で反射を行う。",
+			"explanationImage": ""
+		},
+		"index": 5
+	},
+	{
+		"id": "d9b25488-2287-4a9e-bc5e-a21d362bea04",
+		"group": "jellyfish",
+		"content": "世界最恐のクラゲ　キロネックスは刺されたら最短どれぐらいで死に至るか？",
+		"options": [
+			{
+				"content": "20分",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "30分",
+				"explanation": "",
+				"image": ""
+			},
+			{
+				"content": "5分",
+				"explanation": "",
+				"image": ""
+			}
+		],
+		"answer": {
+			"content": "1分",
+			"image": "",
+			"explanation": "オーストラリアウンバチクラゲ：通称キロネックスはクラゲ界最強の毒を持っており、何も処置をしない場合、最短で1分で死に至るとされている。",
+			"explanationImage": "e0813e8f-32e2-4153-a8f5-dfea711e32d3.webp"
+		},
+		"index": 6
 	}
 ]

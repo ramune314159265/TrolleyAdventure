@@ -1,6 +1,6 @@
 import { Configs } from './configs'
 import { DifficultManager } from './difficultManager'
-import { sessionStates } from './enum'
+import { inputs, sessionStates } from './enum'
 import { PlayData } from './playData'
 import { QuestionManager } from './questionsManager'
 import { LoadedState } from './states/loaded'
@@ -26,6 +26,9 @@ export class Session extends EventRegister {
 		await this.difficultManager.init()
 		await this.questionsManager.init()
 		this.enterState(new LoadedState({ session: this }))
+		this.on(inputs.reload, () => {
+			location.reload()
+		})
 	}
 	start({ difficultId }) {
 		this.difficultManager.setDifficult(difficultId)

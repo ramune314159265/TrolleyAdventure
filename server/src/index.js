@@ -23,6 +23,10 @@ app.get('/reception/*', serveStatic({
 	root: path.join(import.meta.dirname, '../../'),
 	rewriteRequestPath: (path) => path.replace(/^\/reception/, '/reception/dist/')
 }))
+app.get('/adm/*', serveStatic({
+	root: path.join(import.meta.dirname, '../../'),
+	rewriteRequestPath: (path) => path.replace(/^\/adm/, '/adm/dist/')
+}))
 app.get('/sink/', serveStatic({
 	path: path.join(import.meta.dirname, '../../sink/index.html')
 }))

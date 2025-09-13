@@ -52,19 +52,27 @@ queueNextElement.addEventListener('click', () => {
 
 const states = {
 	waitingStage: '使用中',
-	ended: '空き'
+	gameClear: '空き',
+	gameOver: '空き',
 }
 
 const wsChannels = await(await fetch('/api/ws/')).json()
-wsChannels.forEach(c => {
+wsChannels.sort((a, b) => a.id.localeCompare(b.id)).forEach(c => {
+	let ws = null
 	const fragment = document.createElement('div')
 	const template = document.getElementById('channelTemplate').content.cloneNode(true)
 	fragment.append(template)
 	document.querySelector('.status').append(fragment)
 	fragment.querySelector('.id').innerText = c.id
+	fragment.querySelector('.reload').addEventListener('click', () => {
+		ws.send(JSON.stringify({
+			event: 'reload',
+			data: {}
+		}))
+	})
 
 	const connectChannelWs = () => {
-		const ws = new WebSocket(`/api/ws/${c.id}`)
+		ws = new WebSocket(`/api/ws/${c.id}`)
 		ws.onmessage = (message) => {
 			const data = JSON.parse(message.data)
 			if (!Object.hasOwn(states, data.event)) {
